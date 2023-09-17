@@ -17,6 +17,18 @@ Route::get('/', function () {
     return view('pages.dashboard.index');
 });
 
+Route::get('/blog', function () {
+    return view('pages.blog.index');
+});
+
+Route::get('/tambah-blog', function () {
+    return view('pages.blog.tambah.index');
+});
+
+Route::get('/edit-blog', function () {
+    return view('pages.blog.edit.index');
+});
+
 Route::get('/transaksi', function () {
     return view('pages.transaksi.index');
 });
