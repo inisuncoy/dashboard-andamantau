@@ -67,31 +67,35 @@
           </span>
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
-        <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
-          <span>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-              <path d="M6.66667 26.6667V23.3334" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-              <path d="M20 20V15" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-              <path d="M13.3333 26.6666V16.6666" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-              <path d="M26.6667 21.6667V18.3334" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-              <path d="M33.3333 25V8.33337" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
-            </svg>
-          </span>
-          <span class="text-[20px] mt-1">Pemasukan</span>
-        </div>
-        <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
-          <span>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M13 28.2572L18.4185 16.736C18.4851 16.5944 18.6898 16.6047 18.7419 16.7523L21.2581 23.8859C21.3102 24.0335 21.5149 24.0438 21.5815 23.9022L27 12.381"
-                stroke="#08A3E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-              <rect width="30" height="30" rx="0.35" transform="matrix(-1 0 0 1 35 5)" stroke="#08A3E1"
-                stroke-width="3" />
-            </svg>
-          </span>
-          <span class="text-[20px] mt-1">Pengeluaran</span>
-        </div>
+        <a href="/pemasukan">
+          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+            <span>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+                <path d="M6.66667 26.6667V23.3334" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+                <path d="M20 20V15" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+                <path d="M13.3333 26.6666V16.6666" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+                <path d="M26.6667 21.6667V18.3334" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+                <path d="M33.3333 25V8.33337" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="text-[20px] mt-1">Pemasukan</span>
+          </div>
+        </a>
+        <a href="/pengeluaran">
+          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+            <span>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 28.2572L18.4185 16.736C18.4851 16.5944 18.6898 16.6047 18.7419 16.7523L21.2581 23.8859C21.3102 24.0335 21.5149 24.0438 21.5815 23.9022L27 12.381"
+                  stroke="#08A3E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                <rect width="30" height="30" rx="0.35" transform="matrix(-1 0 0 1 35 5)" stroke="#08A3E1"
+                  stroke-width="3" />
+              </svg>
+            </span>
+            <span class="text-[20px] mt-1">Pengeluaran</span>
+          </div>
+        </a>
         <a href="/blog">
 
           <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
