@@ -17,6 +17,22 @@ Route::get('/', function () {
     return view('pages.dashboard.index');
 });
 
+Route::get('/pengeluaran', function () {
+    return view('pages.pengeluaran.index');
+});
+
+Route::get('/pengeluaran/tambah', function () {
+    return view('pages.pengeluaran.tambah.index');
+});
+
+Route::get('/pemasukan', function () {
+    return view('pages.pemasukan.index');
+});
+
+Route::get('/pemasukan/tambah', function () {
+    return view('pages.pemasukan.tambah.index');
+});
+
 Route::get('/blog', function () {
     return view('pages.blog.index');
 });
