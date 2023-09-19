@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('pages.dashboard.index');
 });
 
+Route::get('/laporan', function () {
+    return view('pages.laporan.index');
+});
+
 Route::get('/pengeluaran', function () {
     return view('pages.pengeluaran.index');
 });
