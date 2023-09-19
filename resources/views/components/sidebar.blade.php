@@ -96,8 +96,22 @@
             <span class="text-[20px] mt-1">Pengeluaran</span>
           </div>
         </a>
-        <a href="/blog">
+        <a href="/laporan">
+          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+            <span>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8.33301" y="6.66663" width="23.3333" height="28.3333" rx="2" stroke="#872A3F"
+                  stroke-width="3" />
+                <path d="M15 15H25" stroke="#872A3F" stroke-width="3" stroke-linecap="round" />
+                <path d="M15 21.6666H25" stroke="#872A3F" stroke-width="3" stroke-linecap="round" />
+                <path d="M15 28.3334H21.6667" stroke="#872A3F" stroke-width="3" stroke-linecap="round" />
+              </svg>
 
+            </span>
+            <span class="text-[20px] mt-1">Laporan</span>
+          </div>
+        </a>
+        <a href="/blog">
           <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
