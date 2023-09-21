@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.dashboard.index');
-});
+Route::get('/', [DashboarController::class,'index']);
 
 Route::get('/laporan', function () {
     return view('pages.laporan.index');
