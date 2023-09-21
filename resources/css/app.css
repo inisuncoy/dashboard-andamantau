@@ -4,9 +4,9 @@
 
 body {
     @apply bg-[#2D76E5];
-    font-family: 'Roboto Slab', serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .font-inter {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
