@@ -1,4 +1,6 @@
 import "./bootstrap";
-import Chart from "chart.js/auto";
+import "./dsLineChart";
+import "./dsBarChart";
 import "./mychart.js";
 import "./piecharts";
+import "./twoLineChart";
