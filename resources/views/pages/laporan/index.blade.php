@@ -21,48 +21,20 @@
         <h1 class="text-3xl font-bold">Rp.21.000.00</h1>
       </div>
     </div>
-    <div class="flex gap-10 mt-10">
+    <div class="border-2 border-blue-500 rounded-xl px-10 py-10 mt-10">
       <div class="flex-1 text-center">
         <h1 class="text-lg font-semibold ">Total Laba Bersih per Bulan</h1>
-        <canvas id="myChart"></canvas>
+        <canvas id="twoLineChart"></canvas>
       </div>
-      <div class="flex-1">
-        <div class="flex justify-between items-center">
-          <h1 class="text-xl font-semibold">Pilih Tanggal</h1>
-          <input type="date" id="tgl" name="tgl" class="bg-blue-500 text-white px-5 py-3">
-        </div>
-        <div>
-          <h1 class="text-xl font-semibold">Detail pengeluaran</h1>
-          <br>
-          <div class="flex justify-between">
-            <p class="text-xl">Listrik</p>
-            <p class="text-xl">Rp.20.000.00</p>
-          </div>
-          <div class="flex justify-between">
-            <p class="text-xl">Air</p>
-            <p class="text-xl">Rp.20.000.00</p>
-          </div>
-          <div class="flex justify-between">
-            <p class="text-xl">Pajak</p>
-            <p class="text-xl">Rp.20.000.00</p>
-          </div>
-          <div class="flex justify-between">
-            <p class="text-xl">Bensin</p>
-            <p class="text-xl">Rp.20.000.00</p>
-          </div>
-          <br>
-          <div class="flex justify-between">
-            <p class="text-xl font-semibold">Total</p>
-            <p class="text-xl font-semibold">Rp.20.000.00</p>
-          </div>
-        </div>
-        <div class="flex justify-center items-center ">
-          <div class=" w-[300px]">
-            <canvas id="piechart" class=""></canvas>
-          </div>
+    </div>
+    <div class="mt-10">
+      <div class="flex justify-center items-center ">
+        <div class=" w-[300px]">
+          <canvas id="piechart" class=""></canvas>
         </div>
       </div>
     </div>
+
   </div>
 
 </div>
