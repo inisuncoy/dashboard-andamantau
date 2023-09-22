@@ -2,72 +2,81 @@
 
 @section('pages')
 <div class="flex flex-col gap-y-10">
-    <h1 class="text-white text-[30px] font-semibold">Detail Transaksi</h1>
-    <div class="bg-white rounded-xl py-7 px-10">
-        <table class="table-fixed w-full font-inter">
-            <thead class="bg-[#2D76E5] text-white rounded-lg">
-              <tr>
-                <th class="py-4 rounded-tl-lg">ID Pesanan</th>
-                <th class="py-4">Tanggal & Waktu</th>
-                <th class="py-4">Harga</th>
-                <th class="py-4">Metode Pembayaran</th>
-                <th class="py-4">Status</th>
-                <th class="py-4 rounded-tr-lg"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-ABC-001</td>
-                <td class="py-6">23 Sep 2023, 18:08</td>
-                <td class="py-6">1.000.000</td>
-                <td class="py-6">QRIS</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#FF0000] font-bold">Gagal</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#FF0000] font-bold">Gagal</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <h1 class="text-white text-[30px] font-semibold">Detail Transaksi</h1>
+  <div class="bg-white rounded-xl py-7 px-10">
+
+    <div class="flex flex-col ">
+      <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+          <div class="overflow-hidden border-2 border-blue-500 rounded-xl">
+            <table class="min-w-full divide-y divide-blue-500 ">
+              <thead class="bg-[#2D76E5] text-white rounded-lg">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase rounded-tl-lg">ID Pesanan
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Tanggal & Waktu</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Harga</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Metode Pembayaran </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Status</th>
+                  <th class="py-4 rounded-tr-lg"></th>
+
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 ">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">#2023-XYZ-002</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">12 Agu 2023, 09:49</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">2.000.000</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">GoPay</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-semibold ">Lunas</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                    <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="/transaksi/detail">Detail</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">#2023-XYZ-002</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">12 Agu 2023, 09:49</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">2.000.000</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">GoPay</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-semibold ">Lunas</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                    <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="/transaksi/detail">Detail</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">#2023-XYZ-002</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">12 Agu 2023, 09:49</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">2.000.000</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">GoPay</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-semibold ">Lunas</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                    <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="/transaksi/detail">Detail</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">#2023-XYZ-002</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">12 Agu 2023, 09:49</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">2.000.000</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">GoPay</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-semibold ">Lunas</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                    <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="/transaksi/detail">Detail</a>
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
+
 </div>
 @endsection

@@ -23,12 +23,6 @@ const data = {
             borderColor: "#FF0000",
             backgroundColor: "#FF0000",
         },
-        {
-            label: "Dataset 2",
-            data: [0, 5, 15, 20, 25, 10, 50, 20, 45, 50, 10, 5],
-            borderColor: "#00B9E3",
-            backgroundColor: "#00B9E3",
-        },
     ],
 };
 
@@ -50,4 +44,4 @@ const config = {
     },
 };
 
-new Chart(document.getElementById("twoLineChart"), config);
+new Chart(document.getElementById("pengeluaranChart"), config);

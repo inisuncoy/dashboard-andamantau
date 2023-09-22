@@ -1,20 +1,33 @@
 import Chart from "chart.js/auto";
 
-const labels = ["January", "February", "March", "April", "May", "June"];
+const labels = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Ags",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des",
+];
 const data = {
     labels: labels,
     datasets: [
         {
             label: "Dataset 1",
-            data: [0, 10, 5, 2, 20, 45, 50],
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgb(255, 99, 132)",
+            data: [0, 10, 5, 2, 20, 45, 50, 10, 5, 2, 20, 10],
+            borderColor: "#FF0000",
+            backgroundColor: "#FF0000",
         },
     ],
 };
 
 const config = {
-    type: "line",
+    type: "bar",
     data: data,
     options: {
         responsive: true,
@@ -31,4 +44,4 @@ const config = {
     },
 };
 
-new Chart(document.getElementById("dsLineChart"), config);
+new Chart(document.getElementById("dashboardBarChart"), config);

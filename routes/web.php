@@ -61,6 +61,10 @@ Route::get('/profil-web', function () {
     return view('pages.profil-web.index');
 });
 
+Route::get('/produk/edit', function () {
+    return view('pages.produk.edit.index');
+});
+
 Route::get('/produk', function () {
     return view('pages.produk.index');
 });

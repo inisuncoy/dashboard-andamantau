@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Dashboard</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @stack('scripts')
 </head>
 
 <body>

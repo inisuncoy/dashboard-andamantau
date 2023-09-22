@@ -1,5 +1,9 @@
 @extends('layout.main.index')
 
+@push('scripts')
+@vite(['resources/js/pengeluaranChart.js'])
+@endpush
+
 @section('pages')
 <div class="flex flex-col gap-y-10">
   <div class="flex justify-between">
@@ -27,7 +31,7 @@
     <div class="mt-10">
       <div class="border-2 border-blue-500 px-[110px] py-[29px] rounded-2xl text-center">
         <h1 class="text-2xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
-        <canvas id="myChart" class="mt-5"></canvas>
+        <canvas id="pengeluaranChart" class="mt-5"></canvas>
       </div>
       <div class=" mt-10">
         <div class="flex justify-end items-center gap-5">

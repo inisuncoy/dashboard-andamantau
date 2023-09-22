@@ -1,5 +1,9 @@
 @extends('layout.main.index')
 
+@push('scripts')
+@vite(['resources/js/dashboardLineChart.js', 'resources/js/dashboardBarChart.js'])
+@endpush
+
 @section('pages')
 <div class="flex flex-col gap-y-10">
   <h1 class="text-white text-[30px] font-semibold">Dashboard</h1>
@@ -149,14 +153,14 @@
             <button class="px-5 py-3 rounded-3xl font-medium border-2 border-blue-500 text-blue-500">Bulan</button>
           </div>
         </div>
-        <canvas id="dsLineChart" class="mt-5 w-full h-full"></canvas>
+        <canvas id="dashboardLineChart" class="mt-5 w-full h-full"></canvas>
       </div>
     </div>
     <div class="col-span-2">
       <div
         class="border-2 border-blue-500 px-[10px] py-[29px] rounded-2xl text-center w-full h-full flex flex-col justify-between">
         <h1 class="text-2xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
-        <canvas id="dsBarChart" class="mt-5 w-full "></canvas>
+        <canvas id="dashboardBarChart" class="mt-5 w-full "></canvas>
       </div>
     </div>
     <div class="col-span-3">
