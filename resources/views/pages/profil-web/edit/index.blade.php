@@ -53,25 +53,25 @@
                 <tr>
                     <td class="w-2/5">Instagram</td>
                     <td class="py-2">
-                        <input type="text" name="instagram" value="{{ $umkmData['instagram'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Ketik Instagram">
+                        <input type="text" name="instagram" value="{{ $umkmData['instagram'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : @contoh.com">
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5">WhatsApp</td>
                     <td class="py-2">
-                        <input type="text" name="whatsapp" value="{{ $umkmData['whatsapp'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Ketik No. Whatsapp">
+                        <input type="text" name="whatsapp" value="{{ $umkmData['whatsapp'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 088844445555">
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5">Facebook</td>
                     <td class="py-2">
-                        <input type="text" name="facebook" value="{{ $umkmData['facebook'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Ketik Facebook">
+                        <input type="text" name="facebook" value="{{ $umkmData['facebook'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh_toko">
                     </td>
                 </tr>
                 <tr>
                     <td class="flex w-2/5">Deskripsi Toko</td>
                     <td class="py-2">
-                        <textarea type="text" name="deskripsi_toko" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Ketik deskripsi toko">{{ $umkmData['umkm_description'] }}</textarea>
+                        <textarea type="text" name="deskripsi_toko" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ $umkmData['umkm_description'] }}</textarea>
                     </td>
                 </tr>
             </tbody>

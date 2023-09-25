@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboarController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileWebController;
 
 /*
@@ -60,16 +61,13 @@ Route::group(['middleware' => 'auth'], function () {
         return view('pages.transaksi.detail.index');
     });
 
-
     Route::get('/profil-web', [ProfileWebController::class, 'index']);
     Route::get('/profil-web/edit', [ProfileWebController::class, 'edit']);
 
+    Route::get('/produk', [ProductsController::class, 'index']);
+
     Route::get('/produk/edit', function () {
         return view('pages.produk.edit.index');
-    });
-
-    Route::get('/produk', function () {
-        return view('pages.produk.index');
     });
 
     Route::get('/produk/tambah', function () {

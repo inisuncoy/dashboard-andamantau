@@ -2,6 +2,7 @@
 
 @push('scripts')
 @vite(['resources/js/pengeluaranChart.js'])
+
 @endpush
 
 @section('pages')
@@ -13,17 +14,17 @@
       Pengeluaran</a>
   </div>
 
-  <div class="bg-white px-5 py-10 rounded-xl">
-    <div class="flex justify-around items-center ">
-      <div class="border-2 border-red-500 px-10 py-5 flex flex-col items-center gap-5 rounded-xl shadow-lg">
+  <div class="px-5 py-10 bg-white rounded-xl">
+    <div class="flex items-center justify-around ">
+      <div class="flex flex-col items-center gap-5 px-10 py-5 border-2 border-red-500 shadow-lg rounded-xl">
         <h1 class="text-xl">Total Pengeluaran</h1>
         <h1 class="text-3xl font-bold">Rp.21.000.00</h1>
       </div>
-      <div class="border-2 border-red-500 px-10 py-5 flex flex-col items-center gap-5 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center gap-5 px-10 py-5 border-2 border-red-500 shadow-lg rounded-xl">
         <h1 class="text-xl">Total Pengeluaran</h1>
         <h1 class="text-3xl font-bold">Rp.21.000.00</h1>
       </div>
-      <div class="border-2 border-red-500 px-10 py-5 flex flex-col items-center gap-5 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center gap-5 px-10 py-5 border-2 border-red-500 shadow-lg rounded-xl">
         <h1 class="text-xl">Total Pengeluaran</h1>
         <h1 class="text-3xl font-bold">Rp.21.000.00</h1>
       </div>
@@ -33,10 +34,10 @@
         <h1 class="text-2xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
         <canvas id="pengeluaranChart" class="mt-5"></canvas>
       </div>
-      <div class=" mt-10">
-        <div class="flex justify-end items-center gap-5">
+      <div class="mt-10 ">
+        <div class="flex items-center justify-end gap-5">
           <h1 class="text-lg font-medium">Pilih</h1>
-          <select name="" id="" class="bg-white px-5 py-3 text-black rounded-lg shadow-2xl">
+          <select name="" id="" class="px-5 py-3 text-black bg-white rounded-lg shadow-2xl">
             <option value="" selected>Silahkan Bulan</option>
             <option value="">Januari</option>
             <option value="">Febuari</option>
@@ -59,46 +60,46 @@
                 <table class="min-w-full divide-y divide-blue-500 ">
                   <thead class="bg-[#2D76E5] text-white rounded-lg">
                     <tr>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase rounded-tl-lg">Kode
+                      <th scope="col" class="px-6 py-3 text-xs font-medium text-left uppercase rounded-tl-lg">Kode
                         Pemasukan</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Tipe Pemasukan</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium  uppercase">Jumalh Pemasukan</th>
-                      <th scope="col" class="px-6 py-3 text-center text-xs font-medium  uppercase">Opsi</th>
+                      <th scope="col" class="px-6 py-3 text-xs font-medium text-left uppercase">Tipe Pemasukan</th>
+                      <th scope="col" class="px-6 py-3 text-xs font-medium text-left uppercase">Jumalh Pemasukan</th>
+                      <th scope="col" class="px-6 py-3 text-xs font-medium text-center uppercase">Opsi</th>
                       <th class="py-4 rounded-tr-lg"></th>
 
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200 ">
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">EXP202304-001</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Air</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Rp.23.000.00</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                        <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="#">Detail</a>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ">EXP202304-001</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Air</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Rp.23.000.00</td>
+                      <td class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
+                        <a class="px-5 py-3 text-white bg-blue-500 rounded-lg" href="#">Detail</a>
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">EXP202304-001</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Air</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Rp.23.000.00</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                        <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="#">Detail</a>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ">EXP202304-001</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Air</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Rp.23.000.00</td>
+                      <td class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
+                        <a class="px-5 py-3 text-white bg-blue-500 rounded-lg" href="#">Detail</a>
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">EXP202304-001</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Air</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Rp.23.000.00</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                        <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="#">Detail</a>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ">EXP202304-001</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Air</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Rp.23.000.00</td>
+                      <td class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
+                        <a class="px-5 py-3 text-white bg-blue-500 rounded-lg" href="#">Detail</a>
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">EXP202304-001</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Air</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">Rp.23.000.00</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                        <a class="text-white px-5 py-3 bg-blue-500 rounded-lg" href="#">Detail</a>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap ">EXP202304-001</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Air</td>
+                      <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap ">Rp.23.000.00</td>
+                      <td class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
+                        <a class="px-5 py-3 text-white bg-blue-500 rounded-lg" href="#">Detail</a>
                       </td>
                     </tr>
                   </tbody>

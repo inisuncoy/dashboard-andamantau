@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class ProfileWebController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         $token = session('token');
         $user_id = session('userData')['id'];
 
@@ -23,12 +22,12 @@ class ProfileWebController extends Controller
             return back()->withErrors($errors)->withInput();
         }
 
-
-
         $umkmData = $apiResponse->json()['data'];
+        $umkmSlug = $apiResponse->json()['slug'];
 
-        return view('pages.profil-web.index', [
+        return view('pages.produk.index', [
             'umkmData' => $umkmData,
+            'umkmSlug' => $umkmSlug,
         ]);
     }
 
@@ -59,25 +58,9 @@ class ProfileWebController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        $token = session('token');
-        $user_id = session('userData')['id'];
-
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/' . $user_id);
-
-        if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
-        }
-
-        $umkmData = $apiResponse->json()['data'];
-        $umkmSlug = $apiResponse->json()['slug'];
-
-        return view('pages.profil-web.edit.index', [
-            'umkmData' => $umkmData,
-            'umkmSlug' => $umkmSlug,
-        ]);
+        //
     }
 
     /**
