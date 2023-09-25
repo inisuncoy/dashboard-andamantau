@@ -1,7 +1,7 @@
-<div class="fixed top-0 left-0 p-5 h-screen">
+<div class="fixed top-0 left-0 h-screen p-5">
   <div class="bg-white w-[264px] rounded-lg h-full flex flex-col justify-between">
     <div>
-      <div class="flex items-center gap-x-5 px-5 pt-5 pb-3">
+      <div class="flex items-center px-5 pt-5 pb-3 gap-x-5">
         <img src={{ url('assets/images/profile1.png') }} class="w-[50px] h-[50px] object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
@@ -23,7 +23,7 @@
           </span>
           <span class="text-[20px] mt-1">Dashboard</span>
         </a>
-        <a href="/transaksi" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/transaksi" class="flex items-center px-5 py-1 mx-2 gap-x-5">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -39,7 +39,7 @@
           </span>
           <span class="text-[20px] mt-1">Transaksi</span>
         </a>
-        <a href="/profil-web" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/profil-web" class="flex items-center px-5 py-1 mx-2 gap-x-5">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="13.3333" stroke="#EE6048" stroke-width="3" />
@@ -49,7 +49,7 @@
           </span>
           <span class="text-[20px] mt-1">Profil Web</span>
         </a>
-        <a href="/produk" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -68,7 +68,7 @@
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
         <a href="/pemasukan">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
@@ -83,7 +83,7 @@
           </div>
         </a>
         <a href="/pengeluaran">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -97,7 +97,7 @@
           </div>
         </a>
         <a href="/laporan">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="8.33301" y="6.66663" width="23.3333" height="28.3333" rx="2" stroke="#872A3F"
@@ -112,7 +112,7 @@
           </div>
         </a>
         <a href="/blog">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <div class="flex items-center px-7 gap-x-5 mb-7">
+    <a href="/logout" class="flex items-center px-7 gap-x-5 mb-7">
       <span>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -141,6 +141,6 @@
         </svg>
       </span>
       <span class="text-[#FF0000] text-[20px] font-bold">Keluar</span>
-    </div>
+    </a>
   </div>
 </div>

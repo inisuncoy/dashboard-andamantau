@@ -30,6 +30,7 @@ const config = {
     type: "bar",
     data: data,
     options: {
+        maintainAspectRatio: false,
         responsive: true,
         plugins: {
             legend: {

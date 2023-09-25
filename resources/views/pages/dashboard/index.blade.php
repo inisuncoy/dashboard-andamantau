@@ -8,7 +8,7 @@
 <div class="flex flex-col gap-y-10">
   <h1 class="text-white text-[30px] font-semibold">Dashboard</h1>
   <div class="grid grid-cols-4 gap-x-10">
-    <div class="bg-white rounded-xl p-5 flex flex-col gap-y-3">
+    <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[15px] font-bold font-inter">Pengeluaran</h4>
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-x-2 items-center">
+      <div class="flex items-center gap-x-2">
         <div class="flex items-end">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -37,7 +37,7 @@
         <p class="font-inter text-[14px] mt-0.5">Sejak bulan lalu</p>
       </div>
     </div>
-    <div class="bg-white rounded-xl p-5 flex flex-col gap-y-3">
+    <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[15px] font-bold font-inter">Pemasukan</h4>
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-x-2 items-center">
+      <div class="flex items-center gap-x-2">
         <div class="flex items-end">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -76,7 +76,7 @@
         <p class="font-inter text-[14px] mt-0.5">Sejak bulan lalu</p>
       </div>
     </div>
-    <div class="bg-white rounded-xl p-5 flex flex-col gap-y-3">
+    <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[15px] font-bold font-inter">Pesanan Baru</h4>
@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-x-2 items-center">
+      <div class="flex items-center gap-x-2">
         <div class="flex items-end">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -112,7 +112,7 @@
         <p class="font-inter text-[14px] mt-0.5">Sejak bulan lalu</p>
       </div>
     </div>
-    <div class="bg-white rounded-xl p-5 flex flex-col gap-y-3">
+    <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[15px] font-bold font-inter">Siap Dikirim</h4>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-x-2 items-center">
+      <div class="flex items-center gap-x-2">
         <div class="flex items-end">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -145,29 +145,29 @@
   </div>
   <div class="bg-[#F7F8FD] rounded-xl grid grid-cols-5 gap-5 p-5">
     <div class="col-span-3">
-      <div class="border-2 border-blue-500 px-[10px] py-[29px] rounded-2xl text-center">
-        <div class="flex justify-between items-center">
-          <h1 class="text-2xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
+      <div class="border-2 border-blue-500 px-[10px] pt-[29px] pb-[50px] rounded-2xl text-center relative h-[30vw] flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <h1 class="text-xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
           <div class="flex gap-5">
-            <button class="bg-blue-500 px-5 py-3 rounded-3xl font-medium text-white">Minggu</button>
-            <button class="px-5 py-3 rounded-3xl font-medium border-2 border-blue-500 text-blue-500">Bulan</button>
+            <button class="px-5 py-2 font-medium text-white bg-blue-500 rounded-full">Minggu</button>
+            <button class="px-5 py-2 font-medium text-blue-500 border-2 border-blue-500 rounded-full">Bulan</button>
           </div>
         </div>
-        <canvas id="dashboardLineChart" class="mt-5 w-full h-full"></canvas>
+        <canvas id="dashboardLineChart" class="w-full h-full mt-5"></canvas>
       </div>
     </div>
     <div class="col-span-2">
       <div
-        class="border-2 border-blue-500 px-[10px] py-[29px] rounded-2xl text-center w-full h-full flex flex-col justify-between">
-        <h1 class="text-2xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
-        <canvas id="dashboardBarChart" class="mt-5 w-full "></canvas>
+        class="border-2 border-blue-500 px-[10px] pt-[29px] pb-[50px] rounded-2xl text-center flex flex-col justify-between relative h-[30vw]">
+        <h1 class="text-xl font-semibold">Grafik Peningkatan Pesanan UMKM</h1>
+        <canvas id="dashboardBarChart" class="w-full mt-5"></canvas>
       </div>
     </div>
     <div class="col-span-3">
-      <table class="table-auto font-inter w-full bg-white rounded-xl">
+      <table class="w-full bg-white table-auto font-inter rounded-xl">
         <thead>
           <tr class="text-[13px] ">
-            <th class="text-left pt-5 pb-2 pl-5 font-normal">Nama Item</th>
+            <th class="pt-5 pb-2 pl-5 font-normal text-left">Nama Item</th>
             <th class="px-5 pt-5 pb-2 pl-5 font-normal">Stok</th>
             <th class="pt-5 pb-2 font-normal">Harga</th>
             <th class="pt-5 pb-2 font-normal">SKU</th>
@@ -177,8 +177,8 @@
         </thead>
         <tbody class="text-[13px]">
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -189,8 +189,8 @@
             <td>...</td>
           </tr>
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -201,8 +201,8 @@
             <td>...</td>
           </tr>
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -213,8 +213,8 @@
             <td>...</td>
           </tr>
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -225,8 +225,8 @@
             <td>...</td>
           </tr>
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -237,8 +237,8 @@
             <td>...</td>
           </tr>
           <tr class="text-center">
-            <td class="flex items-center gap-x-5 pl-5 py-2">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-full w-10 h-10 object-cover"
+            <td class="flex items-center py-2 pl-5 gap-x-5">
+              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
               <p>Ayam Cemani</p>
             </td>
@@ -252,28 +252,28 @@
       </table>
     </div>
     <div class="col-span-2 bg-white rounded-xl">
-      <table class="table-fixed font-inter w-full">
+      <table class="w-full table-fixed font-inter">
         <thead>
           <tr class="text-[13px]">
-            <th class="text-left pt-5 pb-5 pl-5">Item Terpopuler</th>
+            <th class="pt-5 pb-5 pl-5 text-left">Item Terpopuler</th>
             <th>Total Penjualan(per unit)</th>
           </tr>
         </thead>
         <tbody class="text-[13px]">
           <tr>
-            <td class="pl-5 py-2">1. Burung Jalak Bali</td>
+            <td class="py-2 pl-5">1. Burung Jalak Bali</td>
             <td class="text-center">30</td>
           </tr>
           <tr>
-            <td class="pl-5 py-2">2. Burung Jalak Bali</td>
+            <td class="py-2 pl-5">2. Burung Jalak Bali</td>
             <td class="text-center">30</td>
           </tr>
           <tr>
-            <td class="pl-5 py-2">3. Burung Jalak Bali</td>
+            <td class="py-2 pl-5">3. Burung Jalak Bali</td>
             <td class="text-center">30</td>
           </tr>
           <tr>
-            <td class="pl-5 py-2">4. Burung Jalak Bali</td>
+            <td class="py-2 pl-5">4. Burung Jalak Bali</td>
             <td class="text-center">30</td>
           </tr>
         </tbody>

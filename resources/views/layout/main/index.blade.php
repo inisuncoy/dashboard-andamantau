@@ -8,10 +8,11 @@
   <title>Dashboard</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('scripts')
+
 </head>
 
 <body>
-  <div class="p-5 relative ">
+  <div class="relative p-5 ">
     @include('components.sidebar')
 
     <div class="ml-[264px] px-5">
@@ -19,6 +20,8 @@
     </div>
 
   </div>
+
+  @stack('js')
 </body>
 
 </html>
