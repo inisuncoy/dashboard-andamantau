@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\DashboarController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileWebController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\IncomeDashboardController;
+use App\Http\Controllers\ReportDashboardController;
+use App\Http\Controllers\ExpenseDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,60 +26,37 @@ use App\Http\Controllers\ProfileWebController;
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [DashboarController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index']);
 
-    Route::get('/laporan', function () {
-        return view('pages.laporan.index');
-    });
-
-    Route::get('/pengeluaran', function () {
-        return view('pages.pengeluaran.index');
-    });
-
-    Route::get('/pengeluaran/tambah', function () {
-        return view('pages.pengeluaran.tambah.index');
-    });
-
-    Route::get('/pemasukan', function () {
-        return view('pages.pemasukan.index');
-    });
-
-    Route::get('/pemasukan/tambah', function () {
-        return view('pages.pemasukan.tambah.index');
-    });
-
-    Route::get('/blog', function () {
-        return view('pages.blog.index');
-    });
-
-    Route::get('/tambah-blog', function () {
-        return view('pages.blog.tambah.index');
-    });
-
-    Route::get('/edit-blog', function () {
-        return view('pages.blog.edit.index');
-    });
-
-    Route::get('/transaksi', function () {
-        return view('pages.transaksi.index');
-    });
-
-    Route::get('/transaksi/detail', function () {
-        return view('pages.transaksi.detail.index');
-    });
+    Route::get('/transaksi', [TransactionController::class, 'index']);
+    Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
 
     Route::get('/profil-web', [ProfileWebController::class, 'index']);
     Route::get('/profil-web/edit', [ProfileWebController::class, 'edit']);
 
     Route::get('/produk', [ProductsController::class, 'index']);
+    Route::get('/produk/tambah', [ProductsController::class, 'create']);
+    Route::get('/produk/{id}/edit', [ProductsController::class, 'edit']);
+    Route::delete('/produk/{id}/delete', [ProductsController::class, 'destroy']);
 
-    Route::get('/produk/edit', function () {
-        return view('pages.produk.edit.index');
-    });
 
-    Route::get('/produk/tambah', function () {
-        return view('pages.produk.tambah.index');
-    });
+    Route::get('/pemasukan', [IncomeDashboardController::class, 'index']);
+
+    Route::get('/pemasukan/selengkapnya', [IncomeController::class, 'index'])->name('pemasukan.selengkapnya');
+    Route::get('/pemasukan/tambah', [IncomeController::class, 'create']);
+
+    Route::get('/pengeluaran', [ExpenseDashboardController::class, 'index']);
+
+    Route::get('/pengeluaran/selengkapnya', [ExpenseController::class, 'index'])->name('pengeluaran.selengkapnya');
+    Route::get('/pengeluaran/tambah', [ExpenseController::class, 'create']);
+    Route::get('/pengeluaran/{id}/detail', [ExpenseController::class, 'show']);
+    Route::get('/pengeluaran/{id}/delete', [ExpenseController::class, 'destroy']);
+
+    Route::get('/laporan', [ReportDashboardController::class, 'index']);
+
+    Route::get('/blog', [BlogController::class, 'index']);
+    Route::get('/blog/tambah', [BlogController::class, 'create']);
+    Route::get('/blog/edit', [BlogController::class, 'edit']);
 });
 
 Route::get('/login', [LoginController::class, 'index']);

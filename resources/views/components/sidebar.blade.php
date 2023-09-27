@@ -2,15 +2,15 @@
   <div class="bg-white w-[264px] rounded-lg h-full flex flex-col justify-between">
     <div>
       <div class="flex items-center px-5 pt-5 pb-3 gap-x-5">
-        <img src={{ url('assets/images/profile1.png') }} class="w-[50px] h-[50px] object-cover" alt="">
+        <img src={{ session('userData')['profile_photo_url'] }} class="w-[50px] h-[50px] rounded-full object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
-          <p>User Name</p>
+          <p>{{ session('userData')['umkm_name'] }}</p>
         </div>
       </div>
       <div class="flex flex-col gap-y-2">
         {{-- Nav Active --}}
-        <a href="/" class="px-5 py-1 flex items-center gap-x-5 bg-[#E2F8FF] mx-2">
+        <a href="/" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ Request::is('/') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -23,7 +23,7 @@
           </span>
           <span class="text-[20px] mt-1">Dashboard</span>
         </a>
-        <a href="/transaksi" class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/transaksi" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('transaksi/*') or Request::is('transaksi')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -39,7 +39,7 @@
           </span>
           <span class="text-[20px] mt-1">Transaksi</span>
         </a>
-        <a href="/profil-web" class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/profil-web" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('profil-web/*') or Request::is('profil-web')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="13.3333" stroke="#EE6048" stroke-width="3" />
@@ -49,7 +49,7 @@
           </span>
           <span class="text-[20px] mt-1">Profil Web</span>
         </a>
-        <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('produk/*') or Request::is('produk')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -67,8 +67,7 @@
           </span>
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
-        <a href="/pemasukan">
-          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/pemasukan" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
@@ -80,10 +79,8 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Pemasukan</span>
-          </div>
         </a>
-        <a href="/pengeluaran">
-          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/pengeluaran" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('pengeluaran/*') or Request::is('pengeluaran')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -94,10 +91,8 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Pengeluaran</span>
-          </div>
         </a>
-        <a href="/laporan">
-          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/laporan" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('laporan/*') or Request::is('laporan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="8.33301" y="6.66663" width="23.3333" height="28.3333" rx="2" stroke="#872A3F"
@@ -109,10 +104,8 @@
 
             </span>
             <span class="text-[20px] mt-1">Laporan</span>
-          </div>
         </a>
-        <a href="/blog">
-          <div class="flex items-center px-5 py-1 mx-2 gap-x-5">
+        <a href="/blog" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('blog/*') or Request::is('blog')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -124,7 +117,6 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Blog</span>
-          </div>
         </a>
       </div>
     </div>

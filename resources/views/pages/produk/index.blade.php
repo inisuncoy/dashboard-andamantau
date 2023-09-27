@@ -9,6 +9,16 @@
       Produk</a>
   </div>
 
+  @if (empty($productsData))
+  <div class="flex flex-col items-center justify-center px-10 py-[74px] bg-white rounded-lg">
+    <div class="text-center">
+        <h1 class="font-bold text-[32px]">Halaman Daftar Produk Kosong</h1>
+        <p class="text-[20px]">Mulai dengan menambah produk dengan</p>
+        <p class="text-[20px]">menekan tombol “Tambah Produk”</p>
+    </div>
+    <img src={{ url('assets/images/empty-produk.png') }} alt="empty-produk">
+</div>
+  @else
   <div class="flex flex-col p-10 mt-3 bg-white rounded-xl">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
@@ -16,8 +26,7 @@
           <table class="min-w-full divide-y divide-[#99C1FF] ">
             <thead class="bg-[#2D76E5] text-white rounded-lg">
               <tr>
-                <th class="w-12 py-4 rounded-tl-lg"></th>
-                <th scope="col" class="px-6 py-3 font-bold text-left text-md font-inter">Nama Item</th>
+                <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Daftar Produk</th>
                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">
                     <div class="flex justify-center">
                         <button class="flex items-center justify-center gap-x-3">
@@ -31,70 +40,36 @@
                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Harga</th>
                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">SKU</th>
                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Status</th>
-                <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Opsi Lain</th>
+                <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter"></th>
                 <th class="py-4 rounded-tr-lg"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-[#99C1FF]">
-              <tr>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6 6L1 11" stroke="#646464" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                </td>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                  <div class="flex items-center gap-5">
-                    <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-lg w-14 h-14" alt="">
-                    <p>Ikan Arwana</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-center text-md">10</td>
-                <td class="px-6 py-4 text-center text-md">Rp.23.000.00</td>
-                <td class="px-6 py-4 text-center text-md">IWN01</td>
-                <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Aktif</td>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                    <button type="button">
-                        <svg class="w-5" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="1.5643" cy="1.89585" r="1.52329" fill="black" />
-                          <circle cx="7.65708" cy="1.89585" r="1.52329" fill="black" />
-                          <circle cx="13.7508" cy="1.89585" r="1.52329" fill="black" />
-                        </svg>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6 6L1 11" stroke="#646464" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                </td>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                  <div class="flex items-center gap-5">
-                    <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="rounded-lg w-14 h-14" alt="">
-                    <p>Ikan Arwana</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-center text-md">10</td>
-                <td class="px-6 py-4 text-center text-md">Rp.23.000.00</td>
-                <td class="px-6 py-4 text-center text-md">IWN01</td>
-                <td class="px-6 py-4 font-bold text-center text-[#FF0000] text-md">Tidak Aktif</td>
-                <td class="px-6 py-4 font-medium text-center text-md">
-                  <button type="button">
-                    <svg class="w-5" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="1.5643" cy="1.89585" r="1.52329" fill="black" />
-                      <circle cx="7.65708" cy="1.89585" r="1.52329" fill="black" />
-                      <circle cx="13.7508" cy="1.89585" r="1.52329" fill="black" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+                @foreach ($productsData as $product)
+                <tr>
+                    <td class="px-6 py-4 font-medium text-center text-md">
+                      <div class="flex items-center gap-5">
+                        <img src={{ url(env('BACKEND_URL')) . "/" . $product['image'] }} class="object-cover rounded-lg w-14 h-14" alt="">
+                        <p>{{ $product['name'] }}</p>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-center text-md">{{ $product['stock'] }}</td>
+                    <td class="px-6 py-4 text-center text-md">@currencyNonRp($product['price'])</td>
+                    <td class="px-6 py-4 text-center text-md">{{ $product['sku'] }}IWN01</td>
+                    <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Aktif</td>
+                    <td class="px-6 py-4 font-medium text-center text-md">
+                        <a href="/produk/{{ $product['id'] }}/edit" class="bg-[#2D76E5] text-white py-2 px-7 rounded-full">Ubah</a>
+                    </td>
+                  </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
+  @endif
+
+
 </div>
 @endsection

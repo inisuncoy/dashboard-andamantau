@@ -3,12 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use JWTAuth;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
-use Symfony\Component\HttpFoundation\Response;
 
 class VerifyJWTToken
 {
@@ -28,9 +24,7 @@ class VerifyJWTToken
         $id_user = session('userData')['id'];
 
         try {
-            $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . '/api/products', [
-                'id_user' => $id_user
-            ]);
+            $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
 
             if ($apiResponse->failed()) {
                 return redirect('/login');

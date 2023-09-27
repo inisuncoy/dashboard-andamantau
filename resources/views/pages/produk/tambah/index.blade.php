@@ -61,7 +61,7 @@
                     <td class="py-2">
                         <select type="text" name="kategori" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
                             <option value="aktif">Aktif</option>
-                            <option value="tidak_aktif">Tidak Aktif</option>
+                            <option value="tidak_aktif" selected>Tidak Aktif</option>
                         </select>
                     </td>
                 </tr>

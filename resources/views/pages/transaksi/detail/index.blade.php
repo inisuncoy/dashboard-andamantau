@@ -16,11 +16,12 @@
                 <tbody>
                   <tr class="text-[20px]">
                     <td class="font-bold">No. Faktur</td>
-                    <td>: FKT-2023-004</td>
+                    <td>: {{ $transactionData['transaction']['order_code'] }}</td>
                   </tr>
                   <tr class="text-[20px]">
                     <td class="font-bold">Tanggal & Waktu</td>
-                    <td>: 23 Agustus 2023, 18:29</td>
+                    <td>: {{ \Carbon\Carbon::parse($transactionData['transaction']['transaction_date'] . ' ' . $transactionData['transaction']['timestamp'])->isoFormat('D MMMM YYYY, HH:mm') }}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -34,16 +35,17 @@
             <h1 class="font-bold text-[27px] text-black">Detail Produk</h1>
             <p class="text-[#2DCE94] font-bold text-[32px]">Lunas</p>
         </div>
-        <div>
+        <div class="flex flex-col gap-y-8">
+            @foreach ($productList as $product)
             <div class="flex gap-x-10">
-                <img src={{ url('assets/images/products/ikan-arwana-1.jpg') }} alt="" class="object-cover w-32 h-32 rounded-md">
+                <img src={{ url(env('BACKEND_URL')) . "/" . $product['product_data']['image'] }} alt="" class="object-cover w-32 h-32 rounded-md">
                 <div class="flex flex-col justify-between w-full">
                     <div class="">
                         <div class="flex items-center gap-x-14">
-                            <h1 class="font-bold text-[25px]">Ikan Arwana</h1>
-                            <p class="text-[22px] font-bold">1x</p>
+                            <h1 class="font-bold text-[25px]">{{ $product['product_data']['name'] }}</h1>
+                            <p class="text-[22px] text-[#878787]">{{ $product['quantity'] }}x @currency( $product['current_price'])</p>
                         </div>
-                        <p class="text-[#A6A6A6] text-sm">Minta yang jantan Bang</p>
+                        <p class="text-[#A6A6A6] text-sm">Minta yang jantan Bang (Prototype)</p>
                     </div>
 
                     <div class="flex items-end justify-between">
@@ -53,11 +55,13 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <p class="text-[24px] font-bold">Rp 1.000.000</p>
+                            <p class="text-[24px] font-bold">@currency($product['quantity'] * $product['current_price'])</p>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+
         </div>
     </div>
     <div class="grid grid-cols-2 gap-x-10 font-inter">
@@ -67,15 +71,15 @@
                 <tbody class="text-[20px]">
                     <tr>
                         <td class="py-2">Kurir</td>
-                        <td>SiCepat</td>
+                        <td>SiCepat (Prototype)</td>
                     </tr>
                     <tr>
                         <td class="py-2">Nomor Resi</td>
-                        <td>SHIP-2023-0001</td>
+                        <td>SHIP-2023-0001 (Prototype)</td>
                     </tr>
                     <tr>
                         <td class="flex py-2">Alamat</td>
-                        <td>Jl. Pahlawan I, Kel. Tebet, RT06/RW09, Kota Jakarta Selatan, 12830, DKI Jakarta, Indonesia</td>
+                        <td>Jl. Pahlawan I, Kel. Tebet, RT06/RW09, Kota Jakarta Selatan, 12830, DKI Jakarta, Indonesia (Prototype)</td>
                     </tr>
                 </tbody>
             </table>
@@ -85,20 +89,20 @@
                 <h1 class="font-bold text-[27px] text-black">Ringkasan Pembayaran</h1>
                 <div class="flex justify-between text-[20px]">
                     <h1>Metode Pembayaran</h1>
-                    <p>GoPay</p>
+                    <p>GoPay (Prototype)</p>
                 </div>
                 <div class="flex justify-between text-[20px]">
-                    <h1>Total Harga (Rp)</h1>
-                    <p>1.000.000</p>
+                    <h1>Total Harga</h1>
+                    <p>@currency($transactionData['transaction']['total'])</p>
                 </div>
                 <div class="flex justify-between text-[20px]">
                     <h1>Total Biaya Pengiriman (Rp)</h1>
-                    <p>12.000</p>
+                    <p>12.000 (Prototype)</p>
                 </div>
             </div>
             <div class="text-[24px] font-bold flex justify-between">
                 <h1>Total Belanja (Rp)</h1>
-                <p>1.012.000</p>
+                <p>1.012.000 (Prototype)</p>
             </div>
         </div>
     </div>

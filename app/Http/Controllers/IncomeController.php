@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-class ProfileWebController extends Controller
+class IncomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,18 +15,33 @@ class ProfileWebController extends Controller
     public function index()
     {
         $token = session('token');
+        $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
+        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/reports/incomes", [
+            'id_user' => $user_id
+        ]);
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
         }
 
-        $umkmData = $apiResponse->json()['data'];
+        $incomesData = $apiResponse->json()['data'];
 
-        return view('pages.profil-web.index', [
-            'umkmData' => $umkmData,
+        $collection = new Collection($incomesData);
+
+        $perPage = 10; // Number of items per page
+        $page = request()->get('page', 1); // Get the current page from the request
+        $paginator = new LengthAwarePaginator(
+            $collection->forPage($page, $perPage),
+            $collection->count(),
+            $perPage,
+            $page,
+            ['path' => route('pemasukan.selengkapnya')] // Replace 'your.route.name' with the actual route name
+        );
+
+        return view('pages.pemasukan.selengkapnya.index', [
+            'incomesData' => $paginator
         ]);
     }
 
@@ -33,7 +50,7 @@ class ProfileWebController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.pemasukan.tambah.index');
     }
 
     /**
@@ -55,23 +72,9 @@ class ProfileWebController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        $token = session('token');
-        $user_id = session('userData')['id'];
-
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
-
-        if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
-        }
-
-        $umkmData = $apiResponse->json()['data'];
-
-        return view('pages.profil-web.edit.index', [
-            'umkmData' => $umkmData,
-        ]);
+        //
     }
 
     /**

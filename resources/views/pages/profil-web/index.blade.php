@@ -5,26 +5,26 @@
     <h1 class="text-white text-[30px] font-semibold">Profil Web</h1>
     <div class="px-5 pt-10 pb-5 bg-white rounded-xl font-inter">
         <div class="flex justify-center pb-5 mx-auto">
-            <img src={{ url(env('BACKEND_URL')) . "/" . $umkmData['umkm_image'] }} class="object-cover rounded-lg w-80 h-80" alt="">
+            <img src={{ url(env('BACKEND_URL')) . "/" . $umkmData['umkm_image'] }} class="object-cover rounded-lg w-[284px] h-[284px]" alt="">
         </div>
         <div class="w-full p-5 border-[#9CD3FF] border-[2px] rounded-[5px] flex flex-col gap-y-5">
             <div class="">
                 <h1 class="text-[22px] pb-1 font-bold">{{ $umkmData['umkm_name'] }}</h1>
                 <div class="flex gap-x-6">
                     <p class="mr-5">Alamat</p>
-                    <p>: {{ $umkmData['address'] }}</p>
+                    <p @if (empty($umkmData['address'])) class="italic" @endif>: {{ (!$umkmData['address']) ? ' Not yet set' : $umkmData['address'] }}</p>
                 </div>
                 <div class="flex gap-x-6">
                     <p>Kode Pos</p>
-                    <p @if (!$umkmData['kode_pos']) class="italic" @endif>:{{ (!$umkmData['kode_pos']) ? ' Not yet set' : $umkmData['kode_pos'] }}</p>
+                    <p @if (empty($umkmData['kode_pos'])) class="italic" @endif>: {{ (!$umkmData['kode_pos']) ? ' Not yet set' : $umkmData['kode_pos'] }}</p>
                 </div>
                 <div class="flex gap-x-6">
                     <p class="mr-[11px]">No. Telp</p>
-                    <p>: {{ $umkmData['whatsapp'] }}</p>
+                    <p @if (empty($umkmData['whatsapp'])) class="italic" @endif>: {{ (!$umkmData['whatsapp']) ? ' Not yet set' : $umkmData['whatsapp'] }}</p>
                 </div>
                 <div class="flex gap-x-6">
                     <p class="mr-[30px]">Email</p>
-                    <p>: {{ $umkmData['email'] }}</p>
+                    <p @if (empty($umkmData['umkm_email'])) class="italic" @endif>: {{ (!$umkmData['umkm_email']) ? ' Not yet set' : $umkmData['umkm_email'] }}</p>
                 </div>
             </div>
             <div>

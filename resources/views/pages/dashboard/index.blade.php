@@ -11,7 +11,7 @@
     <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
-          <h4 class="text-[15px] font-bold font-inter">Pengeluaran</h4>
+          <h4 class="text-[20px] font-bold font-inter">Pengeluaran</h4>
           <h1 class="text-[30px] font-[500]">Rp 400.000</h1>
         </div>
         <div class="">
@@ -40,7 +40,7 @@
     <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
-          <h4 class="text-[15px] font-bold font-inter">Pemasukan</h4>
+          <h4 class="text-[20px] font-bold font-inter">Laba Bersih</h4>
           <h1 class="text-[30px] font-[500]">Rp 95.000</h1>
         </div>
         <div class="">
@@ -79,7 +79,7 @@
     <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
-          <h4 class="text-[15px] font-bold font-inter">Pesanan Baru</h4>
+          <h4 class="text-[20px] font-bold font-inter">Pesanan Baru</h4>
           <h1 class="text-[30px] font-[500]">50 Barang</h1>
         </div>
         <div class="">
@@ -115,7 +115,7 @@
     <div class="flex flex-col p-5 bg-white rounded-xl gap-y-3">
       <div class="flex justify-between">
         <div class="">
-          <h4 class="text-[15px] font-bold font-inter">Siap Dikirim</h4>
+          <h4 class="text-[20px] font-bold font-inter">Terjual</h4>
           <h1 class="text-[30px] font-[500]">261 Barang</h1>
         </div>
         <div class="">
@@ -166,81 +166,21 @@
     <div class="col-span-3">
       <table class="w-full bg-white table-auto font-inter rounded-xl">
         <thead>
-          <tr class="text-[13px] ">
-            <th class="pt-5 pb-2 pl-5 font-normal text-left">Nama Item</th>
-            <th class="px-5 pt-5 pb-2 pl-5 font-normal">Stok</th>
-            <th class="pt-5 pb-2 font-normal">Harga</th>
-            <th class="pt-5 pb-2 font-normal">SKU</th>
-            <th class="pt-5 pb-2 font-normal">Status</th>
-            <th class="pt-5 pb-2 font-normal">Opsi Lain</th>
+          <tr class="text-[15px]">
+            <th class="pt-5 pb-2 font-bold text-left pl-7">Nama Produk</th>
+            <th class="px-5 pt-5 pb-2 pl-5 font-bold">Stok</th>
+            <th class="pt-5 pb-2 font-bold">Harga</th>
+            <th class="pt-5 pb-2 font-bold">SKU</th>
+            <th class="pt-5 pb-2 font-bold">Status</th>
+            <th class="pt-5 pb-2 font-bold">Opsi Lain</th>
           </tr>
         </thead>
-        <tbody class="text-[13px]">
+        <tbody class="text-[14px]">
           <tr class="text-center">
             <td class="flex items-center py-2 pl-5 gap-x-5">
               <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
                 alt="">
-              <p>Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p>Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p>Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p>Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p>Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p>Ayam Cemani</p>
+              <p class="font-bold">Ayam Cemani</p>
             </td>
             <td class="text-[#6366F1]">10</td>
             <td>1.000.000</td>
@@ -254,26 +194,14 @@
     <div class="col-span-2 bg-white rounded-xl">
       <table class="w-full table-fixed font-inter">
         <thead>
-          <tr class="text-[13px]">
+          <tr class="text-[15px]">
             <th class="pt-5 pb-5 pl-5 text-left">Item Terpopuler</th>
             <th>Total Penjualan(per unit)</th>
           </tr>
         </thead>
-        <tbody class="text-[13px]">
+        <tbody class="text-[14px]">
           <tr>
             <td class="py-2 pl-5">1. Burung Jalak Bali</td>
-            <td class="text-center">30</td>
-          </tr>
-          <tr>
-            <td class="py-2 pl-5">2. Burung Jalak Bali</td>
-            <td class="text-center">30</td>
-          </tr>
-          <tr>
-            <td class="py-2 pl-5">3. Burung Jalak Bali</td>
-            <td class="text-center">30</td>
-          </tr>
-          <tr>
-            <td class="py-2 pl-5">4. Burung Jalak Bali</td>
             <td class="text-center">30</td>
           </tr>
         </tbody>

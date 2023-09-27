@@ -15,11 +15,13 @@
   <div class="relative p-5 ">
     @include('components.sidebar')
 
-    <div class="ml-[264px] px-5">
+    <div class="ml-[264px] px-8">
       @yield('pages')
     </div>
 
   </div>
+  @include('sweetalert::alert')
+
 
   @stack('js')
 </body>
