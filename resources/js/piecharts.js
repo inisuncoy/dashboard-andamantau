@@ -1,13 +1,16 @@
 import Chart from "chart.js/auto";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
+var pemasukan = 100;
+var pengeluaran = 200;
+var laba = 500;
 
 const data = {
     labels: ["Red", "Blue", "Yellow"],
     datasets: [
         {
             label: "My First Dataset",
-            data: [300, 50, 100],
+            data: [pemasukan, pengeluaran, laba],
             backgroundColor: ["#4260FF", "#300FF8", "#1B00A1"],
             hoverOffset: 4,
         },
