@@ -33,9 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profil-web', [ProfileWebController::class, 'index']);
     Route::get('/profil-web/edit', [ProfileWebController::class, 'edit']);
+    Route::post('/profil-web/edit/update', [ProfileWebController::class, 'update']);
 
     Route::get('/produk', [ProductsController::class, 'index']);
     Route::get('/produk/tambah', [ProductsController::class, 'create']);
+    Route::post('/produk/tambah', [ProductsController::class, 'store']);
     Route::get('/produk/{id}/edit', [ProductsController::class, 'edit']);
     Route::delete('/produk/{id}/delete', [ProductsController::class, 'destroy']);
 

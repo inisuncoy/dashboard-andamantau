@@ -7,30 +7,41 @@
     <title>Login Page</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <div class="flex h-screen">
-        <div class="w-[912px] flex flex-col items-center justify-center gap-y-5">
-            <h1 class="text-white font-normal text-[60px]">Dashboard Umkm</h1>
-            <img src={{ url("assets/images/login-page.png") }} class="w-[380px] h-[380px] object-cover" alt="">
+<body class="overflow-hidden">
+    <div class="w-full h-screen px-20 py-10 ">
+        <div class="relative flex flex-col justify-between w-full h-full bg-white rounded-lg">
+            <div class="flex flex-col items-center justify-center h-full gap-y-8">
+                <h1 class="text-[45px] font-bold">Selamat Datang!</h1>
+                <form method="POST" action="/login" class="flex flex-col gap-y-5">
+                    <div class="flex flex-col gap-y-1">
+                        <label for="email" class="text-[22px] ml-5">Email</label>
+                        <input type="email" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                    </div>
+                    <div class="flex flex-col gap-y-1">
+                        <label for="password" class="text-[22px] ml-5">Kata Sandi</label>
+                        <input type="password" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                        <p class="text-[20px] mt-1 ml-5">Lupa Kata Sandi? <a href="#" class="text-[#6366F1] underline">Hubungi kami</a> </p>
+                    </div>
+                    <div class="flex justify-center mt-10">
+                        <button class="bg-[#2D76E5] py-3 px-24 rounded-lg text-white text-[18px] font-bold">Masuk</button>
+                    </div>
+                </form>
+            </div>
+            <div class="flex items-center pb-5 pl-10 gap-x-5">
+                <h1 class="text-[23px]">Powered by</h1>
+                <div class="flex items-center gap-x-5">
+                    <img src="{{ url('assets/images/bsi.png') }}" alt="">
+                    <img src="{{ url('assets/images/andamantau.png') }}" alt="">
+                    <img src="{{ url('assets/images/binus.png') }}" alt="">
+                </div>
+            </div>
         </div>
-        <form method="POST" action="/login" class="flex flex-col p-10 bg-white grow gap-y-14">
-            @csrf
-            <h1 class="text-[60px]">Selamat Datang</h1>
-            <div class="flex flex-col gap-y-5">
-                <div class="flex flex-col gap-y-2">
-                    <label for="email" class="text-[20px] pl-2">Email</label>
-                    <input type="email" name="email" id="email" value="jovansus@gmail.com" class="px-3 py-4 border-2 border-black rounded-xl" placeholder="Alamat Email">
-                </div>
-                <div class="flex flex-col gap-y-2">
-                    <label for="password" class="text-[20px] pl-2">Kata Sandi</label>
-                    <input type="password" name="password" id="password" value="jovansus" class="px-3 py-4 border-2 border-black rounded-xl" placeholder="Kata Sandi">
-                </div>
-            </div>
-            <div class="flex flex-col gap-y-5">
-                <button type="submit" class="bg-[#2D76E5] text-white text-[25px] py-3 rounded-lg font-bold">Masuk</button>
-                <p class="text-right text-[18px]">Lupa Kata Sandi?</p>
-            </div>
-        </form>
+        <div class="absolute top-[80px] left-[140px]">
+            <img src="{{ url('assets/images/sun.png') }}" class="" alt="">
+        </div>
+        <div class="absolute -bottom-[59px] -right-[20px]">
+            <img src="{{ url('assets/images/hero.png') }}" alt="">
+        </div>
     </div>
 </body>
 </html>

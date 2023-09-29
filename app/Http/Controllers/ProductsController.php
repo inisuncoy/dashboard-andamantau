@@ -44,7 +44,20 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('pages.produk.tambah.index');
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/category/products');
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors)->withInput();
+        }
+
+        $categories = $apiResponse->json()['data'];
+
+        return view('pages.produk.tambah.index', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -52,7 +65,28 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/product", [
+            'id_category_product' => $request->id_category_product,
+            'name' => $request->name,
+            'description' => $request->description,
+            'cost' => $request->cost,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'status' => $request->status,
+            'variant' => $request->variant,
+            'weight' => $request->weight,
+            'length' => $request->length,
+            'file' => $request->file('file')
+        ]);
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            dd($errors);
+        }
+
+        dd($apiResponse->json());
     }
 
     /**

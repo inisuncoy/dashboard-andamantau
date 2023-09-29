@@ -5,7 +5,7 @@
         <img src={{ session('userData')['profile_photo_url'] }} class="w-[50px] h-[50px] rounded-full object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
-          <p>{{ session('userData')['umkm_name'] }}</p>
+          <p>{{ session('userData')['owner_name'] }}</p>
         </div>
       </div>
       <div class="flex flex-col gap-y-2">

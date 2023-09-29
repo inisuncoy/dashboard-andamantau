@@ -1,7 +1,8 @@
 @extends('layout.main.index')
 
 @section('pages')
-<form action="#" method="POST" class="flex flex-col gap-y-10">
+<form action="/profil-web/edit/update" method="POST" class="flex flex-col gap-y-10">
+    @csrf
     <div>
         <h1 class="text-white text-[30px] font-semibold">Profil Web</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
@@ -30,7 +31,7 @@
                                         </svg>
                                         Ganti Logo
                                     </label>
-                                    <input type="file" class="hidden" name="umkm_image" accept="image/png, image/jpeg, image/jpg" id="umkm_image">
+                                    <input type="file" class="hidden" name="file" accept="image/png, image/jpeg, image/jpg" id="umkm_image">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Nama Toko</td>
                     <td class="py-2">
-                        <input type="text" name="nama" value="{{ $umkmData['umkm_name'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh Contoh">
+                        <input type="text" name="umkm_name" value="{{ $umkmData['umkm_name'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh Contoh">
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +52,7 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Kota</td>
                     <td class="py-2">
-                        <input type="text" name="id_city" value="{{ $umkmData['id_city'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jakarta Selatan">
+                        <input type="text" name="kota" value="{{ $umkmCity }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jakarta Selatan">
                     </td>
                 </tr>
                 <tr>
@@ -63,7 +64,7 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Kelurahan</td>
                     <td class="py-2">
-                        <input type="text" name="kelurahan" value="" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : blimbing">
+                        <input type="text" name="kelurahan" value="{{ $umkmData['kelurahan'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : blimbing">
                     </td>
                 </tr>
                 <tr>
@@ -106,17 +107,16 @@
                 <tr>
                     <td class="flex w-2/5 text-[20px]">Deskripsi Toko</td>
                     <td class="py-2">
-                        <textarea type="text" name="deskripsi_toko" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ $umkmData['umkm_description'] }}</textarea>
+                        <textarea type="text" name="umkm_description" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ $umkmData['umkm_description'] }}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td class="flex w-2/5"></td>
                     <td class="py-2">
                         <div class="flex float-right gap-x-5">
-                            <button class="bg-[#FF0000] py-3 w-[160px] text-white rounded-lg font-bold">Batal</button>
-                            <button class="bg-[#2D76E5] py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
+                            <a href="/profil-web" class="bg-[#FF0000] py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
+                            <button type="submit" class="bg-[#2D76E5] py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
                         </div>
-
                     </td>
                 </tr>
             </tbody>
