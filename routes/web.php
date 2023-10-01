@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/transaksi', [TransactionController::class, 'index']);
     Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
+ 
 
     Route::get('/profil-toko', [ProfileWebController::class, 'index']);
     Route::get('/profil-toko/edit', [ProfileWebController::class, 'edit']);
@@ -65,3 +66,6 @@ Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'store']);
 
 Route::get('/logout', [LogoutController::class, 'store']);
+Route::get('/transaksi/detail/faktur', function () {
+    return view('pages.transaksi.detail.faktur.index');
+});
