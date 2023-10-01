@@ -13,21 +13,21 @@ class TransactionController extends Controller
     public function index()
     {
         $token = session('token');
-        $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/transactions", [
-            'id_user' => $user_id
-        ]);
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . "/api/dashboard/umkm/transactions");
+        $apiResponse2 = Http::withToken($token)->get(env('BACKEND_URL') . "/api/dashboard/umkm/transactionPaymentList");
 
-        if ($apiResponse->failed()) {
+        if ($apiResponse->failed() and $apiResponse2->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
         }
 
         $transactionsData = $apiResponse->json()['data'];
+        $paymentTypes = $apiResponse2->json()['data'];
 
         return view('pages.transaksi.index', [
-            'transactionsData' => $transactionsData
+            'transactionsData' => $transactionsData,
+            '$paymentTypes' => $paymentTypes
         ]);
     }
 
@@ -54,7 +54,7 @@ class TransactionController extends Controller
     {
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . "/api/transaction/" . $id);
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . "/api/dashboard/umkm/transaction/" . $id);
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -63,17 +63,18 @@ class TransactionController extends Controller
 
         $transactionData = $apiResponse->json()['data'];
 
-        $productList = $transactionData['product_list'];
-
-        foreach ($productList as $key => $product) {
+        foreach ($transactionData['product_list'] as $product) {
             $idProduct = $product['id_product'];
 
             $productResponse = Http::withToken($token)->get('https://api.andamantau.com/api/product/' . $idProduct);
-            $productData = $productResponse->json()['data'];
+            $product['detail_product'] = $productResponse->json()['data'];
+
 
             // Add the product data to the current product in the $productList array
-            $productList[$key]['product_data'] = $productData;
+            $productList[] = $product;
         }
+        // dd($productList);
+        // dd($transactionData);
 
         return view('pages.transaksi.detail.index', [
             'transactionData' => $transactionData,

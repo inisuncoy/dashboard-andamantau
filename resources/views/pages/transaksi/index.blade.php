@@ -3,7 +3,7 @@
 @section('pages')
 <div class="flex flex-col gap-y-10">
     <h1 class="text-white text-[30px] font-semibold">Transaksi</h1>
-    @if (!empty($transactionsData))
+    @if (empty($transactionsData))
     <div class="flex flex-col items-center justify-center px-10 py-[75px] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Daftar Transaksi Kosong</h1>
@@ -34,11 +34,26 @@
                     <tr>
                         <td class="px-6 py-5 font-medium text-center text-md">{{ $transaction['order_code'] }}</td>
                         <td class="px-6 py-5 text-center text-md">{{ \Carbon\Carbon::parse($transaction['transaction_date'] . ' ' . $transaction['timestamp'])->format('d M Y, H:i') }}</td>
-                        <td class="px-6 py-5 text-center text-md">{{ $transaction['total'] }}</td>
-                        <td class="px-6 py-5 text-center text-md">{{ $transaction['id_payment_type'] }}</td>
-                        <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">{{ $transaction['status'] }}</td>
+                        <td class="px-6 py-5 text-center text-md">@currencyNonRp($transaction['total'])</td>
+                        <td class="px-6 py-5 text-center text-md">
+                            @if ($transaction['id_payment_type'] == 1)
+                                Cash
+                            @elseif ($transaction['id_payment_type'] == 2)
+                                Transfer
+                            @elseif ($transaction['id_payment_type'] == 3)
+                                QRIS
+                            @else
+                                Not yet set
+                            @endif
+                        </td>
+                        @if ($transaction['status'] == 0)
+                        <td class="px-6 py-5 text-center text-md font-semibold text-[#FF0000]">Gagal</td>
+                        @else
+                        <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">Lunas</td>
+                        @endif
+
                         <td class="px-6 py-5 font-medium text-center text-md">
-                            <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full" href="/transaksi/{{ $transaction['id'] }}">Detail</a>
+                            <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full" href="/transaksi/{{ $transaction['id'] }}/detail">Detail</a>
                         </td>
                     </tr>
                     @endforeach

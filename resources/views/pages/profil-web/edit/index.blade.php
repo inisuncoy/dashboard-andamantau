@@ -1,12 +1,12 @@
 @extends('layout.main.index')
 
 @section('pages')
-<form action="/profil-web/edit/update" method="POST" class="flex flex-col gap-y-10">
+<form action="/profil-toko/edit/update" method="POST" class="flex flex-col gap-y-10" enctype="multipart/form-data">
     @csrf
     <div>
-        <h1 class="text-white text-[30px] font-semibold">Profil Web</h1>
+        <h1 class="text-white text-[30px] font-semibold">Profil Toko</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-            <a href="/profil-web">Profil Web</a>
+            <a href="/profil-toko">Profil Toko</a>
             >
             <p>Ubah Profil</p>
         </div>
@@ -31,7 +31,7 @@
                                         </svg>
                                         Ganti Logo
                                     </label>
-                                    <input type="file" class="hidden" name="file" accept="image/png, image/jpeg, image/jpg" id="umkm_image">
+                                    <input type="file" class="hidden" name="file" id="umkm_image">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                     <td class="flex w-2/5"></td>
                     <td class="py-2">
                         <div class="flex float-right gap-x-5">
-                            <a href="/profil-web" class="bg-[#FF0000] py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
+                            <a href="/profil-toko" class="bg-[#FF0000] py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
                             <button type="submit" class="bg-[#2D76E5] py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
                         </div>
                     </td>

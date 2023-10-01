@@ -31,9 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi', [TransactionController::class, 'index']);
     Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
 
-    Route::get('/profil-web', [ProfileWebController::class, 'index']);
-    Route::get('/profil-web/edit', [ProfileWebController::class, 'edit']);
-    Route::post('/profil-web/edit/update', [ProfileWebController::class, 'update']);
+    Route::get('/profil-toko', [ProfileWebController::class, 'index']);
+    Route::get('/profil-toko/edit', [ProfileWebController::class, 'edit']);
+    Route::post('/profil-toko/edit/update', [ProfileWebController::class, 'update']);
 
     Route::get('/produk', [ProductsController::class, 'index']);
     Route::get('/produk/tambah', [ProductsController::class, 'create']);

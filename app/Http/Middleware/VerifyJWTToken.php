@@ -24,7 +24,7 @@ class VerifyJWTToken
         $id_user = session('userData')['id'];
 
         try {
-            $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
+            $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
 
             if ($apiResponse->failed()) {
                 return redirect('/login');

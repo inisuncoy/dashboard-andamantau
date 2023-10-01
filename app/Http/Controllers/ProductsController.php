@@ -19,11 +19,8 @@ class ProductsController extends Controller
         }
 
         $token = session('token');
-        $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . '/api/products', [
-            'id_user' => $user_id,
-        ]);
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/products');
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();

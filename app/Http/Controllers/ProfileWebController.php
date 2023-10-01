@@ -19,7 +19,7 @@ class ProfileWebController extends Controller
 
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -68,7 +68,7 @@ class ProfileWebController extends Controller
 
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/umkm/profile/me');
+        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -76,11 +76,13 @@ class ProfileWebController extends Controller
         }
 
         $umkmData = $apiResponse->json()['data'];
-        $umkmCity = $apiResponse->json()['user_city'];
 
+        $apiResponse2 = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile/city/' . $umkmData['id_city']);
+
+        $umkmCity = $apiResponse2->json()['data'];
         return view('pages.profil-web.edit.index', [
             'umkmData' => $umkmData,
-            'umkmCity' => $umkmCity
+            'umkmCity' => $umkmCity,
         ]);
     }
 
@@ -91,13 +93,26 @@ class ProfileWebController extends Controller
     {
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->patch(env('BACKEND_URL') . '/api/umkm/profile/edit', $request->all());
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $imageName = str_replace(' ', '', $file->getClientOriginalName());
+            $file->storeAs('temp', $imageName, 'public');
+            $filePath = storage_path('app/public/temp/' . $imageName);
+
+            $apiResponse = Http::attach(
+                'file',
+                file_get_contents($filePath),
+                $imageName
+            )->withToken($token)->post(env('BACKEND_URL') . '/api/dashboard/umkm/profile', $request->all());
+        } else {
+            $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . '/api/dashboard/umkm/profile', $request->all());
+        }
 
         if ($apiResponse->failed()) {
             return back()->with('update_profil', 'failed');
         }
 
-        return redirect('/profil-web')->with('update_profil', 'success');
+        return redirect('/profil-toko')->with('update_profil', 'success');
     }
 
     /**

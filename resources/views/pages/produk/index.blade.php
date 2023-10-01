@@ -55,8 +55,13 @@
                     </td>
                     <td class="px-6 py-4 text-center text-md">{{ $product['stock'] }}</td>
                     <td class="px-6 py-4 text-center text-md">@currencyNonRp($product['price'])</td>
-                    <td class="px-6 py-4 text-center text-md">{{ $product['sku'] }}IWN01</td>
+                    <td class="px-6 py-4 text-center text-md">{{ $product['sku'] }}</td>
+                    @if ($product['status'] == 1)
                     <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Aktif</td>
+                    @else
+                    <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Tidak Aktif</td>
+                    @endif
+
                     <td class="px-6 py-4 font-medium text-center text-md">
                         <a href="/produk/{{ $product['id'] }}/edit" class="bg-[#2D76E5] text-white py-2 px-7 rounded-full">Ubah</a>
                     </td>

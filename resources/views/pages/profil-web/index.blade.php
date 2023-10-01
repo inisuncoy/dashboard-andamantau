@@ -2,7 +2,7 @@
 
 @section('pages')
 <form action="#" method="POST" class="flex flex-col gap-y-10">
-    <h1 class="text-white text-[30px] font-semibold">Profil Web</h1>
+    <h1 class="text-white text-[30px] font-semibold">Profil Toko</h1>
     <div class="px-5 pt-10 pb-5 bg-white rounded-xl font-inter">
         <div class="flex justify-center pb-5 mx-auto">
             <img src={{ url(env('BACKEND_URL')) . "/" . $umkmData['umkm_image'] }} class="object-cover rounded-lg w-[284px] h-[284px]" alt="">
@@ -47,7 +47,7 @@
                 <p>{{ $umkmData['umkm_description'] }}</p>
             </div>
             <div class="mt-10 ml-auto">
-                <a href="/profil-web/edit" class="bg-[#2D76E5] border-[#9CD3FF] border text-white text-lg py-3 px-8 rounded-[10px] font-bold">Ubah Profil</a>
+                <a href="/profil-toko/edit" class="bg-[#2D76E5] border-[#9CD3FF] border text-white text-lg py-3 px-8 rounded-[10px] font-bold">Ubah Profil</a>
             </div>
         </div>
     </div>

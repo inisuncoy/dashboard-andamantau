@@ -39,7 +39,7 @@
           </span>
           <span class="text-[20px] mt-1">Transaksi</span>
         </a>
-        <a href="/profil-web" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('profil-web/*') or Request::is('profil-web')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/profil-toko" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('profil-toko/*') or Request::is('profil-toko')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="13.3333" stroke="#EE6048" stroke-width="3" />
@@ -47,7 +47,7 @@
               <path d="M6.66667 20H33.3333" stroke="#EE6048" stroke-width="3" stroke-linecap="round" />
             </svg>
           </span>
-          <span class="text-[20px] mt-1">Profil Web</span>
+          <span class="text-[20px] mt-1">Profil Toko</span>
         </a>
         <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5 {{ (Request::is('produk/*') or Request::is('produk')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
           <span>
