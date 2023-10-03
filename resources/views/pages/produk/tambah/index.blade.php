@@ -34,7 +34,7 @@
         padding-left: 10px!important;
     }
 </style>
-<form method="POST" enctype="multipart/form-data" action="#" class="flex flex-col gap-y-10">
+<form method="POST" enctype="multipart/form-data" action="/produk/tambah" class="flex flex-col gap-y-10">
     @csrf
     <div>
         <h1 class="text-white text-[30px] font-semibold">Produk</h1>
@@ -61,9 +61,9 @@
                     <td class="py-2">
                         <select class="js-example-basic-single" style="width: 100%;" name="id_category_product">
                             <option value="" selected disabled hidden></option>
-                            @foreach ($categories as $category)
+                            {{-- @foreach ($categories as $category)
                             <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
-                            @endforeach
+                            @endforeach --}}
                           </select>
                         <p class="text-[12px] pt-1">Tips: Pilih kategori sesuai UMKM mu</p>
                     </td>
@@ -191,7 +191,11 @@
                 <tr>
                     <td class="w-2/6">Varian Produk</td>
                     <td class="py-2">
-                        <input type="text" name="variant" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tambah Varian">
+                        {{-- <input type="text" name="variant" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tambah Varian"> --}}
+                        <select class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
+                            <option value="AL">Alabama</option>
+                            <option value="WY">Wyoming</option>
+                          </select>
                         <p class="text-[12px] mt-1">Contoh : Ukuran XL, Hijau</p>
                     </td>
                 </tr>
@@ -200,7 +204,7 @@
                     <td class="py-2">
                         <div class="flex gap-x-5">
                             <div class="flex items-center gap-x-2">
-                                <input type="number" name="lenght" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Panjang">
+                                <input type="number" name="length" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Panjang">
                                 <p class="font-[500] text-[20px]">
                                     cm
                                 </p>
@@ -368,6 +372,12 @@
         $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: 'Pilih Kategori',
+                tags: true,
+            });
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder: 'Pilih Variants',
                 tags: true,
             });
         });
