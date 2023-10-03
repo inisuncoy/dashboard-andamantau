@@ -349,19 +349,19 @@
             <td class="py-2">
               <div class="flex justify-between gap-5">
                 <div class="flex items-end gap-5">
-                  <input type="text" name="kode_pos"
+                  <input type="text" name="kode_pos" value="{{ $productData['length'] }}"
                     class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                     placeholder="Panjang">
                   <h1 class="text-xl">cm</h1>
                 </div>
                 <div class="flex items-end gap-5">
-                  <input type="text" name="kode_pos"
+                  <input type="text" name="kode_pos" value="{{ $productData['width'] }}"
                     class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                     placeholder="Lebar">
                   <h1 class="text-xl">cm</h1>
                 </div>
                 <div class="flex items-end gap-5">
-                  <input type="text" name="kode_pos"
+                  <input type="text" name="kode_pos" value="{{ $productData['height'] }}"
                     class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                     placeholder="Tinggi">
                   <h1 class="text-xl">cm</h1>
@@ -374,7 +374,7 @@
             <td class="w-2/5">Berat Produk</td>
             <td class="py-2">
               <div class="flex items-center gap-5 w-[300px]">
-                <input type="text" name="kode_pos"
+                <input type="text" name="kode_pos" value="{{ $productData['weight'] }}"
                   class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                   placeholder="Masukan berat produk">
                 <h1 class="text-xl">Gram</h1>
