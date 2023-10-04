@@ -11,7 +11,7 @@
                 <p>Lihat Selengkapnya</p>
             </div>
         </div>
-        @if (empty($expensesData))
+        @if (empty($expensesData->items()))
         <a href="/pengeluaran/tambah" class="px-5 py-2 text-lg text-[#2D76E5] bg-white font-bold flex items-center justify-center gap-x-3 rounded-lg">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 13.0825V7.47985L7.5 1.8772M2 7.47985H13" stroke="#2D76E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -44,8 +44,8 @@
         @endif
 
     </div>
-    @if (empty($expensesData))
-    <div class="flex flex-col items-center justify-center px-10 py-[55px] bg-white rounded-lg">
+    @if (empty($expensesData->items()))
+    <div class="flex flex-col items-center justify-center px-10 h-[40vw] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Pengeluaran Kosong</h1>
             <p class="text-[20px]">Ayo buat laporan pengeluaranmu melalui</p>
@@ -55,12 +55,12 @@
     </div>
     @else
     <div class="px-10 py-5 bg-white rounded-lg">
-        <div class="overflow-hidden border-2 border-blue-500 rounded-xl">
+        <div class="border-2 border-blue-500 rounded-xl">
             <table class="w-full divide-blue-500 table-auto">
                 <thead class="bg-[#2D76E5] text-white rounded-lg">
                     <tr>
                         <th scope="col" class="px-6 py-3 font-bold text-center rounded-tl-lg text-md whitespace-nowrap">No</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal & Waktu</th>
+                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Total Pengeluaran (Rp)</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Deskripsi</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap"></th>
@@ -71,18 +71,14 @@
                     @foreach ($expensesData as $index => $expense)
                     <tr>
                         <td class="px-6 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap ">{{ $index + 1 }}</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ $expense['date'] }} (Prototype)</td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $expense['date'])->format('d F Y') }}</td>
                         <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($expense['nominal'])</td>
-                        <td class="px-6 py-6 w-[300px] text-center text-gray-800 text-md">
-                            <p class="line-clamp-1">
-                                {{ $expense['notes'] }}
-                            </p>
-                        </td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md line-clamp-1">{{ $expense['notes'] }}</td>
                         <td class="px-6 py-6 font-bold text-center text-md whitespace-nowrap">
                             <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
                         </td>
                         <td class="py-6 pr-6 font-bold text-center text-md whitespace-nowrap">
-                            <a href="/pengeluaran/{{ $expense['id'] }}/delete">
+                            <a href="/pengeluaran/{{ $expense['id'] }}/delete" data-confirm-delete="true">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.334 20L13.334 16" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
                                     <path d="M18.666 20L18.666 16" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>

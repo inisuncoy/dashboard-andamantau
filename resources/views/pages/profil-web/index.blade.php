@@ -5,7 +5,7 @@
     <h1 class="text-white text-[30px] font-semibold">Profil Toko</h1>
     <div class="px-5 pt-10 pb-5 bg-white rounded-xl font-inter">
         <div class="flex justify-center pb-5 mx-auto">
-            <img src={{ url(env('BACKEND_URL')) . "/" . $umkmData['umkm_image'] }} class="object-cover rounded-lg w-[284px] h-[284px]" alt="">
+            <img src={{ url(config('backend.backend_url') . "/" . $umkmData['umkm_image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover rounded-lg w-[284px] h-[284px]" alt="">
         </div>
         <div class="w-full p-5 border-[#9CD3FF] border-[2px] rounded-[5px] flex flex-col gap-y-5">
             <div class="">

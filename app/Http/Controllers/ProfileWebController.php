@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Alert;
 
 class ProfileWebController extends Controller
 {
@@ -19,7 +19,7 @@ class ProfileWebController extends Controller
 
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profile');
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -68,7 +68,7 @@ class ProfileWebController extends Controller
 
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profile');
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -77,7 +77,7 @@ class ProfileWebController extends Controller
 
         $umkmData = $apiResponse->json()['data'];
 
-        $apiResponse2 = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile/city/' . $umkmData['id_city']);
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profile/city/' . $umkmData['id_city']);
 
         $umkmCity = $apiResponse2->json()['data'];
         return view('pages.profil-web.edit.index', [
@@ -103,9 +103,9 @@ class ProfileWebController extends Controller
                 'file',
                 file_get_contents($filePath),
                 $imageName
-            )->withToken($token)->post(env('BACKEND_URL') . '/api/dashboard/umkm/profile', $request->all());
+            )->withToken($token)->post(config('backend.backend_url') . '/api/dashboard/umkm/profile', $request->all());
         } else {
-            $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . '/api/dashboard/umkm/profile', $request->all());
+            $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . '/api/dashboard/umkm/profile', $request->all());
         }
 
         if ($apiResponse->failed()) {

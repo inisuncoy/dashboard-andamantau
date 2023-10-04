@@ -17,7 +17,7 @@ class IncomeController extends Controller
         $token = session('token');
         $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/reports/incomes", [
+        $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/reports/incomes", [
             'id_user' => $user_id
         ]);
 

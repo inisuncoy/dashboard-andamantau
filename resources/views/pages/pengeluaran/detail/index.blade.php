@@ -10,7 +10,8 @@
       <p>Tambah Pengeluaran</p>
     </div>
   </div>
-  <form class="p-5 bg-white rounded-xl font-inter">
+  <form method="POST" action="/pengeluaran/{{ $expenseData['id'] }}/edit" class="p-5 bg-white rounded-xl font-inter">
+    @csrf
     <h1 class="text-[24px] font-bold">List Pengeluaran</h1>
     <table class="w-full my-5 table-fixed">
       <tbody class="text-[18px]">
@@ -19,7 +20,7 @@
           <td class="py-2">
             <input
                 type="date"
-                name="tanggal"
+                name="date"
                 class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                 placeholder="YYYY-MM-DD"
                 value="{{ $expenseData['date'] }}">
@@ -36,7 +37,7 @@
           <td class="py-2">
             <input
                 type="number"
-                name="total"
+                name="nominal"
                 placeholder="Masukan total penegeluaran"
                 class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                 value="{{ $expenseData['nominal'] }}">

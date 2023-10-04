@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Alert;
 
 class ExpenseController extends Controller
 {
@@ -15,11 +16,8 @@ class ExpenseController extends Controller
     public function index()
     {
         $token = session('token');
-        $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/reports/expenses", [
-            'id_user' => $user_id
-        ]);
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -40,8 +38,14 @@ class ExpenseController extends Controller
             ['path' => route('pengeluaran.selengkapnya')] // Replace 'your.route.name' with the actual route name
         );
 
+        $total_data = $paginator->total();
+
+        $title = "Apakah anda yakin ingin menghapus pengeluaran ini dari daftar pengeluaran?";
+        confirmDelete($title);
+
         return view('pages.pengeluaran.selengkapnya.index', [
-            'expensesData' => $paginator
+            'expensesData' => $paginator,
+            'total_data' => $total_data
         ]);
     }
 
@@ -59,7 +63,18 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expense", $request->all());
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors)->withInput();
+        }
+
+
+
+        return redirect()->route('pengeluaran.selengkapnya');
     }
 
     /**
@@ -69,7 +84,7 @@ class ExpenseController extends Controller
     {
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . "/api/reports/expense/" . $id);
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expense/" . $id);
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -96,7 +111,16 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expense/" . $id,  $request->all());
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors)->withInput();
+        }
+
+        return back();
     }
 
     /**
@@ -106,13 +130,12 @@ class ExpenseController extends Controller
     {
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->delete(env('BACKEND_URL') . "/api/reports/expense/" . $id);
+        $apiResponse = Http::withToken($token)->delete(config('backend.backend_url') . "/api/dashboard/umkm/report/expense/" . $id);
 
         if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            return back()->with('delete_expense', 'failed');
         }
 
-        return redirect('/pengeluaran/selengkapnya');
+        return redirect('/pengeluaran/selengkapnya')->with('delete_expense', 'success');
     }
 }

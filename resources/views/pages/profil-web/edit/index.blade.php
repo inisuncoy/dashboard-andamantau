@@ -20,7 +20,7 @@
                     </td>
                     <td class="py-2">
                         <div class="flex items-end gap-x-7">
-                            <img src={{ url(env('BACKEND_URL')) . "/" . $umkmData['umkm_image'] }} id="logo_image" class="object-cover w-32 h-32 rounded-md" alt="">
+                            <img src={{ url(config('backend.backend_url') . "/" . $umkmData['umkm_image']) }} id="logo_image" class="object-cover w-32 h-32 rounded-md" alt="">
                             <div class="flex flex-col gap-y-2">
                                 <p class="text-[#00000080]" id="show_img_src"></p>
                                 <div class="flex">

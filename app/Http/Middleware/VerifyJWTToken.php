@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class VerifyJWTToken
 {
@@ -15,23 +16,20 @@ class VerifyJWTToken
      */
     public function handle($request, Closure $next)
     {
-        $token = session('token');
-
-        if (!$token) {
+        if (!$request->session()->has('token')) {
             return redirect('/login');
         }
 
-        $id_user = session('userData')['id'];
 
-        try {
-            $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
+        // try {
+        //     $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
 
-            if ($apiResponse->failed()) {
-                return redirect('/login');
-            }
-        } catch (Exception $e) {
-            return redirect('/login');
-        }
+        //     if ($apiResponse->failed()) {
+        //         return redirect('/login');
+        //     }
+        // } catch (Exception $e) {
+        //     return redirect('/login');
+        // }
 
         return $next($request);
     }

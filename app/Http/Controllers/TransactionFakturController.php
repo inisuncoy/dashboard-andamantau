@@ -5,30 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class TransactionController extends Controller
+class TransactionFakturController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $token = session('token');
-
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactions");
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
-
-        if ($apiResponse->failed() and $apiResponse2->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
-        }
-
-        $transactionsData = $apiResponse->json()['data'];
-        $paymentTypes = $apiResponse2->json()['data'];
-
-        return view('pages.transaksi.index', [
-            'transactionsData' => $transactionsData,
-            '$paymentTypes' => $paymentTypes
-        ]);
     }
 
     /**
@@ -56,14 +39,16 @@ class TransactionController extends Controller
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transaction/" . $id);
 
-        if ($apiResponse->failed()) {
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
+
+        if ($apiResponse->failed() and $apiResponse2->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
         }
 
         $transactionData = $apiResponse->json()['data'];
+        $paymentList = $apiResponse2->json()['data'];
 
-        $productList = [];
 
         foreach ($transactionData['product_list'] as $product) {
             $idProduct = $product['id_product'];
@@ -74,9 +59,11 @@ class TransactionController extends Controller
             $productList[] = $product;
         }
 
-        return view('pages.transaksi.detail.index', [
+
+        return view('pages.transaksi.detail.faktur.index', [
             'transactionData' => $transactionData,
-            'productList' => $productList
+            'productList' => $productList,
+            'paymentList' => $paymentList
         ]);
     }
 
@@ -85,6 +72,7 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
+        //
     }
 
     /**

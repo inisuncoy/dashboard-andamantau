@@ -33,7 +33,7 @@ class LoginController extends Controller
             'password' => $request->input('password'),
         ];
 
-        $apiResponse = Http::post(env('BACKEND_URL') . '/api/login', $credentials);
+        $apiResponse = Http::post(config('backend.backend_url') . '/api/login', $credentials);
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -43,10 +43,10 @@ class LoginController extends Controller
         $token = $apiResponse->json()['data']['jwt_token'];
         $userData = $apiResponse->json()['data']['user'];
 
-        session([
-            'token' => $token,
-            'userData' => $userData
-        ]);
+        $request->session()->put('token', $token);
+        $request->session()->put('userData', $userData);
+
+        // dd($request->session()->get('token'));
 
         return redirect('/');
     }

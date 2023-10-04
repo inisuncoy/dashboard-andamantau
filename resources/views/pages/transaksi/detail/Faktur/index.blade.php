@@ -7,7 +7,7 @@
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
             <a href="/transaksi">Transaksi</a>
             >
-            <a href="/transaksi/detail">Detail Transaksi</a>
+            <a href="/transaksi/{{ $transactionData['id'] }}/detail">Detail Transaksi</a>
             >
             <p>Faktur</p>
         </div>
@@ -27,7 +27,7 @@
             <path d="M13.4992 20L12.3953 20.9068L13.4992 22.2507L14.6031 20.9068L13.4992 20ZM14.9278 1.99978C14.9278 1.2108 14.2882 0.571211 13.4992 0.571211C12.7102 0.571211 12.0706 1.2108 12.0706 1.99978L14.9278 1.99978ZM4.18101 10.9066L12.3953 20.9068L14.6031 19.0932L6.38881 9.09312L4.18101 10.9066ZM14.6031 20.9068L22.8174 10.9066L20.6096 9.09312L12.3953 19.0932L14.6031 20.9068ZM14.9278 20L14.9278 1.99978L12.0706 1.99978L12.0706 20L14.9278 20Z" fill="black"/>
             <path d="M2 24L2 26C2 28.2092 3.47106 30.0001 5.28571 30.0001L21.7143 30.0001C23.5289 30.0001 25 28.2092 25 26V24" stroke="black" stroke-width="2.85714"/>
           </svg>
-                          
+
         </div>
 
       </div>
@@ -40,7 +40,7 @@
             <h1 class="text-2xl ">:</h1>
           </div>
           <div class="">
-            <h1 class="text-2xl font-semibold">FKT-2023-004</h1>
+            <h1 class="text-2xl font-semibold">{{ $transactionData['order_code'] }}</h1>
           </div>
         </div>
         <div class="flex">
@@ -51,7 +51,7 @@
             <h1 class="text-2xl ">:</h1>
           </div>
           <div class="">
-            <h1 class="text-2xl ">20 Agustus 2023, 18:39</h1>
+            <h1 class="text-2xl ">{{ \Carbon\Carbon::parse($transactionData['transaction_date'] . ' ' . $transactionData['timestamp'])->format('d F Y, H:i') }}</h1>
           </div>
         </div>
       </div>
@@ -70,18 +70,18 @@
                 <h1 class="text-2xl ">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">Syahrini</h1>
+                <h1 class="text-2xl ">{{ $transactionData['name_costumer'] }}</h1>
               </div>
             </div>
             <div class="grid grid-cols-9">
               <div class="col-span-3">
-                <h1 class="text-2xl">Tanggal & Waktu</h1>
+                <h1 class="text-2xl">Alamat</h1>
               </div>
               <div class="col-span-2">
                 <h1 class="text-2xl ">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">Jl. Pahlawan I, Kel. Tebet, RT06/RW09, Kota Jakarta Selatan, 12830, DKI Jakarta, Indonesia</h1>
+                <h1 class="text-2xl ">{{ $transactionData['address'] }}</h1>
               </div>
             </div>
             <div class="grid grid-cols-9">
@@ -92,7 +92,7 @@
                 <h1 class="text-2xl ">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">08123456789</h1>
+                <h1 class="text-2xl ">{{ $transactionData['phone_number'] }}</h1>
               </div>
             </div>
             <div class="grid grid-cols-9">
@@ -103,7 +103,7 @@
                 <h1 class="text-2xl ">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">syahrini@gmail.com</h1>
+                <h1 class="text-2xl ">{{ $transactionData['email_costumer'] }}</h1>
               </div>
             </div>
           </div>
@@ -116,10 +116,16 @@
                 <h1 class="text-2xl">Metode Pembayaran</h1>
               </div>
               <div class="col-span-2">
-                <h1 class="text-2xl ">:</h1>
+                <h1 class="text-2xl text-center">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">Gopay</h1>
+                <h1 class="text-2xl uppercase">
+                    @foreach ($paymentList as $payment)
+                    @if ($payment['id'] == $transactionData['id_payment_type'])
+                        {{ $payment['name'] }}
+                    @endif
+                    @endforeach
+                </h1>
               </div>
             </div>
             <div class="grid grid-cols-9">
@@ -127,10 +133,16 @@
                 <h1 class="text-2xl">Status</h1>
               </div>
               <div class="col-span-2">
-                <h1 class="text-2xl ">:</h1>
+                <h1 class="text-2xl text-center">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">Lunas</h1>
+                <h1 class="text-2xl ">
+                    @if ($transactionData['status'] == 1)
+                        Lunas
+                    @else
+                        Error
+                    @endif
+                </h1>
               </div>
             </div>
             <div class="grid grid-cols-9">
@@ -138,10 +150,10 @@
                 <h1 class="text-2xl">Jumlah yang harus dibayar (Rp)</h1>
               </div>
               <div class="col-span-2">
-                <h1 class="text-2xl ">:</h1>
+                <h1 class="text-2xl text-center">:</h1>
               </div>
               <div class="col-span-4">
-                <h1 class="text-2xl ">Rp.12.000.000</h1>
+                <h1 class="text-2xl ">@currencyNonRp($transactionData['total'])</h1>
               </div>
             </div>
           </div>
@@ -165,60 +177,62 @@
                 <th class="py-4 rounded-tr-lg"></th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 ">
+            <tbody class="divide-y divide-gray-200">
+                @foreach ($productList as $index => $product)
                 <tr>
-                    <td class="px-6 py-5 font-medium text-center text-md">1</td>
-                    <td class="px-6 py-5 text-center text-md">Ayam Kate</td>
-                    <td class="px-6 py-5 text-center text-md">2</td>
-                    <td class="px-6 py-5 text-center text-md">1.000.000</td>
-                    <td class="px-6 py-5 text-center text-md  ">2.000.000</td>
+                    <td class="px-6 py-5 font-medium text-center text-md">{{ $index + 1 }}</td>
+                    <td class="px-6 py-5 text-center text-md">{{ $product['detail_product']['name'] }}</td>
+                    <td class="px-6 py-5 text-center text-md">{{ $product['quantity'] }}</td>
+                    <td class="px-6 py-5 text-center text-md">@currencyNonRp($product['current_price'])</td>
+                    <td class="px-6 py-5 text-center text-md ">@currencyNonRp($product['current_price'] * $product['quantity'])</td>
                 </tr>
-                {{-- <tr>
+                @endforeach
+
+                <tr>
                     <td class="px-6 py-5 font-medium text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
                     <td class="px-6 py-5 text-left text-md">Subtotal (Rp)</td>
-                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">2.000.000</td>
+                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">@currencyNonRp($transactionData['total'])</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-5 font-medium text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
                     <td class="px-6 py-5 text-left text-md">Biaya Pengiriman (Rp)</td>
-                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">2.000.000</td>
+                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">23.000</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-5 font-medium text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
                     <td class="px-6 py-5 text-center text-md"></td>
-                    <td class="px-6 py-5 text-left text-md text-2xl">Biaya Pengiriman (Rp)</td>
-                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">2.000.000</td>
-                </tr> --}}
-
+                    <td class="px-6 py-5 text-2xl text-left text-md">Biaya Pengiriman (Rp)</td>
+                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">@currencyNonRp($transactionData['total'] + 23000)</td>
+                </tr>
             </tbody>
             </table>
         </div>
-        <div class="w-full flex justify-end">
+        <div class="flex justify-end w-full">
           <div class="w-[520px] border-x-2 border-b-2 border-[#D2E4FF] px-10 py-5 flex flex-col gap-y-5">
             <div class="grid grid-cols-4">
               <h1 class="col-span-3">Subtotal (Rp)</h1>
-              <h1>Rp. 1.000.000</h1>
+              <h1 class="text-right">@currencyNonRp($transactionData['total'])</h1>
             </div>
             <div class="grid grid-cols-4">
               <h1 class="col-span-3">Biaya Pengiriman (Rp)</h1>
-              <h1>Rp. 1.000.000</h1>
+              <h1 class="text-right">23.000</h1>
             </div>
-            <div class="grid grid-cols-4 font-bold ">
+            <div class="grid grid-cols-4 font-bold">
               <h1 class="col-span-3">Total(Rp)</h1>
-              <h1>Rp. 1.000.000</h1>
+              <h1 class="text-right">@currencyNonRp($transactionData['total'] + 23000)</h1>
             </div>
           </div>
         </div>
         </div>
-        
 
-        <div class="absolute w-full h-full flex justify-center items-center top-0 ">
-          <h1 class="text-[200px] opacity-25 text-[#2DCE94] -rotate-45 top-0">LUNAS</h1>
+
+        <div class="absolute top-0 flex items-center justify-center w-full h-full">
+          <h1 class="text-[200px] opacity-25 text-[#2DCE94] -rotate-45 top-0 select-none">LUNAS</h1>
         </div>
 </div>
 @endsection

@@ -15,9 +15,8 @@ class ExpenseDashboardController extends Controller
             $token = session('token');
             $user_id = session('userData')['id'];
 
-            $apiResponse = Http::withToken($token)->post(env('BACKEND_URL') . "/api/reports/expenses", [
-                'id_user' => $user_id
-            ]);
+            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+
 
             if ($apiResponse->failed()) {
                 $errors = $apiResponse->json();

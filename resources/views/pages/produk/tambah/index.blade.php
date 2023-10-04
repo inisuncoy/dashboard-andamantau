@@ -31,7 +31,7 @@
 
     .select2-search__field{
         padding-top: 10px!important;
-        padding-left: 10px!important;
+        padding-left: 5px!important;
     }
 </style>
 <form method="POST" enctype="multipart/form-data" action="/produk/tambah" class="flex flex-col gap-y-10">
@@ -52,26 +52,26 @@
                 <tr>
                     <td class="w-2/6">Nama Produk</td>
                     <td class="py-2">
-                        <input type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg">
+                        <input required type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg">
                         <p class="text-[12px] pt-1">Tips: Nama produknya saja</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Kategori</td>
                     <td class="py-2">
-                        <select class="js-example-basic-single" style="width: 100%;" name="id_category_product">
+                        <select required class="js-example-basic-single" style="width: 100%;" name="id_category_product">
                             <option value="" selected disabled hidden></option>
-                            {{-- @foreach ($categories as $category)
+                            @foreach ($categories as $category)
                             <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
-                            @endforeach --}}
-                          </select>
+                            @endforeach
+                        </select>
                         <p class="text-[12px] pt-1">Tips: Pilih kategori sesuai UMKM mu</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Status</td>
                     <td class="py-2">
-                        <select type="text" name="status" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
+                        <select required type="text" name="status" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
                             <option value="0" selected>Tidak Aktif</option>
                             <option value="1">Aktif</option>
                         </select>
@@ -90,7 +90,7 @@
                     <td class="py-2">
                         <div class="flex items-center" dir="ltr">
                             <div class="bg-[#E4F3FF] py-2 px-3 rounded-l-md border-2 border-r-0 border-[#9CD3FF]">Rp.</div>
-                            <input type="number" name="price" min="1000" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2">
+                            <input required type="number" name="price" min="1000" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2">
                         </div>
                         <p class="text-[12px] pt-1">Tips: Tuliskan harga jual per produk</p>
                     </td>
@@ -173,18 +173,17 @@
                 <tr>
                     <td class="flex">Deskripsi Produk</td>
                     <td class="py-2">
-                        <textarea name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]"></textarea>
+                        <textarea required name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]"></textarea>
                         <div class="flex justify-between">
                             <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 250 karakter agar pembeli semakin mudah mengerti.</p>
                             <div id="charCount" class="text-[14px] -mt-1">0/2000 kata</div>
                         </div>
-
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Jumlah Stok</td>
                     <td class="py-2">
-                        <input type="number" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia">
+                        <input required type="number" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia">
                         <p class="text-[12px] mt-1">Contoh : 20</p>
                     </td>
                 </tr>
@@ -192,10 +191,11 @@
                     <td class="w-2/6">Varian Produk</td>
                     <td class="py-2">
                         {{-- <input type="text" name="variant" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tambah Varian"> --}}
-                        <select class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                          </select>
+                        <select required class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
+                            @foreach ($variants as $variant)
+                            <option value="{{ $variant['id'] }}">{{ $variant['name'] }}</option>
+                            @endforeach
+                        </select>
                         <p class="text-[12px] mt-1">Contoh : Ukuran XL, Hijau</p>
                     </td>
                 </tr>
@@ -372,7 +372,6 @@
         $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: 'Pilih Kategori',
-                tags: true,
             });
         });
         $(document).ready(function() {

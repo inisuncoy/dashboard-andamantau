@@ -27,12 +27,14 @@
               </table>
         </div>
         <div class="flex items-center">
-            <button class="bg-[#2D76E5] rounded-[20px] py-3 px-10 text-lg font-bold text-white">Faktur</button>
+            @if ($transactionData['status'] == 1)
+            <a href="/transaksi/{{ $transactionData['id'] }}/faktur" class="bg-[#2D76E5] rounded-[20px] py-3 px-10 text-lg font-bold text-white">Faktur</a>
+            @endif
         </div>
     </div>
-    <div class="flex flex-col pt-5 pb-8 pl-5 pr-8 bg-white rounded-xl gap-y-2">
+    <div class="flex flex-col pt-5 pb-8 pl-5 pr-8 bg-white rounded-xl gap-y-5">
         <div class="flex justify-between">
-            <h1 class="font-bold text-[32px] text-black">Detail Produk</h1>
+            <h1 class="font-bold text-[30px] text-black">Detail Produk</h1>
             @if ($transactionData['status'] == 1)
                 <h1 class="text-center text-[#2DCE94] font-bold text-[32px]">Lunas</h1>
             @else
@@ -40,9 +42,16 @@
             @endif
         </div>
         <div class="flex flex-col gap-y-8">
+            @if (!$productList)
+            <h1>No Product Found</h1>
+            @else
             @foreach ($productList as $product)
             <div class="flex gap-x-10">
-                <img src={{ url(env('BACKEND_URL')) . "/" . $product['detail_product']['image'] }} alt="" class="object-cover w-32 h-32 rounded-md">
+                @if ($product['detail_product']['image'])
+                <img src={{ url(config('backend.backend_url') . "/" . $product['detail_product']['image'] ) }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-32 h-32 rounded-md" alt="" />
+                @else
+                <img src={{ url("assets/images/default-placeholder.png")  }} class="object-cover w-32 h-32 rounded-md" alt="" />
+                @endif
                 <div class="flex flex-col justify-between w-full">
                     <div class="">
                         <div class="flex items-center gap-x-14">
@@ -54,8 +63,12 @@
 
                     <div class="flex items-end justify-between">
                         <div class="flex flex-col gap-y-3">
+
                             <div>
+                                @if ($transactionData['status'] == 1)
                                 <span class="bg-[#2DCE94] text-white text-[18px] py-2 px-3 rounded-lg font-semibold">Sudah Dikirim</span>
+                                @endif
+
                             </div>
                         </div>
                         <div class="text-end">
@@ -65,6 +78,8 @@
                 </div>
             </div>
             @endforeach
+            @endif
+
         </div>
     </div>
 

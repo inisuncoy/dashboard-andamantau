@@ -23,14 +23,15 @@
     <div class="p-5 bg-white rounded-xl font-inter">
         <h1 class="text-[24px] font-bold">Blog yang kamu terbitkan</h1>
         <div class="grid w-full grid-cols-3 gap-3 mt-10">
-            <a href="/blog/edit">
+            @foreach ($newsDatas as $news)
+            <a href="/blog/{{ $news['id'] }}/edit">
                 <div class="w-full p-6 bg-white shadow-lg">
-                    <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} alt="">
-                    <h1 class="mt-5 text-xl font-bold">Cara Merawat Ikan Mujair</h1>
+                    <img src={{ url(config('backend.backend_url') . "/" . $news['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-full h-60" alt="">
+                    <h1 class="mt-5 text-xl font-bold">{{ $news['title'] }}</h1>
                     <p class="mt-3 line-clamp-3">
-                        Burung nuri, dengan kecantikan warna bulu dan kecerdasan mereka, adalah salah satu jenis burung hias yang Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi suscipit aut voluptatem, facere praesentium similique qui. Architecto accusamus est, cumque animi dicta blanditiis nostrum? Officiis odit fuga doloribus aperiam magni!
+                        {{ $news['content'] }}
                     </p>
-                    <p class="mt-5 text-lg font-medium ">04 Agustus 2023</p>
+                    <p class="mt-5 text-lg font-medium ">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $news['created_at'])->translatedFormat('d F Y');  }}</p>
                     <div class="flex items-center justify-end">
                         <h1 class="text-xl text-[#0645AD]">Ubah</h1>
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </a>
+            @endforeach
         </div>
     </div>
 </div>
