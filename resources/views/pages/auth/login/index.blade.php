@@ -16,11 +16,11 @@
                     @csrf
                     <div class="flex flex-col gap-y-1">
                         <label for="email" class="text-[22px] ml-5">Email</label>
-                        <input type="email" value="jovansus@gmail.com" name="email" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                        <input type="email" value="" name="email" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
                     </div>
                     <div class="flex flex-col gap-y-1">
                         <label for="password" class="text-[22px] ml-5">Kata Sandi</label>
-                        <input type="password" value="jovansus" name="password" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                        <input type="password" value="" name="password" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
                         <p class="text-[20px] mt-1 ml-5">Lupa Kata Sandi? <a href="#" class="text-[#6366F1] underline">Hubungi kami</a> </p>
                     </div>
                     <div class="flex justify-center mt-10">
