@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -11,10 +12,54 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $token = session('token');
         //
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors)->withInput();
+        }
+
+        $expensesData = $apiResponse->json()['data'];
+
+        // Total Pengeluaran Bulan Ini
+        $currentMonth = now()->format('Y-m');
+        $collection = collect($expensesData);
+
+        $filteredExpenses = $collection->filter(function ($expense) use ($currentMonth) {
+            return substr($expense['date'], 0, 7) === $currentMonth;
+        });
+
+        $totalPengeluaranBulanIni = $filteredExpenses->sum('nominal');
 
 
-        return view('pages.dashboard.index');
+        $collection = collect($expensesData);
+
+        // Get the current month and year
+        $currentMonth = now()->format('Y-m');
+
+        // Calculate the sum of expenses for the current month
+        $currentMonthExpenses = $collection->filter(function ($expense) use ($currentMonth) {
+            return substr($expense['date'], 0, 7) === $currentMonth;
+        })->sum('nominal');
+
+        // Calculate the sum of expenses for the previous month
+        $previousMonth = now()->subMonth()->format('Y-m');
+        $previousMonthExpenses = $collection->filter(function ($expense) use ($previousMonth) {
+            return substr($expense['date'], 0, 7) === $previousMonth;
+        })->sum('nominal');
+
+        if ($previousMonthExpenses > 0) {
+            $percentageChange = (($currentMonthExpenses - $previousMonthExpenses) / $previousMonthExpenses) * 100;
+        } else {
+            $percentageChange = 0; // Avoid division by zero
+        }
+
+        return view('pages.dashboard.index', [
+            'totalPengeluaranBulanIni' => $totalPengeluaranBulanIni,
+            'persentaseChangePengeluaran' => $percentageChange
+        ]);
     }
 
     /**

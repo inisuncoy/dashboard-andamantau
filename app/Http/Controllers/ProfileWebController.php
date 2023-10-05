@@ -96,14 +96,18 @@ class ProfileWebController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $imageName = str_replace(' ', '', $file->getClientOriginalName());
-            $file->storeAs('temp', $imageName, 'public');
-            $filePath = storage_path('app/public/temp/' . $imageName);
+            $file->storeAs('temp/image/', $imageName, 'public');
+            $filePath = storage_path('app/public/temp/image/' . $imageName);
 
             $apiResponse = Http::attach(
                 'file',
                 file_get_contents($filePath),
                 $imageName
             )->withToken($token)->post(config('backend.backend_url') . '/api/dashboard/umkm/profile', $request->all());
+
+            if ($apiResponse->successful()) {
+                unlink($filePath);
+            }
         } else {
             $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . '/api/dashboard/umkm/profile', $request->all());
         }

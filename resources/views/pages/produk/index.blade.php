@@ -21,10 +21,22 @@
     </div>
     @else
     <div class="flex flex-col p-10 mt-3 bg-white rounded-xl">
+        <div class="flex justify-end mb-5">
+            <form action="/produk" method="GET" class="relative w-[350px]">
+                <input type="text" name="query" id="query" class="w-full rounded-lg text-[17px] py-2 pl-12 border border-black" placeholder="Cari Nama Produk" value="{{ old('query') }}">
+                <span class="absolute left-3 top-[5px]">
+                    <svg class="w-[24px] h-[24px] md:w-[30px] md:h-[30px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="6" stroke="#222222" stroke-opacity="0.5"/>
+                        <path d="M20 20L17 17" stroke="#222222" stroke-opacity="0.5" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </form>
+        </div>
         <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
+
                 <div class="overflow-hidden border-2 border-[#99C1FF] rounded-xl">
-                    <table class="min-w-full divide-y divide-[#99C1FF] ">
+                    <table class="min-w-full divide-y divide-[#99C1FF]">
                         <thead class="bg-[#2D76E5] text-white rounded-lg">
                             <tr>
                                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Daftar Produk</th>
@@ -46,6 +58,15 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-[#99C1FF]">
+                            @if ($productsData->count() == 0)
+                            <tr>
+                                <td>
+                                    <h1 class="px-5 py-4 text-[20px]">
+                                        Produk Tidak Ditemukan
+                                    </h1>
+                                </td>
+                            </tr>
+                            @endif
                             @foreach ($productsData as $product)
                             <tr>
                                 <td class="px-6 py-4 font-medium text-center text-md">
@@ -75,10 +96,13 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
+                <div class="mt-5 pagination">
+                    {{ $productsData->onEachSide(1)->links('pagination::tailwind') }}
+                </div>
             </div>
         </div>
     </div>
-    @endif
 
 
 </div>

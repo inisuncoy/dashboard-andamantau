@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Alert;
 
 class ProductsController extends Controller
@@ -26,10 +28,17 @@ class ProductsController extends Controller
             Alert::success('Produk berhasil diedit');
         }
 
-
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/products');
+        $apiResponse = Http::withToken($token);
+
+        if ($request->query('query')) {
+            $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/searchProducts', [
+                'query' => $request->query('query'),
+            ]);
+        } else {
+            $apiResponse = $apiResponse->get(config('backend.backend_url') . '/api/dashboard/umkm/products');
+        }
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -38,10 +47,22 @@ class ProductsController extends Controller
 
         $productsData = $apiResponse->json()['data'];
 
+        $collection = new Collection($productsData);
+
+        $perPage = 10; // Number of items per page
+        $page = request()->get('page', 1); // Get the current page from the request
+        $paginator = new LengthAwarePaginator(
+            $collection->forPage($page, $perPage),
+            $collection->count(),
+            $perPage,
+            $page,
+            ['path' => route('produk')] // Replace 'your.route.name' with the actual route name
+        );
+
         // Alert::success('Success Title', 'Success Message');
 
         return view('pages.produk.index', [
-            'productsData' => $productsData,
+            'productsData' => $paginator,
         ]);
     }
 
@@ -50,9 +71,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        if (session('store_product') == 'failed') {
-            Alert::error('Gagal Membuat Product!');
-        }
+
 
         $token = session('token');
 
@@ -78,6 +97,10 @@ class ProductsController extends Controller
     //  */
     public function store(Request $request)
     {
+        if (session('store_product') == 'failed') {
+            Alert::error('Gagal Membuat Product!');
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token);
@@ -147,24 +170,30 @@ class ProductsController extends Controller
             );
         }
 
-        $requestedData = [
+        $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/product', [
             'name' => $request->name,
             'id_category_product' => $request->id_category_product,
             'status' => $request->status,
             'price' => $request->price,
             'description' => $request->description,
-            'variants' => $request->variants,
             'stock' => $request->stock,
             'weight' => $request->weight,
             'width' => $request->width,
             'length' => $request->length,
             'height' => $request->height,
-        ];
-
-        $apiResponse = $apiResponse->withBody(json_encode($requestedData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product');
-
+        ]);
 
         if ($apiResponse->failed()) {
+            return back()->with('store_product', 'failed')->withInput();
+        }
+
+        $variantData = [
+            'variants' => $request->variants,
+        ];
+
+        $apiResponse2 = Http::withToken($token)->withBody(json_encode($variantData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $apiResponse->json()['data']['id']);
+
+        if ($apiResponse2->failed()) {
             return back()->with('store_product', 'failed')->withInput();
         }
 
@@ -186,7 +215,6 @@ class ProductsController extends Controller
     {
         if (session('delete_product') == 'failed') {
             Alert::error('Gagal Menghapus Produk!');
-            session('delete_product')->flush();
         }
         $token = session('token');
 
@@ -287,25 +315,33 @@ class ProductsController extends Controller
             );
         }
 
-        $requestedData = [
+        $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $id, [
             'name' => $request->name,
             'id_category_product' => $request->id_category_product,
             'status' => $request->status,
             'price' => $request->price,
             'description' => $request->description,
-            'variants' => $request->variants,
             'stock' => $request->stock,
             'weight' => $request->weight,
             'width' => $request->width,
             'length' => $request->length,
             'height' => $request->height,
-            'file3' => $request->file('file3'),
-        ];
-
-        $apiResponse = $apiResponse->withBody(json_encode($requestedData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $id);
+        ]);
 
         if ($apiResponse->failed()) {
-            return back()->with('edit_product', 'failed')->withInput();
+            dd($apiResponse->json());
+            return back()->with('store_product', 'failed')->withInput();
+        }
+
+        $variantData = [
+            'variants' => $request->variants,
+        ];
+
+        $apiResponse2 = Http::withToken($token)->withBody(json_encode($variantData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $id);
+
+        if ($apiResponse2->failed()) {
+            dd($apiResponse2->json());
+            return back()->with('store_product', 'failed')->withInput();
         }
 
         return back()->with('edit_product', 'success');

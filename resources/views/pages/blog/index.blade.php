@@ -25,23 +25,34 @@
         <div class="grid w-full grid-cols-3 gap-3 mt-10">
             @foreach ($newsDatas as $news)
             <a href="/blog/{{ $news['id'] }}/edit">
-                <div class="w-full p-6 bg-white shadow-lg">
-                    <img src={{ url(config('backend.backend_url') . "/" . $news['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-full h-60" alt="">
-                    <h1 class="mt-5 text-xl font-bold">{{ $news['title'] }}</h1>
-                    <p class="mt-3 line-clamp-3">
-                        {{ $news['content'] }}
-                    </p>
-                    <p class="mt-5 text-lg font-medium ">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $news['created_at'])->translatedFormat('d F Y');  }}</p>
-                    <div class="flex items-center justify-end">
-                        <h1 class="text-xl text-[#0645AD]">Ubah</h1>
-                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.4624 18L18.3853 12L12.4624 6" stroke="#0645AD" stroke-width="2" />
-                            <path d="M6.53952 18L12.4624 12L6.53952 6" stroke="#0645AD" stroke-width="2" />
-                        </svg>
+                <div class="flex flex-col justify-between w-full h-full p-6 bg-white shadow-lg">
+                    <div>
+                        @if ($news['image'])
+                        <img src={{ url(config('backend.backend_url') . "/" . $news['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-full h-60" alt="">
+                        @else
+                        <img src={{ url('assets/images/default-placeholder.ong') }} alt="">
+                        @endif
+                        <h1 class="mt-5 text-xl font-bold line-clamp-1">{{ $news['title'] }}</h1>
+                        <p class="mt-3 line-clamp-3">
+                            {{ $news['content'] }}
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between mt-5">
+                        <p class="text-lg font-medium ">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $news['created_at'])->translatedFormat('d F Y');  }}</p>
+                        <div class="flex items-center">
+                            <h1 class="text-xl text-[#0645AD]">Ubah</h1>
+                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4624 18L18.3853 12L12.4624 6" stroke="#0645AD" stroke-width="2" />
+                                <path d="M6.53952 18L12.4624 12L6.53952 6" stroke="#0645AD" stroke-width="2" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
             @endforeach
+        </div>
+        <div class="mt-16 pagination">
+            {{ $newsDatas->onEachSide(1)->links('pagination::tailwind') }}
         </div>
     </div>
 </div>

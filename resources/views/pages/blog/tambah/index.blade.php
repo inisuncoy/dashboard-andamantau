@@ -91,7 +91,7 @@
                     <circle cx="178.125" cy="106.875" r="23.75" fill="#939393" />
                 </svg>
             </div>
-            <input type="file" name="file" id="file_input" class="hidden">
+            <input type="file" name="file" id="file_input" class="hidden" accept="image/png, image/jpeg, image/jpg">
             <div class="flex">
                 <label for='file_input' class="bg-[#2D76E5] text-white py-2 px-4 rounded-lg font-bold cursor-pointer flex items-center gap-x-3">
                     <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">

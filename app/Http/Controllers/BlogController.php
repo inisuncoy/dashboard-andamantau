@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Alert;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BlogController extends Controller
 {
@@ -24,8 +26,20 @@ class BlogController extends Controller
 
         $newsDatas = $apiResponse->json()['data'];
 
+        $collection = new Collection($newsDatas);
+
+        $perPage = 9; // Number of items per page
+        $page = request()->get('page', 1); // Get the current page from the request
+        $paginator = new LengthAwarePaginator(
+            $collection->forPage($page, $perPage),
+            $collection->count(),
+            $perPage,
+            $page,
+            ['path' => route('blog')] // Replace 'your.route.name' with the actual route name
+        );
+
         return view('pages.blog.index', [
-            'newsDatas' => $newsDatas
+            'newsDatas' => $paginator
         ]);
     }
 
@@ -59,11 +73,11 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        $token = session('token');
+
         if (session('create_blog') == 'failed') {
             Alert::success('Produk gagal dibuat!');
         }
-
-        $token = session('token');
 
         $apiResponse = Http::withToken($token);
 
@@ -72,7 +86,6 @@ class BlogController extends Controller
             $imageName = str_replace(' ', '', $file->getClientOriginalName());
             $file->storeAs('temp', $imageName, 'public');
             $filePath = storage_path('app/public/temp/' . $imageName);
-            // dd($request->all());
 
             $apiResponse = $apiResponse->attach(
                 'file',
@@ -81,16 +94,24 @@ class BlogController extends Controller
             );
         }
 
-        $requestedData = [
+        $labelDatas = [
+            'id_label_news' => $request->id_label_news
+        ];
+
+
+        $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/news', [
             'title' => $request->title,
             'id_category_news' => $request->id_category_news,
             'content' => $request->content,
-            'id_label_news' => $request->id_label_news,
-        ];
+        ]);
 
-        $apiResponse = $apiResponse->withBody(json_encode($requestedData))->post(config('backend.backend_url') . '/api/dashboard/umkm/news');
         if ($apiResponse->failed()) {
+            return back()->with('create_blog', 'failed');
+        }
 
+        $apiResponse2 = Http::withToken($token)->withBody(json_encode($labelDatas))->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $apiResponse->json()['data']['id']);
+
+        if ($apiResponse2->failed()) {
             return back()->with('create_blog', 'failed');
         }
 
@@ -108,9 +129,29 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        return view('pages.blog.edit.index');
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/news/" . $id);
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/newsLabel");
+        $apiResponse3 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/newsCategory");
+
+        if ($apiResponse->failed() and $apiResponse2->failed() and $apiResponse3->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors)->withInput();
+        }
+
+        $labels = $apiResponse2->json()['data'];
+        $categories = $apiResponse3->json()['data'];
+
+        $blogData = $apiResponse->json()['data'];
+
+        return view('pages.blog.edit.index', [
+            'blogData' => $blogData,
+            'labels' => $labels,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -118,7 +159,44 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $token = session('token');
+        $apiResponse = Http::withToken($token);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $imageName = str_replace(' ', '', $file->getClientOriginalName());
+            $file->storeAs('temp', $imageName, 'public');
+            $filePath = storage_path('app/public/temp/' . $imageName);
+
+            $apiResponse = $apiResponse->attach(
+                'file',
+                file_get_contents($filePath),
+                $imageName
+            );
+        }
+
+        $labelDatas = [
+            'id_label_news' => $request->id_label_news
+        ];
+
+        $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $id, [
+            'title' => $request->title,
+            'id_category_news' => $request->id_category_news,
+            'content' => $request->content,
+        ]);
+
+        if ($apiResponse->failed()) {
+
+            return back()->with('update_blog', 'failed');
+        }
+
+        $apiResponse2 = Http::withToken($token)->withBody(json_encode($labelDatas))->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $id);
+
+        if ($apiResponse2->failed()) {
+            return back()->with('update_blog', 'failed');
+        }
+
+        return back()->with('update_blog', 'success');
     }
 
     /**

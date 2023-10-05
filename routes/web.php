@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profil-toko/edit', [ProfileWebController::class, 'edit']);
     Route::post('/profil-toko/edit/update', [ProfileWebController::class, 'update']);
 
-    Route::get('/produk', [ProductsController::class, 'index']);
+    Route::get('/produk', [ProductsController::class, 'index'])->name('produk');
     Route::get('/produk/tambah', [ProductsController::class, 'create']);
     Route::post('/produk/tambah', [ProductsController::class, 'store']);
     Route::get('/produk/{id}/edit', [ProductsController::class, 'edit']);
@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pemasukan', [IncomeDashboardController::class, 'index']);
 
     Route::get('/pemasukan/selengkapnya', [IncomeController::class, 'index'])->name('pemasukan.selengkapnya');
-    Route::get('/pengeluaran/{id}/detail', [IncomeController::class, 'show']);
+    Route::get('/pemasukan/{id}/detail', [IncomeController::class, 'show']);
     Route::get('/pemasukan/tambah', [IncomeController::class, 'create']);
 
     Route::get('/pengeluaran', [ExpenseDashboardController::class, 'index']);
@@ -65,10 +65,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/laporan', [ReportDashboardController::class, 'index']);
 
-    Route::get('/blog', [BlogController::class, 'index']);
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog');
     Route::get('/blog/tambah', [BlogController::class, 'create']);
     Route::post('/blog/tambah', [BlogController::class, 'store']);
     Route::get('/blog/{id}/edit', [BlogController::class, 'edit']);
+    Route::post('/blog/{id}/edit', [BlogController::class, 'update']);
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');

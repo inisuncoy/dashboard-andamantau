@@ -12,7 +12,7 @@
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[20px] font-bold font-inter">Pengeluaran</h4>
-          <h1 class="text-[30px] font-[500]">Rp 400.000</h1>
+          <h1 class="text-[30px] font-[500]">Rp @currencyNonRp($totalPengeluaranBulanIni)</h1>
         </div>
         <div class="">
           <div class="bg-[#E1455D] rounded-full p-2">
@@ -27,12 +27,24 @@
       </div>
       <div class="flex items-center gap-x-2">
         <div class="flex items-end">
+          @if ($persentaseChangePengeluaran > 0)
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 6L12.7071 5.29289L12 4.58579L11.2929 5.29289L12 6ZM11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18L11 18ZM16.7071 9.29289L12.7071 5.29289L11.2929 6.70711L15.2929 10.7071L16.7071 9.29289ZM11.2929 5.29289L7.29289 9.29289L8.70711 10.7071L12.7071 6.70711L11.2929 5.29289ZM11 6L11 18L13 18L13 6L11 6Z"
               fill="#16E043" />
           </svg>
-          <span class="font-inter text-[#16E043] text-[14px] font-bold">5.12%</span>
+          <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($persentaseChangePengeluaran, 2) }}%</span>
+          @elseif ($persentaseChangePengeluaran < 0)
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 18L12.7071 18.7071L12 19.4142L11.2929 18.7071L12 18ZM11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44771 13 6L11 6ZM16.7071 14.7071L12.7071 18.7071L11.2929 17.2929L15.2929 13.2929L16.7071 14.7071ZM11.2929 18.7071L7.29289 14.7071L8.70711 13.2929L12.7071 17.2929L11.2929 18.7071ZM11 18L11 6L13 6L13 18L11 18Z"
+              fill="#FF0000" />
+          </svg>
+          <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($persentaseChangePengeluaran), 2) }}%</span>
+          @else
+          <span class="font-inter text-[#00000080] text-[14px] font-bold">Tidak ada perubahan</span>
+          @endif
+
         </div>
         <p class="font-inter text-[14px] mt-0.5">Sejak bulan lalu</p>
       </div>

@@ -14,21 +14,21 @@
             <div class="bg-[#F2CF00] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Total Pemasukkan</h4>
-                <h1 class="text-[30px] font-bold">Rp @currencyNonRp(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPemasukanBulanIni)</h1>
             </div>
         </div>
         <div class="border-2 border-black rounded-md ">
             <div class="bg-[#00C22B] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Total Pengeluaran</h4>
-                <h1 class="text-[30px] font-bold">Rp @currencyNonRp(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPengeluaranBulanIni)</h1>
             </div>
         </div>
         <div class="border-2 border-black rounded-md ">
             <div class="bg-[#FF0000BD] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Laba Bersih</h4>
-                <h1 class="text-[30px] font-bold">Rp @currencyNonRp(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPemasukanBulanIni - $totalPengeluaranBulanIni)</h1>
             </div>
         </div>
     </div>

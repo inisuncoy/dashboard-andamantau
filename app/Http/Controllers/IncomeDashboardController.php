@@ -13,24 +13,55 @@ class IncomeDashboardController extends Controller
     public function index()
     {
         $token = session('token');
-        $user_id = session('userData')['id'];
 
-        $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/reports/incomes", [
-            'id_user' => $user_id
-        ]);
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
         }
 
-
-
         $incomesData = $apiResponse->json()['data'];
         $limitedIncomesData = array_slice($incomesData, 0, 4);
 
+        $paymentTypes = $apiResponse2->json()['data'];
+
+        $currentMonth = now()->format('Y-m');
+        $collection = collect($incomesData);
+
+        // Total Pengeluaran
+        $totalPemasukan = 0;
+
+        foreach ($incomesData as $income) {
+            $totalPemasukan += $income['total'];
+        }
+
+        // Total Pemasukan Bulan Ini
+        $filteredIncomes = $collection->filter(function ($income) use ($currentMonth) {
+            return substr($income['transaction_date'], 0, 7) === $currentMonth;
+        });
+
+        $totalPemasukanBulanIni = $filteredIncomes->sum('total');
+
+        // Total Pengeluaran Minggu Ini
+        $currentWeekStartDate = now()->startOfWeek()->format('Y-m-d');
+        $currentWeekEndDate = now()->endOfWeek()->format('Y-m-d');
+
+        $filteredIncomes2 = $collection->filter(function ($income) use ($currentWeekStartDate, $currentWeekEndDate) {
+            return $income['transaction_date'] >= $currentWeekStartDate && $income['transaction_date'] <= $currentWeekEndDate;
+        });
+
+        $totalPengeluaranMingguIni = $filteredIncomes2->sum('total');
+
         return view('pages.pemasukan.index', [
-            'incomesData' => $limitedIncomesData
+            'incomesData' => $limitedIncomesData,
+            'paymentTypes' => $paymentTypes,
+            'totalPemasukan' => $totalPemasukan,
+            'totalPemasukanBulanIni' => $totalPemasukanBulanIni,
+            'totalPengeluaranMingguIni' => $totalPengeluaranMingguIni,
+
+
         ]);
     }
 

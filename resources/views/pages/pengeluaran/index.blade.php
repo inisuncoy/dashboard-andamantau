@@ -22,21 +22,21 @@
             <div class="bg-[#F2CF00] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Total Pengeluaran</h4>
-                <h1 class="text-[30px] font-bold">@currency(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPengeluaran)</h1>
             </div>
         </div>
         <div class="border-2 border-black rounded-md ">
             <div class="bg-[#00C22B] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Pengeluaran Bulan Ini</h4>
-                <h1 class="text-[30px] font-bold">@currency(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPengeluaranBulanIni)</h1>
             </div>
         </div>
         <div class="border-2 border-black rounded-md ">
             <div class="bg-[#FF0000BD] w-full h-2 rounded-t-md"></div>
             <div class="flex flex-col items-center justify-center my-5 gap-y-2">
                 <h4 class="text-[24px]">Pengeluaran Minggu Ini</h4>
-                <h1 class="text-[30px] font-bold">@currency(21123000)</h1>
+                <h1 class="text-[30px] font-bold">@currency($totalPengeluaranMingguIni)</h1>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
                   <thead class="bg-[#2D76E5] text-white rounded-lg">
                     <tr>
                         <th scope="col" class="px-6 py-3 font-bold text-center rounded-tl-lg text-md whitespace-nowrap">No</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal & Waktu</th>
+                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Total Pengeluaran (Rp)</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Deskripsi</th>
                         <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap"></th>
@@ -65,7 +65,7 @@
                     @foreach ($expensesData as $index => $expense)
                     <tr class="">
                         <td class="px-6 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap">{{ $index + 1 }}</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ $expense['date'] }} (Prototype)</td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $expense['date'])->format('d F Y') }}</td>
                         <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($expense['nominal'])</td>
                         <td class="px-6 py-6 w-[300px] text-center text-gray-800 text-md">
                             <p class="line-clamp-1">

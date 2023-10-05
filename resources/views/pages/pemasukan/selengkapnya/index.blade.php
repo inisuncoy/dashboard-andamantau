@@ -63,9 +63,15 @@
                 @foreach ($incomesData as $index => $income)
                     <tr>
                         <td class="px-6 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap ">{{ $index + 1 }}</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ $income['date'] }} (Prototype)</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currency($income['nominal'])</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">Gopay (Prototype)</td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::parse($income['transaction_date'] . ' ' . $income['timestamp'])->format('d M Y, H:i') }}</td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($income['total'])</td>
+                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">
+                            @foreach ($paymentTypes as $paymentType)
+                            @if ($paymentType['id'] == $income['id_payment_type'])
+                            <p class="uppercase">{{ $paymentType['name'] }}</p>
+                            @endif
+                            @endforeach
+                        </td>
                         <td class="px-6 py-6 font-medium text-center text-md whitespace-nowrap">
                             <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
                         </td>

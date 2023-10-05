@@ -48,9 +48,8 @@
         <div class="flex items-center">
             <a href="/produk/{{ $productData['id'] }}/delete" class="px-8 py-2 bg-[#FF0000] text-[20px] flex items-center justify-center rounded-lg text-white font-bold" data-confirm-delete="true">Hapus Produk</a>
         </div>
-
     </div>
-    <form method="POST" enctype="multipart/form-da  ta" action="/produk/{{ $productData['id'] }}/edit">
+    <form method="POST" enctype="multipart/form-data" action="/produk/{{ $productData['id'] }}/edit">
         @csrf
         <div class="p-5 bg-white rounded-xl font-inter">
             <h1 class="text-[24px] font-bold">Informasi Produk</h1>
@@ -82,8 +81,8 @@
                         <td class="w-2/5">Status</td>
                         <td class="py-2">
                             <select required name="status" class="w-full rounded-md py-3 px-2 border-2 border-[#9CD3FF] invalid:text-[#00000080]" id="">
-                                <option value="1" class="text-black" {{ ($productData['status'] == 1) ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" class="text-black" {{ ($productData['status'] == 0) ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="1" class="text-black" {{ ($productData['status'] == "1") ? 'selected' : '' }}>Aktif</option>
+                                <option value="0" class="text-black" {{ ($productData['status'] == "0") ? 'selected' : '' }}>Tidak Aktif</option>
                             </select>
                         </td>
                     </tr>
@@ -122,7 +121,7 @@
                                 @if ($productData['image'])
                                 <label for="file_input" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image" src={{ url(config('backend.backend_url') . "/" . $productData['image']) }} class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-sm cursor-pointer" alt="">
+                                        <img id="file_image" src={{ url(config('backend.backend_url') . "/" . $productData['image']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,7 +158,7 @@
                                 @if ($productData['image_2'])
                                 <label for="file_input2" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image2" src={{ url(config('backend.backend_url') . "/" . $productData['image_2']) }} class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-sm cursor-pointer" alt="">
+                                        <img id="file_image2" src={{ url(config('backend.backend_url') . "/" . $productData['image_2']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +195,7 @@
                                 @if ($productData['image_3'])
                                 <label for="file_input3" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image3" src={{ url(config('backend.backend_url') . "/" . $productData['image_3']) }} class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-sm cursor-pointer" alt="">
+                                        <img id="file_image3" src={{ url(config('backend.backend_url') . "/" . $productData['image_3']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +232,7 @@
                                 @if ($productData['image_4'])
                                 <label for="file_input4" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image4" src={{ url(config('backend.backend_url') . "/" . $productData['image_4']) }} class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-sm cursor-pointer" alt="">
+                                        <img id="file_image4" src={{ url(config('backend.backend_url') . "/" . $productData['image_4']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +269,7 @@
                                 @if ($productData['image_5'])
                                 <label for="file_input5" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image5" src={{ url(config('backend.backend_url') . "/" . $productData['image_5']) }} class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-sm cursor-pointer" alt="">
+                                        <img id="file_image5" src={{ url(config('backend.backend_url') . "/" . $productData['image_5']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
