@@ -46,8 +46,6 @@ class LoginController extends Controller
         $request->session()->put('token', $token);
         $request->session()->put('userData', $userData);
 
-        // dd($request->session()->get('token'));
-
         return redirect('/');
     }
 

@@ -20,16 +20,9 @@ class VerifyJWTToken
             return redirect('/login');
         }
 
-
-        // try {
-        //     $apiResponse = Http::withToken($token)->get(env('BACKEND_URL') . '/api/dashboard/umkm/profile');
-
-        //     if ($apiResponse->failed()) {
-        //         return redirect('/login');
-        //     }
-        // } catch (Exception $e) {
-        //     return redirect('/login');
-        // }
+        if ($request->session()->all()['userData']['id_role'] !== 2) {
+            return redirect('/login')->with('auth', 'failed');
+        }
 
         return $next($request);
     }
