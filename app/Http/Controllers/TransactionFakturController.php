@@ -60,7 +60,7 @@ class TransactionFakturController extends Controller
         }
 
 
-        return view('pages.transaksi.detail.faktur.index', [
+        return view('pages.transaksi.detail.Faktur.index', [
             'transactionData' => $transactionData,
             'productList' => $productList,
             'paymentList' => $paymentList
