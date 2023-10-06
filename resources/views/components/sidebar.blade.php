@@ -2,7 +2,7 @@
   <div class="bg-white w-[264px] rounded-lg h-full flex flex-col justify-between">
     <div>
       <div class="flex items-center px-5 pt-5 pb-3 gap-x-5">
-        <img src="{{ session('userData')['profile_photo_url'] }}" class="w-[50px] h-[50px] rounded-full object-cover" alt="">
+        <img src="{{ url(config('backend.backend_url') . "/" . session('userData')['umkm_image']) }}" class="w-[50px] h-[50px] rounded-full object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
           <p>{{ session('userData')['owner_name'] }}</p>
