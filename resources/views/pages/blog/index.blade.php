@@ -38,7 +38,7 @@
                         </p>
                     </div>
                     <div class="flex items-center justify-between mt-5">
-                        <p class="text-lg font-medium ">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $news['created_at'])->translatedFormat('d F Y');  }}</p>
+                        <p class="text-lg font-medium ">{{ ($news['created_at']) ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $news['created_at'])->translatedFormat('d F Y') : 'undefined'  }}</p>
                         <div class="flex items-center">
                             <h1 class="text-xl text-[#0645AD]">Ubah</h1>
                             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
