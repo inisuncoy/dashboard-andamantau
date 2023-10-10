@@ -35,9 +35,9 @@
 </style>
 <div class="flex flex-col gap-y-10">
   <div>
-    <h1 class="text-white text-[30px] font-semibold">Blog</h1>
+    <h1 class="text-white text-[30px] font-semibold">Berita</h1>
     <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-      <a href="/blog">Blog</a>
+      <a href="/blog">Berita</a>
       >
       <p>Ubah</p>
     </div>

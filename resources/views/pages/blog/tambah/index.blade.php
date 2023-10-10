@@ -36,11 +36,11 @@
 </style>
 <div class="flex flex-col gap-y-10">
   <div>
-    <h1 class="text-white text-[30px] font-semibold">Blog</h1>
+    <h1 class="text-white text-[30px] font-semibold">Berita</h1>
     <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-      <a href="/blog">Blog</a>
+      <a href="/blog">Berita</a>
       >
-      <p>Tambah Blog</p>
+      <p>Tambah Berita</p>
     </div>
   </div>
   <form method="POST" enctype="multipart/form-data" action="/blog/tambah" class="p-5 bg-white rounded-xl font-inter">

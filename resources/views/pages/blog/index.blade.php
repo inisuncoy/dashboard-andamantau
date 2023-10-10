@@ -3,11 +3,11 @@
 @section('pages')
 <div class="flex flex-col gap-y-10">
     <div class="flex justify-between">
-        <h1 class="text-white text-[30px] font-semibold">Blog</h1>
+        <h1 class="text-white text-[30px] font-semibold">Berita</h1>
     </div>
     <div>
         <div class="w-full h-[80px] rounded-2xl bg-white flex items-center justify-between px-6">
-            <label for="" class="text-2xl font-bold">Tulis Blog</label>
+            <label for="" class="text-2xl font-bold">Tulis Berita</label>
             <a href="/blog/tambah">
                 <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="p-5 bg-white rounded-xl font-inter">
-        <h1 class="text-[24px] font-bold">Blog yang kamu terbitkan</h1>
+        <h1 class="text-[24px] font-bold">Berita yang kamu terbitkan</h1>
         <div class="grid w-full grid-cols-3 gap-3 mt-10">
             @foreach ($newsDatas as $news)
             <a href="/blog/{{ $news['id'] }}/edit">
