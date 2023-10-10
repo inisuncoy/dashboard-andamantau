@@ -52,8 +52,11 @@
                 <tr>
                     <td class="w-2/6">Nama Produk</td>
                     <td class="py-2">
-                        <input required type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg">
+                        <input required type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg" value="{{ old('name') }}">
                         <p class="text-[12px] pt-1">Tips: Nama produknya saja</p>
+                        @error('name')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +65,7 @@
                         <select required class="js-example-basic-single" style="width: 100%;" name="id_category_product">
                             <option value="" selected disabled hidden></option>
                             @foreach ($categories as $category)
-                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                            <option value="{{ $category['id'] }}" {{ (old('id_category_product') == $category['id'] ? "selected" : "" ) }}>{{ $category['name'] }}</option>
                             @endforeach
                         </select>
                         <p class="text-[12px] pt-1">Tips: Pilih kategori sesuai UMKM mu</p>
@@ -72,8 +75,8 @@
                     <td class="w-2/6">Status</td>
                     <td class="py-2">
                         <select required type="text" name="status" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
-                            <option value="0" selected>Tidak Aktif</option>
-                            <option value="1">Aktif</option>
+                            <option value="0" {{ (old('status') == "0" ? "selected" : "" ) }} >Tidak Aktif</option>
+                            <option value="1" {{ (old('status') == "1" ? "selected" : "" ) }} >Aktif</option>
                         </select>
                     </td>
                 </tr>
@@ -90,9 +93,12 @@
                     <td class="py-2">
                         <div class="flex items-center" dir="ltr">
                             <div class="bg-[#E4F3FF] py-2 px-3 rounded-l-md border-2 border-r-0 border-[#9CD3FF]">Rp.</div>
-                            <input required type="number" name="price" min="1000" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2">
+                            <input required type="text" name="price" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2" value="{{ old('price') }}">
                         </div>
                         <p class="text-[12px] pt-1">Tips: Tuliskan harga jual per produk</p>
+                        @error('price')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
             </tbody>
@@ -117,7 +123,7 @@
                                     <rect x="64.5" y="61.5" width="22" height="22" rx="11" fill="white" stroke="#B3DDFF" stroke-width="3"/>
                                     <path d="M76 77V72.5L76 68M71 72.5H81" stroke="#B3DDFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <input required type="file" name="file" id="file_input" class="hidden" accept="image/png, image/jpeg, image/jpg">
+                                <input type="file" name="file" id="file_input" class="hidden" accept="image/png, image/jpeg, image/jpg">
                             </label>
                             <label for="file_input2" class="cursor-pointer">
                                 <img src="" alt="" id="file_image2" class="w-[97px] h-[97px] object-cover hidden">
@@ -168,6 +174,24 @@
                                 <input type="file" name="file5" id="file_input5" class="hidden" class="hidden" accept="image/png, image/jpeg, image/jpg">
                             </label>
                         </div>
+
+                        <div class="mt-2">
+                            @error('file')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file2')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file3')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file4')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file5')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -177,26 +201,31 @@
                         <div class="flex justify-between">
                             <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 250 karakter agar pembeli semakin mudah mengerti.</p>
                             <div id="charCount" class="text-[14px] -mt-1">0/2000 kata</div>
+                            @error('description')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Jumlah Stok</td>
                     <td class="py-2">
-                        <input required type="number" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia">
+                        <input required type="text" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia">
                         <p class="text-[12px] mt-1">Contoh : 20</p>
+                        @error('stock')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Varian Produk</td>
                     <td class="py-2">
-                        {{-- <input type="text" name="variant" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tambah Varian"> --}}
                         <select required class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
                             @foreach ($variants as $variant)
                             <option value="{{ $variant['id'] }}">{{ $variant['name'] }}</option>
                             @endforeach
                         </select>
-                        <p class="text-[12px] mt-1">Contoh : Ukuran XL, Hijau</p>
+                        <p class="text-[12px] mt-1">Bisa memilih lebih dari satu label</p>
                     </td>
                 </tr>
                 <tr>

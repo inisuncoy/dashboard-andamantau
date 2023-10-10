@@ -69,20 +69,19 @@ class ProfileWebController extends Controller
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profile');
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profileCities');
 
-        if ($apiResponse->failed()) {
+        if ($apiResponse->failed() and $apiResponse2->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
         }
 
+        $umkmCities = $apiResponse2->json()['data'];
         $umkmData = $apiResponse->json()['data'];
 
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/profile/city/' . $umkmData['id_city']);
-
-        $umkmCity = $apiResponse2->json()['data'];
         return view('pages.profil-web.edit.index', [
             'umkmData' => $umkmData,
-            'umkmCity' => $umkmCity,
+            'umkmCities' => $umkmCities
         ]);
     }
 

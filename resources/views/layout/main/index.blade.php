@@ -20,10 +20,9 @@
     </div>
 
   </div>
-  @include('sweetalert::alert')
-
 
   @stack('js')
+  @include('sweetalert::alert')
 </body>
 
 </html>

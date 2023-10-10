@@ -184,7 +184,9 @@ class ProductsController extends Controller
         ]);
 
         if ($apiResponse->failed()) {
-            return back()->with('store_product', 'failed')->withInput();
+            $errors = $apiResponse->json();
+            dd($errors);
+            return back()->withErrors($errors)->withInput();
         }
 
         $variantData = [

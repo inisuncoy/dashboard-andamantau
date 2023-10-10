@@ -1,13 +1,22 @@
 @extends('layout.main.index')
 
 @section('pages')
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+</style>
 <div class="flex flex-col gap-y-10">
   <div>
     <h1 class="text-white text-[30px] font-semibold">Pengeluaran</h1>
     <div class="text-white text-[18px] flex gap-x-2 font-semibold">
       <a href="/pengeluaran">Pengeluaran</a>
       >
-      <p>Tambah Pengeluaran</p>
+      <a href="/pengeluaran/selengkapnya">Lihat Selengkapnya</a>
+      >
+      Detail Pengeluaran
     </div>
   </div>
   <form method="POST" action="/pengeluaran/{{ $expenseData['id'] }}/edit" class="p-5 bg-white rounded-xl font-inter">
@@ -38,8 +47,8 @@
             <input
                 type="number"
                 name="nominal"
-                placeholder="Masukan total penegeluaran"
-                class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
+                placeholder="Masukan total pengeluaran"
+                class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px] appearance-none"
                 value="{{ $expenseData['nominal'] }}">
           </td>
         </tr>

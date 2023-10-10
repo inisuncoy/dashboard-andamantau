@@ -62,7 +62,13 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-[#A3C8FF]">
+                    @if (empty($expensesData))
+                    <tr>
+                        <td colspan="2" class="text-[25px] py-10 px-10">Pengeluaran Kosong</td>
+                    </tr>
+                    @else
                     @foreach ($expensesData as $index => $expense)
+
                     <tr class="">
                         <td class="px-6 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap">{{ $index + 1 }}</td>
                         <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $expense['date'])->format('d F Y') }}</td>
@@ -77,6 +83,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>

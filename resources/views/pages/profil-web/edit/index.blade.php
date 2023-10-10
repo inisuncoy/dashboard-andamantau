@@ -52,7 +52,11 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Kota</td>
                     <td class="py-2">
-                        <input type="text" name="kota" value="{{ $umkmCity }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jakarta Selatan">
+                        <select name="id_city" id="" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]">
+                            @foreach ($umkmCities as $city)
+                                <option value="{{ $city['id'] }}" {{ ($city['id'] == $umkmData['id_city']) ? 'selected' : '' }}>{{ $city['name'] }}</option>
+                            @endforeach
+                        </select>
                     </td>
                 </tr>
                 <tr>

@@ -10,7 +10,11 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileWebController;
 use App\Http\Controllers\TransactionController;
+use Illuminate\Auth\Notifications\ResetPassword;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\IncomeDashboardController;
+use App\Http\Controllers\OTPVerificationController;
 use App\Http\Controllers\ReportDashboardController;
 use App\Http\Controllers\ExpenseDashboardController;
 use App\Http\Controllers\TransactionFakturController;
@@ -27,6 +31,18 @@ use App\Http\Controllers\TransactionFakturController;
 */
 
 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store']);
+
+Route::get('/lupa-sandi', [ForgotPasswordController::class, 'index']);
+Route::post('/lupa-sandi', [ForgotPasswordController::class, 'store']);
+
+Route::get('/verifikasi-otp', [OTPVerificationController::class, 'index']);
+Route::post('/verifikasi-otp', [OTPVerificationController::class, 'store']);
+
+Route::get('/reset-password', [ResetPasswordController::class, 'index']);
+
+Route::get('/logout', [LogoutController::class, 'store']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index']);
@@ -34,7 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi', [TransactionController::class, 'index']);
     Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
     Route::get('/transaksi/{id}/faktur', [TransactionFakturController::class, 'show']);
-
 
     Route::get('/profil-toko', [ProfileWebController::class, 'index']);
     Route::get('/profil-toko/edit', [ProfileWebController::class, 'edit']);
@@ -61,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/pengeluaran/tambah', [ExpenseController::class, 'store']);
     Route::get('/pengeluaran/{id}/detail', [ExpenseController::class, 'show']);
     Route::post('/pengeluaran/{id}/edit', [ExpenseController::class, 'update']);
-    Route::get('/pengeluaran/{id}/delete', [ExpenseController::class, 'destroy']);
+    Route::delete('/pengeluaran/{id}/delete', [ExpenseController::class, 'destroy']);
 
     Route::get('/laporan', [ReportDashboardController::class, 'index']);
 
@@ -71,11 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/blog/{id}/edit', [BlogController::class, 'edit']);
     Route::post('/blog/{id}/edit', [BlogController::class, 'update']);
 });
-
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'store']);
-
-Route::get('/logout', [LogoutController::class, 'store']);
 
 Route::get('/transaksi/detail/faktur', function () {
     return view('pages.transaksi.detail.faktur.index');

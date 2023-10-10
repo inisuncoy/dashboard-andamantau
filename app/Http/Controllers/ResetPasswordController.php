@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
-class LoginController extends Controller
+class ResetPasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.auth.login.index');
+        return view('pages.auth.reset-password.index');
     }
 
     /**
@@ -28,25 +27,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ];
-
-        $apiResponse = Http::post(config('backend.backend_url') . '/api/login', $credentials);
-
-        if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
-        }
-
-        $token = $apiResponse->json()['data']['jwt_token'];
-        $userData = $apiResponse->json()['data']['user'];
-
-        $request->session()->put('token', $token);
-        $request->session()->put('userData', $userData);
-
-        return redirect('/')->with(['auth_login' => 'success']);
+        //
     }
 
     /**

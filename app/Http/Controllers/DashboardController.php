@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Alert;
 
 class DashboardController extends Controller
 {
@@ -12,6 +13,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if (session('auth_login') == 'success') {
+            Alert::toast('Selamat datang di dashboard UMKM', 'success');
+        }
+
         $token = session('token');
         //
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");

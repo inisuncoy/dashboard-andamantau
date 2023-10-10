@@ -13,16 +13,47 @@ class ExpenseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        if (session('store_pengeluaran') == 'success') {
+            Alert::success('Berhasil', 'Pengeluaran telah dibuat')->autoClose(4000);
+        }
+
+        if (session('destroy_pengeluaran') == 'success') {
+            Alert::success('Berhasil', 'Pengeluaran berhasil dihapus')->autoClose(4000);
+        }
+
+        if (session('destroy_pengeluaran') == 'failed') {
+            Alert::error('Error', 'Gagal menghapus pengeluaran!')->autoClose(4000);
+        }
+
+        $title = "Apakah anda yakin ingin menghapus pengeluaran ini dari daftar pengeluaran?";
+        confirmDelete($title);
+
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+        $query = $request->query('bulan');
 
-        if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+        if ($query) {
+            $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expensesMonth", [
+                'bulan' => $query
+            ]);
+
+            if ($apiResponse->failed()) {
+                $errors = $apiResponse->json();
+                return back()->withErrors($errors)->withInput();
+            }
+        } else {
+            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+
+            if ($apiResponse->failed()) {
+                $errors = $apiResponse->json();
+                return back()->withErrors($errors)->withInput();
+            }
         }
+
+
 
         $expensesData = $apiResponse->json()['data'];
 
@@ -39,9 +70,6 @@ class ExpenseController extends Controller
         );
 
         $total_data = $paginator->total();
-
-        $title = "Apakah anda yakin ingin menghapus pengeluaran ini dari daftar pengeluaran?";
-        confirmDelete($title);
 
         return view('pages.pengeluaran.selengkapnya.index', [
             'expensesData' => $paginator,
@@ -72,9 +100,7 @@ class ExpenseController extends Controller
             return back()->withErrors($errors)->withInput();
         }
 
-
-
-        return redirect()->route('pengeluaran.selengkapnya');
+        return redirect()->route('pengeluaran.selengkapnya')->with(['store_pengeluaran' => 'success']);
     }
 
     /**
@@ -82,6 +108,14 @@ class ExpenseController extends Controller
      */
     public function show(string $id)
     {
+        if (session('edit_pengeluaran') == 'success') {
+            Alert::success('Berhasil', 'Pengeluaran telah diupdate')->autoClose(4000);
+        }
+
+        if (session('edit_pengeluaran') == 'failed') {
+            Alert::error('Error', 'Gagal mengupdate pengeluaran')->autoClose(4000);
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expense/" . $id);
@@ -117,10 +151,10 @@ class ExpenseController extends Controller
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->with(['edit_pengeluaran' => 'failed']);
         }
 
-        return back();
+        return back()->with(['edit_pengeluaran' => 'success']);
     }
 
     /**
@@ -133,9 +167,9 @@ class ExpenseController extends Controller
         $apiResponse = Http::withToken($token)->delete(config('backend.backend_url') . "/api/dashboard/umkm/report/expense/" . $id);
 
         if ($apiResponse->failed()) {
-            return back()->with('delete_expense', 'failed');
+            return back()->with(['destroy_pengeluaran' => 'failed']);
         }
 
-        return redirect('/pengeluaran/selengkapnya')->with('delete_expense', 'success');
+        return redirect('/pengeluaran/selengkapnya')->with(['destroy_pengeluaran' => 'success']);
     }
 }
