@@ -17,6 +17,12 @@ class ReportDashboardController extends Controller
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
         $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
 
+        $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
+        $apiPengeluaranPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pengeluaranPerBulanSatuTahun");
+
+        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
+        $pengeluaranPerBulanSatuTahun = $apiPengeluaranPerBulanSatuTahun->json()['data'];
+
         if ($apiResponse->failed() and $apiResponse->failed()) {
             $errors = $apiResponse->json();
             $errors = $apiResponse2->json();
@@ -48,7 +54,9 @@ class ReportDashboardController extends Controller
 
         return view('pages.laporan.index', [
             'totalPengeluaranBulanIni' => $totalPengeluaranBulanIni,
-            'totalPemasukanBulanIni' => $totalPemasukanBulanIni
+            'totalPemasukanBulanIni' => $totalPemasukanBulanIni,
+            'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
+            'pengeluaranPerBulanSatuTahun' => $pengeluaranPerBulanSatuTahun,
         ]);
     }
 

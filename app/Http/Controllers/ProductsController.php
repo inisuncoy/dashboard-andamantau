@@ -36,6 +36,10 @@ class ProductsController extends Controller
             $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/searchProducts', [
                 'query' => $request->query('query'),
             ]);
+        } elseif ($request->query('sortBy')) {
+            $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/sortByStockProducts', [
+                'sortBy' => $request->query('sortBy'),
+            ]);
         } else {
             $apiResponse = $apiResponse->get(config('backend.backend_url') . '/api/dashboard/umkm/products');
         }

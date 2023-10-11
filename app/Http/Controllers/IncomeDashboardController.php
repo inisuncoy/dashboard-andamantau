@@ -17,6 +17,9 @@ class IncomeDashboardController extends Controller
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
         $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
 
+        $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
+        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
+
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
@@ -60,7 +63,7 @@ class IncomeDashboardController extends Controller
             'totalPemasukan' => $totalPemasukan,
             'totalPemasukanBulanIni' => $totalPemasukanBulanIni,
             'totalPengeluaranMingguIni' => $totalPengeluaranMingguIni,
-
+            'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun
 
         ]);
     }

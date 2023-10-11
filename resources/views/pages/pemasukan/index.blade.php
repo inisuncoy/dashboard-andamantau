@@ -33,8 +33,7 @@
         </div>
     </div>
     <div class="mt-10">
-      <div class="border-2 border-blue-500 px-[10px] py-[29px] rounded-2xl text-center">
-        <h1 class="text-2xl font-semibold">Total Pemasukan per Bulan</h1>
+      <div class="border-2 border-blue-500 px-[10px] pb-[10px] rounded-2xl text-center">
         <canvas id="pemasukanChart" class="w-full h-full mt-5"></canvas>
       </div>
       <div class="mt-10 ">
@@ -87,3 +86,9 @@
   </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    const chartDataPendapatanPerBulanSatuTahun = @json($pendapatanPerBulanSatuTahun);
+</script>
+@endpush

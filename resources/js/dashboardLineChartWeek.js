@@ -1,20 +1,15 @@
 import Chart from "chart.js/auto";
 
-const datasets = chartDataPendapatanPerBulanSatuTahun.datasets;
+const datasets = chartDataPendapatanPerHariSatuMinggu.datasets;
 
 const labels = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
+    "Minggu"
 ];
 const data = {
     labels: labels,
@@ -22,8 +17,8 @@ const data = {
         {
             label: "Total Pendapatan",
             data: datasets,
-            borderColor: "#00B9E3",
-            backgroundColor: "#00B9E3",
+            borderColor: "#FF0000",
+            backgroundColor: "#FF0000",
         },
     ],
 };
@@ -33,6 +28,7 @@ const config = {
     data: data,
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: "top",
@@ -40,10 +36,10 @@ const config = {
             },
             title: {
                 display: true,
-                text: "Total Pemasukan per Bulan",
-                align: "center",
+                text: "Grafik Pendapatan UMKM Per Minggu",
+                align: "start",
                 font: {
-                    size: 30
+                    size: 22
                 },
                 color: '#000000',
             },
@@ -51,4 +47,4 @@ const config = {
     },
 };
 
-new Chart(document.getElementById("pemasukanChart"), config);
+new Chart(document.getElementById("dashboardLineChartWeek"), config);

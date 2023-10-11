@@ -1,31 +1,34 @@
 import Chart from "chart.js/auto";
 
+const pendapatanDatasets = chartDataPendapatanPerBulanSatuTahun.datasets;
+const pengeluaranDatasets = chartDataPengeluaranPerBulanSatuTahun.datasets;
+
 const labels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
     "Mei",
-    "Jun",
-    "Jul",
-    "Ags",
-    "Sep",
-    "Okt",
-    "Nov",
-    "Des",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
 ];
 const data = {
     labels: labels,
     datasets: [
         {
-            label: "Dataset 1",
-            data: [0, 10, 5, 2, 20, 45, 50, 10, 5, 2, 20, 10],
+            label: "Total Pengeluaran",
+            data: pengeluaranDatasets,
             borderColor: "#FF0000",
             backgroundColor: "#FF0000",
         },
         {
-            label: "Dataset 2",
-            data: [0, 5, 15, 20, 25, 10, 50, 20, 45, 50, 10, 5],
+            label: "Total Pendapatan",
+            data: pendapatanDatasets,
             borderColor: "#00B9E3",
             backgroundColor: "#00B9E3",
         },
@@ -40,11 +43,16 @@ const config = {
         plugins: {
             legend: {
                 position: "top",
-                display: false,
+                display: true,
             },
             title: {
-                display: false,
-                text: "Chart.js Line Chart",
+                display: true,
+                text: "Laporan Per Bulan",
+                align: "center",
+                font: {
+                    size: 30
+                },
+                color: '#000000',
             },
         },
     },

@@ -16,6 +16,9 @@ class ExpenseDashboardController extends Controller
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
 
+        $apiPengeluaranPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pengeluaranPerBulanSatuTahun");
+        $pengeluaranPerBulanSatuTahun = $apiPengeluaranPerBulanSatuTahun->json()['data'];
+
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
             return back()->withErrors($errors)->withInput();
@@ -55,7 +58,8 @@ class ExpenseDashboardController extends Controller
             'expensesData' => $limitedExpensesData,
             'totalPengeluaran' => $totalPengeluaran,
             'totalPengeluaranBulanIni' => $totalPengeluaranBulanIni,
-            'totalPengeluaranMingguIni' => $totalPengeluaranMingguIni
+            'totalPengeluaranMingguIni' => $totalPengeluaranMingguIni,
+            'pengeluaranPerBulanSatuTahun' => $pengeluaranPerBulanSatuTahun
         ]);
     }
 

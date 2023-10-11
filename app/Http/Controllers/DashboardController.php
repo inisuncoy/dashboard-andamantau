@@ -19,21 +19,30 @@ class DashboardController extends Controller
 
         $token = session('token');
 
-        $apiPengeluaran = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pengeluaran");
-        $apiLabaBersih = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/labaBersih");
-        $apiPesananBaru = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pesananBaru");
-        $apiBarangTerjual = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/barangTerjual");
+        $apiPengeluaran = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pengeluaran");
+        $apiLabaBersih = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/labaBersih");
+        $apiPesananBaru = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pesananBaru");
+        $apiBarangTerjual = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/barangTerjual");
+        $apiPendapatanPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
+        $apiPendapatanPerHariSatuMinggu = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerHariSatuMinggu");
+        $apiPeningkatanPesananPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/peningkatanPesananPerBulanSatuTahun");
 
         $pengeluaran = $apiPengeluaran->json()['data'];
         $labaBersih = $apiLabaBersih->json()['data'];
         $pesananBaru = $apiPesananBaru->json()['data'];
         $barangTerjual = $apiBarangTerjual->json()['data'];
+        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
+        $pendapatanPerHariSatuMinggu = $apiPendapatanPerHariSatuMinggu->json()['data'];
+        $peningkatanPesananPerBulanSatuTahun = $apiPeningkatanPesananPerBulanSatuTahun->json()['data'];
 
         return view('pages.dashboard.index', [
             'pengeluaran' => $pengeluaran,
             'labaBersih' => $labaBersih,
             'pesananBaru' => $pesananBaru,
-            'barangTerjual' => $barangTerjual
+            'barangTerjual' => $barangTerjual,
+            'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
+            'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
+            'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun
         ]);
     }
 

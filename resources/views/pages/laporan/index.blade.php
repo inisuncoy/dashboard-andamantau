@@ -33,11 +33,17 @@
         </div>
     </div>
     <div class="mt-10">
-      <div class="border-2 border-blue-500 px-[10px] py-[29px] rounded-2xl text-center">
-        <h1 class="text-2xl font-semibold">Laporan Per Bulan</h1>
+      <div class="border-2 border-blue-500 px-[10px] pb-[10px] rounded-2xl text-center">
         <canvas id="twoLineChart" class="mt-5"></canvas>
       </div>
     </div>
   </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    const chartDataPendapatanPerBulanSatuTahun = @json($pendapatanPerBulanSatuTahun);
+    const chartDataPengeluaranPerBulanSatuTahun = @json($pengeluaranPerBulanSatuTahun);
+</script>
+@endpush

@@ -42,9 +42,9 @@
                                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">Daftar Produk</th>
                                 <th scope="col" class="px-6 py-3 font-bold text-center text-md font-inter">
                                     <div class="flex justify-center">
-                                        <button class="flex items-center justify-center gap-x-3">
+                                        <button class="flex items-center justify-center gap-x-3" id="sortButton">
                                             <p>Stok</p>
-                                            <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="{{ (request()->query('sortBy') == "asc") ? 'rotate-180' : 'rotate-0' }}" width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13 1L7 7L1 0.999999" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                             </svg>
                                         </button>
@@ -86,7 +86,7 @@
                                 @if ($product['status'] == 1)
                                 <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Aktif</td>
                                 @else
-                                <td class="px-6 py-4 font-bold text-center text-[#16E043] text-md">Tidak Aktif</td>
+                                <td class="px-6 py-4 font-bold text-center text-[#FF0000] text-md">Tidak Aktif</td>
                                 @endif
                                 <td class="px-6 py-4 font-medium text-center text-md">
                                     <a href="/produk/{{ $product['id'] }}/edit" class="bg-[#2D76E5] text-white py-2 px-7 rounded-full">Ubah</a>
@@ -103,7 +103,29 @@
             </div>
         </div>
     </div>
-
-
 </div>
 @endsection
+
+@push('js')
+    <script>
+        function toggleSortOrder(currentSort) {
+            return currentSort === 'asc' ? 'desc' : 'asc';
+        }
+
+        // Function to update the URL with the new query parameter
+        function updateURL(sortOrder) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('sortBy', sortOrder);
+            window.history.pushState({ path: url.toString() }, '', url);
+        }
+
+        // Click event handler for the button
+        document.getElementById('sortButton').addEventListener('click', function() {
+            const currentSort = new URLSearchParams(window.location.search).get('sortBy');
+            const newSort = toggleSortOrder(currentSort || 'desc');
+            updateURL(newSort);
+            const newUrl = `{{ url('/produk') }}?sortBy=${newSort}`;
+            window.location.href = newUrl;
+        });
+    </script>
+@endpush

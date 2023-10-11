@@ -1,7 +1,7 @@
 @extends('layout.main.index')
 
 @push('scripts')
-@vite(['resources/js/dashboardLineChart.js', 'resources/js/dashboardBarChart.js'])
+@vite(['resources/js/dashboardLineChartMonth.js', 'resources/js/dashboardLineChartWeek.js' ,'resources/js/dashboardBarChart.js'])
 @endpush
 
 @section('pages')
@@ -189,24 +189,23 @@
     </div>
   </div>
   <div class="bg-[#F7F8FD] rounded-xl grid grid-cols-5 gap-5 p-5">
-    <div class="col-span-3">
-      <div class="border-2 border-blue-500 px-[10px] pt-[29px] pb-[50px] rounded-2xl text-center relative h-[30vw] flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-semibold">Total Pengeluaran Per Bulan Maret</h1>
-          <div class="flex gap-5">
-            <button class="px-5 py-2 font-medium text-white bg-blue-500 rounded-full">Minggu</button>
-            <button class="px-5 py-2 font-medium text-blue-500 border-2 border-blue-500 rounded-full">Bulan</button>
-          </div>
+    <div class="col-span-3 border-2 border-blue-500 px-[10px] py-[20px] h-[600px] rounded-2xl text-center relative flex flex-col justify-between" id="monthContainer">
+        <div class="absolute right-3">
+            <button class="px-5 py-2 font-medium text-blue-500 border-2 border-blue-500 rounded-full" onclick="showWeek()">Minggu</button>
+            <button class="px-5 py-2 font-medium text-white bg-blue-500 rounded-full" onclick="showMonth()">Bulan</button>
         </div>
-        <canvas id="dashboardLineChart" class="w-full h-full mt-5"></canvas>
-      </div>
+        <canvas id="dashboardLineChartMonth"></canvas>
     </div>
-    <div class="col-span-2">
-      <div
-        class="border-2 border-blue-500 px-[10px] pt-[29px] pb-[50px] rounded-2xl text-center flex flex-col justify-between relative h-[30vw]">
-        <h1 class="text-xl font-semibold">Grafik Peningkatan Pesanan UMKM</h1>
+
+    <div class="col-span-3 hidden border-2 border-blue-500 px-[10px] py-[20px] h-[600px] rounded-2xl text-center relative flex-col justify-between" id="weekContainer">
+        <div class="absolute right-3">
+            <button class="px-5 py-2 font-medium text-white bg-blue-500 rounded-full" onclick="showWeek()">Minggu</button>
+            <button class="px-5 py-2 font-medium text-blue-500 border-2 border-blue-500 rounded-full" onclick="showMonth()">Bulan</button>
+        </div>
+        <canvas id="dashboardLineChartWeek"></canvas>
+    </div>
+    <div class="col-span-2 border-2 border-blue-500 px-[10px] pb-[10px] h-[600px] rounded-2xl text-center flex flex-col justify-between relative">
         <canvas id="dashboardBarChart" class="w-full mt-5"></canvas>
-      </div>
     </div>
     <div class="col-span-3">
       <table class="w-full bg-white table-auto font-inter rounded-xl">
@@ -255,3 +254,22 @@
   </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    const chartDataPendapatanPerBulanSatuTahun = @json($pendapatanPerBulanSatuTahun);
+    const chartDataPendapatanPerHariSatuMinggu = @json($pendapatanPerHariSatuMinggu);
+    const chartDataPeningkatanPesananPerBulanSatuTahun = @json($peningkatanPesananPerBulanSatuTahun);
+
+    function showMonth() {
+        document.getElementById('monthContainer').style.display = 'block';
+        document.getElementById('weekContainer').style.display = 'none';
+    }
+
+    function showWeek() {
+        document.getElementById('monthContainer').style.display = 'none';
+        document.getElementById('weekContainer').style.display = 'block';
+    }
+
+</script>
+@endpush
