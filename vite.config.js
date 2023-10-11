@@ -9,10 +9,10 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/pengeluaranChart.js',
                 'resources/js/pemasukanChart.js',
-                'resources/js/dashboardLineChart.js',
+                'resources/js/dashboardLineChartWeek.js',
+                'resources/js/dashboardLineChartMonth.js',
                 'resources/js/dashboardBarChart.js',
                 'resources/js/twoLineChart.js', 'resources/js/piecharts.js'
-
             ],
             refresh: true,
         }),
