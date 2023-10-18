@@ -22,21 +22,34 @@
                 type="date"
                 name="date"
                 class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2"
-                placeholder="YYYY-MM-DD">
+                placeholder="YYYY-MM-DD"
+                value="{{ old('date') }}"
+                >
+            @error('date')
+            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+            @enderror
           </td>
         </tr>
         <tr>
           <td class="w-2/6 text-[20px] flex whitespace-nowrap">Deskripsi Pengeluaran</td>
           <td class="py-2">
-            <textarea name="notes" id="descriptionInput" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" cols="30" rows="10" placeholder="Deskripsi pengeluaran"></textarea>
+            <textarea name="notes" id="descriptionInput" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" cols="30" rows="10" placeholder="Deskripsi pengeluaran">{{ old('notes') }}</textarea>
             <p id="charCount" class="text-[14px] -mt-1 text-right">0/2000 kata</p>
+            @error('notes')
+            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+            @enderror
           </td>
         </tr>
         <tr>
           <td class="w-2/6 text-[20px]">Total Pengeluaran</td>
           <td class="py-2">
             <input type="number" name="nominal" placeholder="Masukan total penegeluaran"
-              class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
+              class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2"
+              value="{{ old('nominal') }}"
+              >
+              @error('nominal')
+              <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+              @enderror
           </td>
         </tr>
       </tbody>

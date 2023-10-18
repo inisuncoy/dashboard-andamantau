@@ -62,6 +62,7 @@
             <img src="{{ url('assets/images/hero.png') }}" alt="">
         </div>
     </div>
+    @include('sweetalert::alert')
     <script>
         function togglePasswordVisibility(inputId, showButtonId, hideButtonId) {
         const inputElement = document.getElementById(inputId);

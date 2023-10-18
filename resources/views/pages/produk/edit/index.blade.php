@@ -63,6 +63,9 @@
                                 class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                                 placeholder="Contoh: Beras Maknyuss Premium 5kg">
                             <p class="mt-1 ml-3 text-sm text-[#00000080]">Tips: Nama produknya saja</p>
+                            @error('name')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -101,6 +104,9 @@
                             placeholder="Masukan harga">
                         </div>
                         <p class="mt-1 ml-3 text-sm text-[#00000080]">Tips: Tuliskan harga jual per produk</p>
+                        @error('price')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
             </tbody>
@@ -302,6 +308,23 @@
                                 <input type="file" class="hidden" name="file5" id="file_input5" accept="image/png, image/jpeg, image/jpg">
                             </div>
                         </div>
+                        <div class="mt-2">
+                            @error('file')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file2')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file3')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file4')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                            @error('file5')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -313,6 +336,9 @@
                         <div class="flex justify-between">
                             <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 250 karakter agar pembeli semakin mudah mengerti.</p>
                             <div id="charCount" class="text-[14px] -mt-1">0/2000 kata</div>
+                            @error('description')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </td>
                 </tr>
@@ -323,6 +349,9 @@
                         class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
                         placeholder="Jumlah Produk yang tersedia" value="{{ $productData['stock'] }}">
                         <p class="mt-1 ml-3 text-sm text-[#00000080]">Contoh : 20</p>
+                        @error('stock')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
@@ -344,9 +373,7 @@
                                     @endforeach
                                 <option {{ $isSelected ? 'selected' : '' }} value="{{ $variant['name'] }}">{{ $variant['name'] }}</option>
                                 @endforeach
-
                             </select>
-
                             <p class="text-[12px] mt-1">Contoh : Ukuran XL, warna hijau</p>
                         </div>
                     </td>

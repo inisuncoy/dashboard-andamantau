@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Alert;
+use Illuminate\Support\Facades\Http;
 
 class ResetPasswordController extends Controller
 {
@@ -11,6 +13,14 @@ class ResetPasswordController extends Controller
      */
     public function index()
     {
+        if (session('email') == null or session('tokenOTP') == null) {
+            return redirect('/login');
+        }
+
+        if (session('verif_otp') == 'success') {
+            Alert::toast('Verifikasi OTP berhasil! Silahkan masukkan password baru', 'success');
+        }
+
         return view('pages.auth.reset-password.index');
     }
 
@@ -27,7 +37,24 @@ class ResetPasswordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $apiResponse = Http::post(config('backend.backend_url') . "/api/reset-password", [
+            'token' => session('tokenOTP'),
+            'email' => session('email'),
+            'password' => $request->password,
+            'password_confirmation' => $request->password_confirmation
+        ]);
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->withErrors($errors);
+        }
+
+        session()->forget('tokenOTP');
+        session()->forget('obfuscated_email');
+        session()->forget('email');
+
+        return redirect('/login')->with(['ubah_password' => 'success']);
     }
 
     /**
@@ -51,7 +78,6 @@ class ResetPasswordController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**

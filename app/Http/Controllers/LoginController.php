@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Alert;
 
 class LoginController extends Controller
 {
@@ -12,6 +13,15 @@ class LoginController extends Controller
      */
     public function index()
     {
+        if (url()->previous() == url('/lupa-sandi/verifikasi-otp') or url()->previous() == url('/reset-password')) {
+            session()->forget('email');
+            session()->forget('tokenOTP');
+        }
+
+        if (session('ubah_password') == 'success') {
+            Alert::success('Password berhasil diubah!', 'Silahkan login kembali');
+        }
+
         return view('pages.auth.login.index');
     }
 

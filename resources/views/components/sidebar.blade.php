@@ -132,7 +132,7 @@
             stroke="#FF0000" stroke-width="3" />
         </svg>
       </span>
-      <span class="text-[#FF0000] text-[20px] font-bold">Keluar</span>
+      <span class="text-[#FF0000] text-[20px] font-bold" >Keluar</span>
     </a>
   </div>
 </div>

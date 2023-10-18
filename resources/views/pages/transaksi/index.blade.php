@@ -42,8 +42,6 @@
                                 Transfer
                             @elseif ($transaction['id_payment_type'] == 3)
                                 QRIS
-                            @else
-                                Not yet set
                             @endif
                         </td>
                         @if ($transaction['status'] == 0)
@@ -57,7 +55,6 @@
                         </td>
                     </tr>
                     @endforeach
-
                 </tbody>
                 </table>
             </div>

@@ -15,6 +15,11 @@ class BlogController extends Controller
      */
     public function index()
     {
+
+        if (session('store_news') == 'success') {
+            Alert::success('Berita berhasil dibuat');
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/news");
@@ -48,6 +53,10 @@ class BlogController extends Controller
      */
     public function create()
     {
+        if (session('store_news') == 'failed') {
+            Alert::error('Gagal Membuat Berita!');
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/newsLabel");
@@ -106,16 +115,19 @@ class BlogController extends Controller
         ]);
 
         if ($apiResponse->failed()) {
-            return back()->with('create_blog', 'failed');
+            $errors = $apiResponse->json();
+            // dd($errors);
+            return back()->with('store_news', 'failed')->withErrors($errors);
         }
 
         $apiResponse2 = Http::withToken($token)->withBody(json_encode($labelDatas))->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $apiResponse->json()['data']['id']);
 
         if ($apiResponse2->failed()) {
-            return back()->with('create_blog', 'failed');
+            $errors = $apiResponse2->json();
+            return back()->with('store_news', 'failed')->withErrors($errors);
         }
 
-        return redirect('/blog')->with('create_blog', 'success');
+        return redirect('/blog')->with('store_news', 'success');
     }
 
     /**
@@ -131,6 +143,14 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
+        if (session('update_news') == 'failed') {
+            Alert::error('Berita gagal dirubah!');
+        }
+
+        if (session('update_news') == 'success') {
+            Alert::success('Berita berhasil dirubah!');
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/news/" . $id);
@@ -186,17 +206,17 @@ class BlogController extends Controller
         ]);
 
         if ($apiResponse->failed()) {
-
-            return back()->with('update_blog', 'failed');
+            $errors = $apiResponse->json();
+            return back()->with('update_news', 'failed')->withErrors($errors);
         }
 
         $apiResponse2 = Http::withToken($token)->withBody(json_encode($labelDatas))->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $id);
 
         if ($apiResponse2->failed()) {
-            return back()->with('update_blog', 'failed');
+            return back()->with('update_news', 'failed');
         }
 
-        return back()->with('update_blog', 'success');
+        return back()->with('update_news', 'success');
     }
 
     /**

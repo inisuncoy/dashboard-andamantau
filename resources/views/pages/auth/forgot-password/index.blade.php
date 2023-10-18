@@ -12,6 +12,11 @@
         <div class="relative flex flex-col justify-between w-full h-full bg-white rounded-lg">
             <div class="flex flex-col items-center justify-center h-full gap-y-8">
                 <h1 class="text-[45px] font-bold">Lupa Password</h1>
+                @error('message')
+                    <div class="px-20 py-3 text-[17px] bg-red-200 border-2 border-red-400 rounded-lg">
+                        Email tidak ditemukan!
+                    </div>
+                @enderror
                 <form method="POST" action="/lupa-sandi" class="flex flex-col gap-y-5">
                     @csrf
                     <div class="flex flex-col gap-y-1">

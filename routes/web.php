@@ -37,10 +37,11 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::get('/lupa-sandi', [ForgotPasswordController::class, 'index']);
 Route::post('/lupa-sandi', [ForgotPasswordController::class, 'store']);
 
-Route::get('/verifikasi-otp', [OTPVerificationController::class, 'index']);
-Route::post('/verifikasi-otp', [OTPVerificationController::class, 'store']);
+Route::get('/lupa-sandi/verifikasi-otp', [OTPVerificationController::class, 'index']);
+Route::post('/lupa-sandi/verifikasi-otp', [OTPVerificationController::class, 'store']);
 
 Route::get('/reset-password', [ResetPasswordController::class, 'index']);
+Route::post('/reset-password', [ResetPasswordController::class, 'store']);
 
 Route::get('/logout', [LogoutController::class, 'store']);
 

@@ -53,8 +53,6 @@ class ExpenseController extends Controller
             }
         }
 
-
-
         $expensesData = $apiResponse->json()['data'];
 
         $collection = new Collection($expensesData);
@@ -82,6 +80,9 @@ class ExpenseController extends Controller
      */
     public function create()
     {
+        if (session('store_pengeluaran') == 'failed') {
+            Alert::error('Gagal', 'Pengeluaran Gagal dibuat')->autoClose(4000);
+        }
 
         return view('pages.pengeluaran.tambah.index');
     }
@@ -97,7 +98,7 @@ class ExpenseController extends Controller
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput()->with(['store_pengeluaran' => 'failed']);
         }
 
         return redirect()->route('pengeluaran.selengkapnya')->with(['store_pengeluaran' => 'success']);

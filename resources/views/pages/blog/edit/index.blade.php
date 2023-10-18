@@ -117,12 +117,18 @@
                     <p>Ganti Foto</p>
                 </label>
             </div>
+            @error('file')
+            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+            @enderror
           </td>
         </tr>
         <tr>
           <td class="flex w-2/5 font-bold text-[20px]">Konten</td>
           <td class="py-2">
             <textarea name="content" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 " id="" cols="100" rows="10" placeholder="Tulis minimal 100 kata">{{ $blogData['content'] }}</textarea>
+            @error('content')
+            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+            @enderror
           </td>
         </tr>
         <tr>

@@ -12,18 +12,14 @@
         <div class="relative flex flex-col justify-between w-full h-full bg-white rounded-lg">
             <div class="flex flex-col items-center justify-center h-full gap-y-8">
                 <h1 class="text-[45px] font-bold">Atur Ulang Password</h1>
-                <form method="POST" action="/login" class="flex flex-col gap-y-5">
+                <form method="POST" action="/reset-password" class="flex flex-col gap-y-5">
                     @csrf
                     <div class="flex flex-col gap-y-1">
-                        <label for="email" class="text-[22px] ml-5">Email</label>
-                        <input type="email" value="" name="email" placeholder="Masukkan Email" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
-                    </div>
-                    <div class="flex flex-col gap-y-1">
                         <label for="password" class="text-[22px] ml-5">Kata Sandi Baru</label>
-                        <input type="password" value="" name="password" placeholder="Masukkan Kata Sandi Baru"  class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                        <input type="password" name="password" placeholder="Masukkan Kata Sandi Baru"  class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
                     </div><div class="flex flex-col gap-y-1">
                         <label for="password" class="text-[22px] ml-5">Konfirmasi Kata Sandi</label>
-                        <input type="password" value="" name="password_confirmation" placeholder="Masukkan Konfirmasi Kata Sandi" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
+                        <input type="password" name="password_confirmation" placeholder="Masukkan Konfirmasi Kata Sandi" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">
                     </div>
                     <div class="flex justify-center mt-5">
                         <button type="submit" class="bg-[#2D76E5] py-3 px-24 rounded-lg text-white text-[18px] font-bold">Ubah</button>
@@ -46,5 +42,7 @@
             <img src="{{ url('assets/images/hero.png') }}" alt="">
         </div>
     </div>
+
+    @include('sweetalert::alert')
 </body>
 </html>

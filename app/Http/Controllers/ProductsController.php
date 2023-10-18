@@ -24,25 +24,30 @@ class ProductsController extends Controller
             Alert::success('Produk berhasil dibuat');
         }
 
-        if (session('edit_product') == 'success') {
-            Alert::success('Produk berhasil diedit');
-        }
-
         $token = session('token');
 
         $apiResponse = Http::withToken($token);
 
+        $queryParams = [];
+
         if ($request->query('query')) {
-            $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/searchProducts', [
-                'query' => $request->query('query'),
-            ]);
-        } elseif ($request->query('sortBy')) {
-            $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/sortByStockProducts', [
-                'sortBy' => $request->query('sortBy'),
-            ]);
-        } else {
-            $apiResponse = $apiResponse->get(config('backend.backend_url') . '/api/dashboard/umkm/products');
+            $queryParams['query'] = $request->query('query');
         }
+
+        if ($request->query('sortByStock')) {
+            $queryParams['sortByStock'] = $request->query('sortByStock');
+        } elseif ($request->query('sortByPrice')) {
+            $queryParams['sortByPrice'] = $request->query('sortByPrice');
+        } elseif ($request->query('sortBySKU')) {
+            $queryParams['sortBySKU'] = $request->query('sortBySKU');
+        } elseif ($request->query('sortByName')) {
+            $queryParams['sortByName'] = $request->query('sortByName');
+        } elseif ($request->query('sortByStatus')) {
+            $queryParams['sortByStatus'] = $request->query('sortByStatus');
+        }
+
+        $apiResponse = $apiResponse->post(config('backend.backend_url') . '/api/dashboard/umkm/sortByProducts', $queryParams);
+
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
@@ -75,8 +80,6 @@ class ProductsController extends Controller
      */
     public function create()
     {
-
-
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/dashboard/umkm/productCategory');
@@ -189,7 +192,6 @@ class ProductsController extends Controller
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
-            dd($errors);
             return back()->withErrors($errors)->withInput();
         }
 
@@ -221,6 +223,14 @@ class ProductsController extends Controller
     {
         if (session('delete_product') == 'failed') {
             Alert::error('Gagal Menghapus Produk!');
+        }
+
+        if (session('update_product') == 'failed') {
+            Alert::error('Gagal Mengedit Produk!');
+        }
+
+        if (session('update_product') == 'success') {
+            Alert::success('Berhasil mengubah produk!');
         }
         $token = session('token');
 
@@ -335,8 +345,8 @@ class ProductsController extends Controller
         ]);
 
         if ($apiResponse->failed()) {
-            dd($apiResponse->json());
-            return back()->with('store_product', 'failed')->withInput();
+            $errors = $apiResponse->json();
+            return back()->with('update_product', 'failed')->withErrors($errors);
         }
 
         $variantData = [
@@ -346,11 +356,11 @@ class ProductsController extends Controller
         $apiResponse2 = Http::withToken($token)->withBody(json_encode($variantData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $id);
 
         if ($apiResponse2->failed()) {
-            dd($apiResponse2->json());
-            return back()->with('store_product', 'failed')->withInput();
+            $errors = $apiResponse->json();
+            return back()->with('update_product', 'failed')->withErrors($errors);
         }
 
-        return back()->with('edit_product', 'success');
+        return back()->with('update_product', 'success');
     }
 
     /**
