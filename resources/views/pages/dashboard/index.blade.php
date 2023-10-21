@@ -212,26 +212,36 @@
         <thead>
           <tr class="text-[15px]">
             <th class="pt-5 pb-2 font-bold text-left pl-7">Nama Produk</th>
-            <th class="px-5 pt-5 pb-2 pl-5 font-bold">Stok</th>
+            <th class="flex justify-center px-5 pt-5 pb-2 pl-5 font-bold text-center">
+                <button id="sortByStockButton" class="flex items-center justify-center gap-x-2">
+                    <p>Stok</p>
+                    <svg class="{{ (request()->query('sortBy') == "asc") ? 'rotate-180' : 'rotate-0' }}" width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 1L7 7L1 0.999999" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </th>
             <th class="pt-5 pb-2 font-bold">Harga</th>
             <th class="pt-5 pb-2 font-bold">SKU</th>
             <th class="pt-5 pb-2 font-bold">Status</th>
-            <th class="pt-5 pb-2 font-bold">Opsi Lain</th>
           </tr>
         </thead>
         <tbody class="text-[14px]">
-          <tr class="text-center">
-            <td class="flex items-center py-2 pl-5 gap-x-5">
-              <img src={{ url("assets/images/products/Ikan-arwana-1.jpg") }} class="object-cover w-10 h-10 rounded-full"
-                alt="">
-              <p class="font-bold">Ayam Cemani</p>
-            </td>
-            <td class="text-[#6366F1]">10</td>
-            <td>1.000.000</td>
-            <td>TWG01</td>
-            <td class="text-[#16E043]">Aktif</td>
-            <td>...</td>
-          </tr>
+            @foreach ($sortProductByStock as $product)
+            <tr class="text-center">
+                <td class="flex items-center py-2 pl-5 gap-x-5">
+                    <img src={{ url(config('backend.backend_url') . "/" . $product['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-10 h-10 rounded-full" alt="" />
+                <p class="font-bold">{{ $product['name'] }}</p>
+                </td>
+                <td class="text-[#6366F1] ">{{ $product['stock'] }}</td>
+                <td>@currencyNonRp($product['price'])</td>
+                <td>{{ $product['sku'] }}</td>
+                @if ($product['status'] == 1)
+                <td class="text-[#16E043]">Aktif</td>
+                @else
+                <td class="text-[#FF0000]">Tidak Aktif</td>
+                @endif
+            </tr>
+            @endforeach
         </tbody>
       </table>
     </div>
@@ -244,10 +254,12 @@
           </tr>
         </thead>
         <tbody class="text-[14px]">
-          <tr>
-            <td class="py-2 pl-5">1. Burung Jalak Bali</td>
-            <td class="text-center">30</td>
-          </tr>
+            @foreach ($itemTerpopuler as $key => $item)
+            <tr>
+                <td class="py-2 pl-5">{{ $key + 1 }}. {{ $item['product']['name'] }}</td>
+                <td class="text-center">{{ $item['total_quantity'] }}</td>
+              </tr>
+            @endforeach
         </tbody>
       </table>
     </div>
@@ -270,6 +282,34 @@
         document.getElementById('monthContainer').style.display = 'none';
         document.getElementById('weekContainer').style.display = 'block';
     }
+
+    function toggleSortOrder(currentSort) {
+            return currentSort === 'asc' ? 'desc' : 'asc';
+        }
+
+    // Function to update the URL with the new query parameters
+    function updateURL(sortOrder, sortBy) {
+        const url = new URL(window.location.href);
+        url.searchParams.set(sortBy, sortOrder);
+
+        // Preserve the 'query' parameter if it exists
+        const queryParam = new URLSearchParams(window.location.search).get('query');
+        if (queryParam) {
+            url.searchParams.set('query', queryParam);
+        }
+
+        // Build the final URL
+        const newUrl = url.toString();
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    }
+
+    document.getElementById('sortByStockButton').addEventListener('click', function() {
+        const currentSort = new URLSearchParams(window.location.search).get('sortBy');
+        const newSort = toggleSortOrder(currentSort || 'desc');
+        updateURL(newSort, 'sortBy');
+        const newUrl = `{{ url('/') }}?sortBy=${newSort}`;
+        window.location.href = newUrl;
+    });
 
 </script>
 @endpush

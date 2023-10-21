@@ -11,7 +11,7 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (session('auth_login') == 'success') {
             Alert::toast('Selamat datang di dashboard UMKM', 'success');
@@ -26,6 +26,18 @@ class DashboardController extends Controller
         $apiPendapatanPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
         $apiPendapatanPerHariSatuMinggu = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerHariSatuMinggu");
         $apiPeningkatanPesananPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/peningkatanPesananPerBulanSatuTahun");
+        $apiItemTerpopuler = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/itemTerpopuler");
+
+        if ($request->query('sortBy')) {
+            $apiSortProductByStock = Http::retry(3, 100)->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+                'sortBy' => $request->query('sortBy')
+            ]);
+        } else {
+            $apiSortProductByStock = Http::retry(3, 100)->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+                'sortBy' => 'desc'
+            ]);
+        }
+
 
         $pengeluaran = $apiPengeluaran->json()['data'];
         $labaBersih = $apiLabaBersih->json()['data'];
@@ -34,6 +46,8 @@ class DashboardController extends Controller
         $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
         $pendapatanPerHariSatuMinggu = $apiPendapatanPerHariSatuMinggu->json()['data'];
         $peningkatanPesananPerBulanSatuTahun = $apiPeningkatanPesananPerBulanSatuTahun->json()['data'];
+        $itemTerpopuler = $apiItemTerpopuler->json()['data'];
+        $sortProductByStock = $apiSortProductByStock->json()['data'];
 
         return view('pages.dashboard.index', [
             'pengeluaran' => $pengeluaran,
@@ -42,7 +56,9 @@ class DashboardController extends Controller
             'barangTerjual' => $barangTerjual,
             'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
             'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
-            'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun
+            'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun,
+            'itemTerpopuler' => $itemTerpopuler,
+            'sortProductByStock' => $sortProductByStock
         ]);
     }
 

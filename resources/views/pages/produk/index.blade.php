@@ -10,7 +10,7 @@
         Produk</a>
     </div>
 
-    @if (empty($productsData))
+    @if ($productsData->count() == 0 && request()->query == null)
     <div class="flex flex-col items-center justify-center px-10 py-[74px] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Daftar Produk Kosong</h1>

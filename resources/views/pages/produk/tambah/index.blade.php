@@ -14,16 +14,17 @@
 <style>
     .select2-search__field {
         height: 35px!important;
-        padding-top: 6px!important;
-        padding-bottom: 10px!important;
+        padding-top: 10px!important;
+        padding-bottom: 30px!important;
         padding-left: 2px!important;
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
     }
 
     .select2-selection{
         border: 2px solid #9CD3FF!important;
         border-radius: 6px!important;
     }
-
     .select2-selection--single{
         height: 45px!important;
         padding-top: 8px!important;
@@ -197,20 +198,20 @@
                 <tr>
                     <td class="flex">Deskripsi Produk</td>
                     <td class="py-2">
-                        <textarea required name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]"></textarea>
+                        <textarea required name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]">{{ old('description') }}</textarea>
                         <div class="flex justify-between">
                             <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 250 karakter agar pembeli semakin mudah mengerti.</p>
                             <div id="charCount" class="text-[14px] -mt-1">0/2000 kata</div>
-                            @error('description')
-                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
-                            @enderror
                         </div>
+                        @error('description')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/6">Jumlah Stok</td>
                     <td class="py-2">
-                        <input required type="text" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia">
+                        <input required type="text" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia" value="{{ old('stock') }}">
                         <p class="text-[12px] mt-1">Contoh : 20</p>
                         @error('stock')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -233,19 +234,19 @@
                     <td class="py-2">
                         <div class="flex gap-x-5">
                             <div class="flex items-center gap-x-2">
-                                <input type="number" name="length" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Panjang">
+                                <input type="number" name="length" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Panjang" value="{{ old('length') }}">
                                 <p class="font-[500] text-[20px]">
                                     cm
                                 </p>
                             </div>
                             <div class="flex items-center gap-x-2">
-                                <input type="number" name="width" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Lebar">
+                                <input type="number" name="width" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Lebar" value="{{ old('width') }}">
                                 <p class="font-[500] text-[20px]">
                                     cm
                                 </p>
                             </div>
                             <div class="flex items-center gap-x-2">
-                                <input type="number" name="height" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tinggi">
+                                <input type="number" name="height" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tinggi" value="{{ old('height') }}">
                                 <p class="font-[500] text-[20px]">
                                     cm
                                 </p>
@@ -259,7 +260,7 @@
                     <td class="py-2">
                         <div class="flex gap-x-5">
                             <div class="flex items-center gap-x-2">
-                                <input type="number" name="weight" class="w-[205px] border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Berat">
+                                <input type="number" name="weight" min="0" class="w-[205px] border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Berat" value="{{ old('weight') }}">
                                 <p class="font-[500] text-[20px]">
                                     Gram
                                 </p>

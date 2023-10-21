@@ -192,7 +192,7 @@ class ProductsController extends Controller
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            return back()->with('store_product', 'failed')->withErrors($errors)->withInput();
         }
 
         $variantData = [
@@ -202,7 +202,8 @@ class ProductsController extends Controller
         $apiResponse2 = Http::withToken($token)->withBody(json_encode($variantData))->post(config('backend.backend_url') . '/api/dashboard/umkm/product/' . $apiResponse->json()['data']['id']);
 
         if ($apiResponse2->failed()) {
-            return back()->with('store_product', 'failed')->withInput();
+            $errors = $apiResponse2->json();
+            return back()->with('store_product', 'failed')->withErrors($errors)->withInput();
         }
 
         return redirect('/produk')->with('store_product', 'success');
