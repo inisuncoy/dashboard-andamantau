@@ -1,29 +1,29 @@
-<div class="fixed top-0 left-0 p-5 h-screen">
-  <div class="bg-white w-[264px] rounded-lg h-full flex flex-col justify-between">
+<div class="fixed top-0 left-0 h-screen p-5">
+  <div class="bg-white w-[264px] rounded-lg duration-300 h-full flex flex-col justify-between">
     <div>
-      <div class="flex items-center gap-x-5 px-5 pt-5 pb-3">
-        <img src={{ url('assets/images/profile1.png') }} class="w-[50px] h-[50px] object-cover" alt="">
+      <div class="flex items-center px-5 pt-5 pb-3 gap-x-5">
+        <img src="{{ url(config('backend.backend_url') . "/" . session('userData')['umkm_image']) }}" class="w-[50px] h-[50px] rounded-full object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
-          <p>User Name</p>
+          <p>{{ session('userData')['owner_name'] }}</p>
         </div>
       </div>
-      <div class="flex flex-col gap-y-2">
+      <div class="flex flex-col gap-y-1">
         {{-- Nav Active --}}
-        <a href="/" class="px-5 py-1 flex items-center gap-x-5 bg-[#E2F8FF] mx-2">
-          <span>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M8.33333 21.266C8.33333 19.0031 8.33333 17.8716 8.79076 16.8771C9.2482 15.8825 10.1073 15.1462 11.8254 13.6735L13.4921 12.2449C16.5976 9.58302 18.1504 8.25208 20 8.25208C21.8496 8.25208 23.4024 9.58302 26.5079 12.2449L28.1746 13.6735C29.8927 15.1462 30.7518 15.8825 31.2092 16.8771C31.6667 17.8716 31.6667 19.0031 31.6667 21.266V28.3334C31.6667 31.476 31.6667 33.0474 30.6904 34.0237C29.714 35 28.1427 35 25 35H15C11.8573 35 10.286 35 9.30964 34.0237C8.33333 33.0474 8.33333 31.476 8.33333 28.3334V21.266Z"
-                stroke="#536FDD" stroke-width="3" />
-              <path
-                d="M24.1667 35V26C24.1667 25.4477 23.7189 25 23.1667 25H16.8333C16.281 25 15.8333 25.4477 15.8333 26V35"
-                stroke="#536FDD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
+        <a href="/" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ Request::is('/') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+            <span>
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.33333 21.266C8.33333 19.0031 8.33333 17.8716 8.79076 16.8771C9.2482 15.8825 10.1073 15.1462 11.8254 13.6735L13.4921 12.2449C16.5976 9.58302 18.1504 8.25208 20 8.25208C21.8496 8.25208 23.4024 9.58302 26.5079 12.2449L28.1746 13.6735C29.8927 15.1462 30.7518 15.8825 31.2092 16.8771C31.6667 17.8716 31.6667 19.0031 31.6667 21.266V28.3334C31.6667 31.476 31.6667 33.0474 30.6904 34.0237C29.714 35 28.1427 35 25 35H15C11.8573 35 10.286 35 9.30964 34.0237C8.33333 33.0474 8.33333 31.476 8.33333 28.3334V21.266Z"
+                    stroke="#536FDD" stroke-width="3" />
+                <path
+                    d="M24.1667 35V26C24.1667 25.4477 23.7189 25 23.1667 25H16.8333C16.281 25 15.8333 25.4477 15.8333 26V35"
+                    stroke="#536FDD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
           <span class="text-[20px] mt-1">Dashboard</span>
         </a>
-        <a href="/transaksi" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/transaksi" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('transaksi/*') or Request::is('transaksi')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -39,7 +39,7 @@
           </span>
           <span class="text-[20px] mt-1">Transaksi</span>
         </a>
-        <a href="/profil-web" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/profil-toko" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('profil-toko/*') or Request::is('profil-toko')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="13.3333" stroke="#EE6048" stroke-width="3" />
@@ -47,9 +47,9 @@
               <path d="M6.66667 20H33.3333" stroke="#EE6048" stroke-width="3" stroke-linecap="round" />
             </svg>
           </span>
-          <span class="text-[20px] mt-1">Profil Web</span>
+          <span class="text-[20px] mt-1">Profil Toko</span>
         </a>
-        <a href="/produk" class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('produk/*') or Request::is('produk')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -67,8 +67,7 @@
           </span>
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
-        <a href="/pemasukan">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/pemasukan" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
@@ -80,10 +79,8 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Pemasukan</span>
-          </div>
         </a>
-        <a href="/pengeluaran">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/pengeluaran" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pengeluaran/*') or Request::is('pengeluaran')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -94,10 +91,8 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Pengeluaran</span>
-          </div>
         </a>
-        <a href="/laporan">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/laporan" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('laporan/*') or Request::is('laporan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="8.33301" y="6.66663" width="23.3333" height="28.3333" rx="2" stroke="#872A3F"
@@ -109,10 +104,8 @@
 
             </span>
             <span class="text-[20px] mt-1">Laporan</span>
-          </div>
         </a>
-        <a href="/blog">
-          <div class="px-5 py-1 flex items-center gap-x-5 mx-2">
+        <a href="/blog" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('blog/*') or Request::is('blog')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -124,12 +117,11 @@
               </svg>
             </span>
             <span class="text-[20px] mt-1">Blog</span>
-          </div>
         </a>
       </div>
     </div>
 
-    <div class="flex items-center px-7 gap-x-5 mb-7">
+    <a href="/logout" class="flex items-center px-7 gap-x-5 mb-7">
       <span>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -140,7 +132,7 @@
             stroke="#FF0000" stroke-width="3" />
         </svg>
       </span>
-      <span class="text-[#FF0000] text-[20px] font-bold">Keluar</span>
-    </div>
+      <span class="text-[#FF0000] text-[20px] font-bold" >Keluar</span>
+    </a>
   </div>
 </div>

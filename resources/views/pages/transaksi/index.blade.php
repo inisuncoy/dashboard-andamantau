@@ -2,72 +2,67 @@
 
 @section('pages')
 <div class="flex flex-col gap-y-10">
-    <h1 class="text-white text-[30px] font-semibold">Detail Transaksi</h1>
-    <div class="bg-white rounded-xl py-7 px-10">
-        <table class="table-fixed w-full font-inter">
-            <thead class="bg-[#2D76E5] text-white rounded-lg">
-              <tr>
-                <th class="py-4 rounded-tl-lg">ID Pesanan</th>
-                <th class="py-4">Tanggal & Waktu</th>
-                <th class="py-4">Harga</th>
-                <th class="py-4">Metode Pembayaran</th>
-                <th class="py-4">Status</th>
-                <th class="py-4 rounded-tr-lg"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-ABC-001</td>
-                <td class="py-6">23 Sep 2023, 18:08</td>
-                <td class="py-6">1.000.000</td>
-                <td class="py-6">QRIS</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#FF0000] font-bold">Gagal</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#FF0000] font-bold">Gagal</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-              <tr class="text-center border-2 border-[#2B7FFF]">
-                <td class="py-6">#2023-XYZ-002</td>
-                <td class="py-6">12 Agu 2023, 09:49</td>
-                <td class="py-6">2.000.000</td>
-                <td class="py-6">GoPay</td>
-                <td class="py-6 text-[#16E043] font-bold">Lunas</td>
-                <td class="py-6">
-                    <a href="/transaksi/detail" class="bg-[#2D76E5] py-3 px-7 rounded-full text-white font-semibold text-[15px]">Detail</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <h1 class="text-white text-[30px] font-semibold">Transaksi</h1>
+    @if (empty($transactionsData))
+    <div class="flex flex-col items-center justify-center px-10 py-[75px] bg-white rounded-lg">
+        <div class="text-center">
+            <h1 class="font-bold text-[32px]">Halaman Daftar Transaksi Kosong</h1>
+            <p class="text-[20px]">Transaksimu masih kosong nih, ayo buat</p>
+            <p class="text-[20px]">transaksimu melalui “Web Commerce”.</p>
+        </div>
+        <img src={{ url('assets/images/empty-transaksi.png') }} alt="empty-transaksi">
     </div>
+    @else
+    <div class="px-10 bg-white rounded-xl py-7">
+        <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="overflow-hidden border-2 border-blue-500 rounded-xl">
+                <table class="min-w-full divide-y divide-blue-500">
+                <thead class="bg-[#2D76E5] text-white rounded-lg font-inter">
+                    <tr>
+                    <th scope="col" class="px-6 py-4 font-semibold text-center rounded-tl-lg text-md">ID Pesanan</th>
+                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Tanggal & Waktu</th>
+                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Harga(Rp)</th>
+                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md ">Metode Pembayaran</th>
+                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Status</th>
+                    <th class="py-4 rounded-tr-lg"></th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 ">
+                    @foreach ($transactionsData as $transaction)
+                    <tr>
+                        <td class="px-6 py-5 font-medium text-center text-md">{{ $transaction['order_code'] }}</td>
+                        <td class="px-6 py-5 text-center text-md">{{ \Carbon\Carbon::parse($transaction['transaction_date'] . ' ' . $transaction['timestamp'])->format('d M Y, H:i') }}</td>
+                        <td class="px-6 py-5 text-center text-md">@currencyNonRp($transaction['total'])</td>
+                        <td class="px-6 py-5 text-center text-md">
+                            @if ($transaction['id_payment_type'] == 1)
+                                Cash
+                            @elseif ($transaction['id_payment_type'] == 2)
+                                Transfer
+                            @elseif ($transaction['id_payment_type'] == 3)
+                                QRIS
+                            @endif
+                        </td>
+                        @if ($transaction['status'] == 0)
+                        <td class="px-6 py-5 text-center text-md font-semibold text-[#FF0000]">Gagal</td>
+                        @else
+                        <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">Lunas</td>
+                        @endif
+
+                        <td class="px-6 py-5 font-medium text-center text-md">
+                            <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full" href="/transaksi/{{ $transaction['id'] }}/detail">Detail</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    @endif
+
 </div>
 @endsection
