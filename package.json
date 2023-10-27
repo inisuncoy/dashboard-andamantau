@@ -4,6 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build"
+        --max-old-space-size=4096
     },
     "devDependencies": {
         "autoprefixer": "^10.4.15",
