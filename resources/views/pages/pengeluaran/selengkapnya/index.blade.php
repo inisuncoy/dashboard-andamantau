@@ -6,7 +6,7 @@
         <div>
             <h1 class="text-white text-[30px] font-semibold">Pengeluaran</h1>
             <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-                <a href="/pengeluaran">Pengeluaran</a>
+                <a href="/pengeluaran" class="loadButton">Pengeluaran</a>
                 >
                 <p>Lihat Selengkapnya</p>
             </div>
@@ -69,7 +69,7 @@
                         <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($expense['nominal'])</td>
                         <td class="px-6 py-6 text-center text-gray-800 text-md line-clamp-1">{{ $expense['notes'] }}</td>
                         <td class="px-6 py-6 font-bold text-center text-md whitespace-nowrap">
-                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
+                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
                         </td>
                         <td class="py-6 pr-6 font-bold text-center text-md whitespace-nowrap">
                             <div class="relative">
@@ -88,6 +88,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-5 pagination">
+            {{ $expensesData->onEachSide(1)->links('pagination::tailwind') }}
         </div>
     </div>
     @endif

@@ -5,7 +5,7 @@
     <div>
         <h1 class="text-white text-[30px] font-semibold">Transaksi</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-            <a href="/transaksi">Transaksi</a>
+            <a href="/transaksi" class="loadButton">Transaksi</a>
             >
             <p>Detail Transaksi</p>
         </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="flex items-center">
             @if ($transactionData['status'] == 1)
-            <a href="/transaksi/{{ $transactionData['id'] }}/faktur" class="bg-[#2D76E5] rounded-[20px] py-3 px-10 text-lg font-bold text-white">Faktur</a>
+            <a href="/transaksi/{{ $transactionData['id'] }}/faktur" class="bg-[#2D76E5] loadButton  rounded-[20px] py-3 px-10 text-lg font-bold text-white">Faktur</a>
             @endif
         </div>
     </div>

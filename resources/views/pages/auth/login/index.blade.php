@@ -6,9 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login Page</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .content{
+            display:none;
+        }
+
+        .loader{
+            height: 100%;
+            width: 100%;
+            overflow:hidden;
+            background-color: #2D76E5;
+            position: absolute;
+        }
+
+        .loader>div{
+            height:100px;
+            width:100px;
+            border: 15px solid white;
+            border-top-color: #2a88e6;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            border-radius:50%;
+            animation: spin 1.5s infinite linear;
+        }
+
+        @keyframes spin{
+            100%{
+                transform: rotate(360deg)
+            }
+        }
+      </style>
 </head>
 <body class="overflow-hidden">
-    <div class="w-full h-screen px-20 py-10 ">
+    <div class="loader">
+        <div></div>
+    </div>
+    <div class="w-full h-screen px-20 py-10 content">
         <div class="relative flex flex-col justify-between w-full h-full bg-white rounded-lg">
             <div class="flex flex-col items-center justify-center h-full gap-y-8">
                 <h1 class="text-[45px] font-bold">Selamat Datang!</h1>
@@ -42,7 +82,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-10">
-                        <button type="submit" class="bg-[#2D76E5] py-3 px-24 rounded-lg text-white text-[18px] font-bold">Masuk</button>
+                        <button type="submit" class="bg-[#2D76E5] py-3 px-24 rounded-lg text-white text-[18px] font-bold loadButton">Masuk</button>
                     </div>
                 </form>
             </div>
@@ -63,6 +103,30 @@
         </div>
     </div>
     @include('sweetalert::alert')
+    <script>
+        $(window).on('load', function(){
+            $(".loader").fadeOut(1000);
+            $(".content").fadeIn(1000);
+        })
+
+        function showLoader() {
+            $("#loader").show();
+        }
+
+        function hideLoader() {
+            $("#loader").hide();
+        }
+
+        console.log("berhasil");
+
+        $(".loadButton").click(function () {
+            $(".loadButton").disabled;
+            $(".content").fadeOut(500);
+            $(".loader").fadeIn(500);
+        });
+
+
+    </script>
     <script>
         function togglePasswordVisibility(inputId, showButtonId, hideButtonId) {
         const inputElement = document.getElementById(inputId);

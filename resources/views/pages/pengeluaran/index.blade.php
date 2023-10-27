@@ -8,7 +8,7 @@
 <div class="flex flex-col gap-y-10">
     <div class="flex items-center justify-between">
         <h1 class="text-white text-[30px] font-semibold">Pengeluaran</h1>
-        <a href="/pengeluaran/tambah" class="px-5 py-2 text-lg text-[#2D76E5] bg-white font-bold flex items-center justify-center gap-x-3 rounded-lg">
+        <a href="/pengeluaran/tambah" class="loadButton px-5 py-2 text-lg text-[#2D76E5] bg-white font-bold flex items-center justify-center gap-x-3 rounded-lg">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 13.0825V7.47985L7.5 1.8772M2 7.47985H13" stroke="#2D76E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -78,7 +78,7 @@
                             </p>
                         </td>
                         <td class="px-6 py-6 font-bold text-center text-md whitespace-nowrap">
-                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
+                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
                         </td>
                     </tr>
                     @endforeach
@@ -89,9 +89,8 @@
             </div>
           </div>
           <div class="mt-5">
-            <a href="/pengeluaran/selengkapnya" class="bg-[#2D76E5] py-2 px-8 font-bold rounded-xl text-lg text-white float-right">Lihat selengkapnya</a>
+            <a href="/pengeluaran/selengkapnya" class="bg-[#2D76E5] loadButton py-2 px-8 font-bold rounded-xl text-lg text-white float-right">Lihat selengkapnya</a>
           </div>
-
         </div>
       </div>
     </div>

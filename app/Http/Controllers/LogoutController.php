@@ -29,7 +29,7 @@ class LogoutController extends Controller
     {
         $request->session()->flush();
 
-        return redirect('/login');
+        return redirect('/login')->with(['logout' => 'success']);
     }
 
     /**

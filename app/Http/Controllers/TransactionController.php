@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 class TransactionController extends Controller
@@ -25,8 +27,22 @@ class TransactionController extends Controller
         $transactionsData = $apiResponse->json()['data'];
         $paymentTypes = $apiResponse2->json()['data'];
 
+        $collection = new Collection($transactionsData);
+
+        $perPage = 10; // Number of items per page
+        $page = request()->get('page', 1); // Get the current page from the request
+        $paginator = new LengthAwarePaginator(
+            $collection->forPage($page, $perPage),
+            $collection->count(),
+            $perPage,
+            $page,
+            ['path' => route('transaksi')] // Replace 'your.route.name' with the actual route name
+        );
+
+        $total_data = $paginator->total();
+
         return view('pages.transaksi.index', [
-            'transactionsData' => $transactionsData,
+            'transactionsData' => $paginator,
             '$paymentTypes' => $paymentTypes
         ]);
     }

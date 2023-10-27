@@ -6,7 +6,7 @@
         <h1 class="text-white text-[30px] font-semibold">Berita</h1>
     </div>
     <div>
-        <a href="/blog/tambah" class="w-full h-[80px] rounded-2xl bg-white flex items-center justify-between px-6">
+        <a href="/blog/tambah" class="w-full h-[80px] rounded-2xl bg-white flex items-center justify-between px-6 loadButton">
             <label for="" class="text-2xl font-bold">Tulis Berita</label>
             <div>
                 <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,7 @@
         <h1 class="text-[24px] font-bold">Berita yang kamu terbitkan</h1>
         <div class="grid w-full grid-cols-3 gap-3 mt-10">
             @foreach ($newsDatas as $news)
-            <a href="/blog/{{ $news['id'] }}/edit">
+            <a href="/blog/{{ $news['id'] }}/edit" class="loadButton">
                 <div class="flex flex-col justify-between w-full h-full p-6 bg-white shadow-lg">
                     <div>
                         @if ($news['image'])

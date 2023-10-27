@@ -135,7 +135,7 @@
                                 <td class="px-6 py-4 font-bold text-center text-[#FF0000] text-md">Tidak Aktif</td>
                                 @endif
                                 <td class="px-6 py-4 font-medium text-center text-md">
-                                    <a href="/produk/{{ $product['id'] }}/edit" class="bg-[#2D76E5] text-white py-2 px-7 rounded-full">Ubah</a>
+                                    <a href="/produk/{{ $product['id'] }}/edit" class="bg-[#2D76E5] loadButton text-white py-2 px-7 rounded-full">Ubah</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -153,6 +153,14 @@
 @endsection
 
 @push('js')
+    <script>
+        $(window).keydown(function(event) {
+            if (event.keyCode === 13) {
+                $(".content").fadeOut(500);
+                $(".loader").fadeIn(500);
+            }
+        });
+    </script>
     <script>
         function toggleSortOrder(currentSort) {
             return currentSort === 'asc' ? 'desc' : 'asc';

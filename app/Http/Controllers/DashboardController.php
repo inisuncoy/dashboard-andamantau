@@ -19,35 +19,35 @@ class DashboardController extends Controller
 
         $token = session('token');
 
-        $apiPengeluaran = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pengeluaran");
-        $apiLabaBersih = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/labaBersih");
-        $apiPesananBaru = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pesananBaru");
-        $apiBarangTerjual = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/barangTerjual");
-        $apiPendapatanPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
-        $apiPendapatanPerHariSatuMinggu = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerHariSatuMinggu");
-        $apiPeningkatanPesananPerBulanSatuTahun = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/peningkatanPesananPerBulanSatuTahun");
-        $apiItemTerpopuler = Http::retry(3, 100)->withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/itemTerpopuler");
+        $apiPengeluaran = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pengeluaran");
+        $apiLabaBersih = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/labaBersih");
+        $apiPesananBaru = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pesananBaru");
+        $apiBarangTerjual = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/barangTerjual");
+        $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
+        $apiPendapatanPerHariSatuMinggu = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerHariSatuMinggu");
+        $apiPeningkatanPesananPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/peningkatanPesananPerBulanSatuTahun");
+        $apiItemTerpopuler = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/itemTerpopuler");
 
         if ($request->query('sortBy')) {
-            $apiSortProductByStock = Http::retry(3, 100)->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+            $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
                 'sortBy' => $request->query('sortBy')
             ]);
         } else {
-            $apiSortProductByStock = Http::retry(3, 100)->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+            $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
                 'sortBy' => 'desc'
             ]);
         }
 
 
-        $pengeluaran = $apiPengeluaran->json()['data'];
-        $labaBersih = $apiLabaBersih->json()['data'];
-        $pesananBaru = $apiPesananBaru->json()['data'];
-        $barangTerjual = $apiBarangTerjual->json()['data'];
-        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
-        $pendapatanPerHariSatuMinggu = $apiPendapatanPerHariSatuMinggu->json()['data'];
-        $peningkatanPesananPerBulanSatuTahun = $apiPeningkatanPesananPerBulanSatuTahun->json()['data'];
-        $itemTerpopuler = $apiItemTerpopuler->json()['data'];
-        $sortProductByStock = $apiSortProductByStock->json()['data'];
+        $pengeluaran = $apiPengeluaran->json();
+        $labaBersih = $apiLabaBersih->json();
+        $pesananBaru = $apiPesananBaru->json();
+        $barangTerjual = $apiBarangTerjual->json();
+        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json();
+        $pendapatanPerHariSatuMinggu = $apiPendapatanPerHariSatuMinggu->json();
+        $peningkatanPesananPerBulanSatuTahun = $apiPeningkatanPesananPerBulanSatuTahun->json();
+        $itemTerpopuler = $apiItemTerpopuler->json();
+        $sortProductByStock = $apiSortProductByStock->json();
 
         return view('pages.dashboard.index', [
             'pengeluaran' => $pengeluaran,

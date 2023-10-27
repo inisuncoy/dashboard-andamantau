@@ -22,6 +22,11 @@ class LoginController extends Controller
             Alert::success('Password berhasil diubah!', 'Silahkan login kembali');
         }
 
+
+        if (session('logout') == 'success') {
+            Alert::toast('Berhasil Logout', 'success');
+        }
+
         return view('pages.auth.login.index');
     }
 
@@ -38,6 +43,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+
         $credentials = [
             'email' => $request->input('email'),
             'password' => $request->input('password'),

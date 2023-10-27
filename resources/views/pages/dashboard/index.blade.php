@@ -12,7 +12,7 @@
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[20px] font-bold font-inter">Pengeluaran</h4>
-          <h1 class="text-[30px] font-[500]">Rp @currencyNonRp($pengeluaran['current_month_expenses'])</h1>
+          <h1 class="text-[30px] font-[500]">Rp @currencyNonRp($pengeluaran['data']['current_month_expenses'])</h1>
         </div>
         <div class="">
           <div class="bg-[#E1455D] rounded-full p-2">
@@ -27,14 +27,14 @@
       </div>
       <div class="flex items-center gap-x-2">
         <div class="flex items-end">
-          @if ($pengeluaran['percentage_change'] > 0)
+          @if ($pengeluaran['data']['percentage_change'] > 0)
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 6L12.7071 5.29289L12 4.58579L11.2929 5.29289L12 6ZM11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18L11 18ZM16.7071 9.29289L12.7071 5.29289L11.2929 6.70711L15.2929 10.7071L16.7071 9.29289ZM11.2929 5.29289L7.29289 9.29289L8.70711 10.7071L12.7071 6.70711L11.2929 5.29289ZM11 6L11 18L13 18L13 6L11 6Z"
               fill="#16E043" />
           </svg>
           <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($pengeluaran['percentage_change'], 2) }}%</span>
-          @elseif ($pengeluaran['percentage_change'] < 0)
+          @elseif ($pengeluaran['data']['percentage_change'] < 0)
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 18L12.7071 18.7071L12 19.4142L11.2929 18.7071L12 18ZM11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44771 13 6L11 6ZM16.7071 14.7071L12.7071 18.7071L11.2929 17.2929L15.2929 13.2929L16.7071 14.7071ZM11.2929 18.7071L7.29289 14.7071L8.70711 13.2929L12.7071 17.2929L11.2929 18.7071ZM11 18L11 6L13 6L13 18L11 18Z"
@@ -53,7 +53,7 @@
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[20px] font-bold font-inter">Laba Bersih</h4>
-          <h1 class="text-[30px] font-[500]">Rp @currencyNonRp($labaBersih['laba_bersih_bulan_ini'])</h1>
+          <h1 class="text-[30px] font-[500]">Rp @currencyNonRp($labaBersih['data']['laba_bersih_bulan_ini'])</h1>
         </div>
         <div class="">
           <div class="bg-[#E76D48] rounded-full p-2">
@@ -78,20 +78,20 @@
       </div>
       <div class="flex items-center gap-x-2">
         <div class="flex items-end">
-            @if ($labaBersih['percentage_change'] > 0)
+            @if ($labaBersih['data']['percentage_change'] > 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 6L12.7071 5.29289L12 4.58579L11.2929 5.29289L12 6ZM11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18L11 18ZM16.7071 9.29289L12.7071 5.29289L11.2929 6.70711L15.2929 10.7071L16.7071 9.29289ZM11.2929 5.29289L7.29289 9.29289L8.70711 10.7071L12.7071 6.70711L11.2929 5.29289ZM11 6L11 18L13 18L13 6L11 6Z"
                 fill="#16E043" />
             </svg>
-            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($labaBersih['percentage_change'], 2) }}%</span>
-            @elseif ($labaBersih['percentage_change'] < 0)
+            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($labaBersih['data']['percentage_change'], 2) }}%</span>
+            @elseif ($labaBersih['data']['percentage_change'] < 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 18L12.7071 18.7071L12 19.4142L11.2929 18.7071L12 18ZM11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44771 13 6L11 6ZM16.7071 14.7071L12.7071 18.7071L11.2929 17.2929L15.2929 13.2929L16.7071 14.7071ZM11.2929 18.7071L7.29289 14.7071L8.70711 13.2929L12.7071 17.2929L11.2929 18.7071ZM11 18L11 6L13 6L13 18L11 18Z"
                 fill="#FF0000" />
             </svg>
-            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($labaBersih['percentage_change']), 2) }}%</span>
+            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($labaBersih['data']['percentage_change']), 2) }}%</span>
             @else
             <span class="font-inter text-[#00000080] text-[14px] font-bold">Tidak ada perubahan</span>
             @endif
@@ -103,7 +103,7 @@
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[20px] font-bold font-inter">Pesanan Baru</h4>
-          <h1 class="text-[30px] font-[500]">{{ $pesananBaru['total_pesanan_baru_bulan_ini'] }} Barang</h1>
+          <h1 class="text-[30px] font-[500]">{{ $pesananBaru['data']['total_pesanan_baru_bulan_ini'] }} Barang</h1>
         </div>
         <div class="">
           <div class="bg-[#F5AE49] rounded-full p-2">
@@ -125,20 +125,20 @@
       </div>
       <div class="flex items-center gap-x-2">
         <div class="flex items-end">
-            @if ($pesananBaru['persentage_change'] > 0)
+            @if ($pesananBaru['data']['persentage_change'] > 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 6L12.7071 5.29289L12 4.58579L11.2929 5.29289L12 6ZM11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18L11 18ZM16.7071 9.29289L12.7071 5.29289L11.2929 6.70711L15.2929 10.7071L16.7071 9.29289ZM11.2929 5.29289L7.29289 9.29289L8.70711 10.7071L12.7071 6.70711L11.2929 5.29289ZM11 6L11 18L13 18L13 6L11 6Z"
                 fill="#16E043" />
             </svg>
-            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($pesananBaru['persentage_change'], 2) }}%</span>
-            @elseif ($pesananBaru['persentage_change'] < 0)
+            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($pesananBaru['data']['persentage_change'], 2) }}%</span>
+            @elseif ($pesananBaru['data']['persentage_change'] < 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 18L12.7071 18.7071L12 19.4142L11.2929 18.7071L12 18ZM11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44771 13 6L11 6ZM16.7071 14.7071L12.7071 18.7071L11.2929 17.2929L15.2929 13.2929L16.7071 14.7071ZM11.2929 18.7071L7.29289 14.7071L8.70711 13.2929L12.7071 17.2929L11.2929 18.7071ZM11 18L11 6L13 6L13 18L11 18Z"
                 fill="#FF0000" />
             </svg>
-            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($pesananBaru['persentage_change']), 2) }}%</span>
+            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($pesananBaru['data']['persentage_change']), 2) }}%</span>
             @else
             <span class="font-inter text-[#00000080] text-[14px] font-bold">Tidak ada perubahan</span>
             @endif
@@ -150,7 +150,7 @@
       <div class="flex justify-between">
         <div class="">
           <h4 class="text-[20px] font-bold font-inter">Terjual</h4>
-          <h1 class="text-[30px] font-[500]">{{ $barangTerjual['total_terjual_barang_bulan_ini'] }} Barang</h1>
+          <h1 class="text-[30px] font-[500]">{{ $barangTerjual['data']['total_terjual_barang_bulan_ini'] }} Barang</h1>
         </div>
         <div class="">
           <div class="bg-[#56CAF3] rounded-full p-2">
@@ -166,20 +166,20 @@
       </div>
       <div class="flex items-center gap-x-2">
         <div class="flex items-end">
-            @if ($barangTerjual['percentage_change'] > 0)
+            @if ($barangTerjual['data']['percentage_change'] > 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 6L12.7071 5.29289L12 4.58579L11.2929 5.29289L12 6ZM11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18L11 18ZM16.7071 9.29289L12.7071 5.29289L11.2929 6.70711L15.2929 10.7071L16.7071 9.29289ZM11.2929 5.29289L7.29289 9.29289L8.70711 10.7071L12.7071 6.70711L11.2929 5.29289ZM11 6L11 18L13 18L13 6L11 6Z"
                 fill="#16E043" />
             </svg>
-            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($barangTerjual['percentage_change'], 2) }}%</span>
-            @elseif ($barangTerjual['percentage_change'] < 0)
+            <span class="font-inter text-[#16E043] text-[14px] font-bold">{{ number_format($barangTerjual['data']['percentage_change'], 2) }}%</span>
+            @elseif ($barangTerjual['data']['percentage_change'] < 0)
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 18L12.7071 18.7071L12 19.4142L11.2929 18.7071L12 18ZM11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44771 13 6L11 6ZM16.7071 14.7071L12.7071 18.7071L11.2929 17.2929L15.2929 13.2929L16.7071 14.7071ZM11.2929 18.7071L7.29289 14.7071L8.70711 13.2929L12.7071 17.2929L11.2929 18.7071ZM11 18L11 6L13 6L13 18L11 18Z"
                 fill="#FF0000" />
             </svg>
-            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($barangTerjual['percentage_change']), 2) }}%</span>
+            <span class="font-inter text-[#FF0000] text-[14px] font-bold">{{ number_format(abs($barangTerjual['data']['percentage_change']), 2) }}%</span>
             @else
             <span class="font-inter text-[#00000080] text-[14px] font-bold">Tidak ada perubahan</span>
             @endif
@@ -213,7 +213,7 @@
           <tr class="text-[15px]">
             <th class="pt-5 pb-2 font-bold text-left pl-7">Nama Produk</th>
             <th class="flex justify-center px-5 pt-5 pb-2 pl-5 font-bold text-center">
-                <button id="sortByStockButton" class="flex items-center justify-center gap-x-2">
+                <button id="sortByStockButton" class="flex items-center justify-center loadButton gap-x-2">
                     <p>Stok</p>
                     <svg class="{{ (request()->query('sortBy') == "asc") ? 'rotate-180' : 'rotate-0' }}" width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13 1L7 7L1 0.999999" stroke="black" stroke-width="2" stroke-linecap="round"/>
@@ -226,7 +226,7 @@
           </tr>
         </thead>
         <tbody class="text-[14px]">
-            @foreach ($sortProductByStock as $product)
+            @foreach ($sortProductByStock['data'] as $product)
             <tr class="text-center">
                 <td class="flex items-center py-2 pl-5 gap-x-5">
                     <img src={{ url(config('backend.backend_url') . "/" . $product['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-10 h-10 rounded-full" alt="" />
@@ -254,7 +254,7 @@
           </tr>
         </thead>
         <tbody class="text-[14px]">
-            @foreach ($itemTerpopuler as $key => $item)
+            @foreach ($itemTerpopuler['data'] as $key => $item)
             <tr>
                 <td class="py-2 pl-5">{{ $key + 1 }}. {{ $item['product']['name'] }}</td>
                 <td class="text-center">{{ $item['total_quantity'] }}</td>
@@ -269,9 +269,9 @@
 
 @push('js')
 <script>
-    const chartDataPendapatanPerBulanSatuTahun = @json($pendapatanPerBulanSatuTahun);
-    const chartDataPendapatanPerHariSatuMinggu = @json($pendapatanPerHariSatuMinggu);
-    const chartDataPeningkatanPesananPerBulanSatuTahun = @json($peningkatanPesananPerBulanSatuTahun);
+    const chartDataPendapatanPerBulanSatuTahun = @json($pendapatanPerBulanSatuTahun['data']);
+    const chartDataPendapatanPerHariSatuMinggu = @json($pendapatanPerHariSatuMinggu['data']);
+    const chartDataPeningkatanPesananPerBulanSatuTahun = @json($peningkatanPesananPerBulanSatuTahun['data']);
 
     function showMonth() {
         document.getElementById('monthContainer').style.display = 'block';

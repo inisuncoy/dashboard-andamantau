@@ -38,7 +38,7 @@
   <div>
     <h1 class="text-white text-[30px] font-semibold">Berita</h1>
     <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-      <a href="/blog">Berita</a>
+      <a href="/blog" class="loadButton">Berita</a>
       >
       <p>Tambah Berita</p>
     </div>
@@ -122,8 +122,8 @@
           <td></td>
           <td class="pt-7">
             <div class="flex justify-end gap-x-5">
-                <a href="/blog" class="bg-[#FF0000] text-white py-3 px-10 rounded-lg font-bold float-right">Batal</a>
-                <button type="submit" class="bg-[#2D76E5] text-white py-3 px-10 rounded-lg font-bold float-right">Simpan</button>
+                <a href="/blog" class="bg-[#FF0000] text-white py-3 px-10 rounded-lg font-bold float-right loadButton">Batal</a>
+                <button type="submit" class="bg-[#2D76E5] text-white py-3 px-10 rounded-lg font-bold float-right loadButton">Simpan</button>
             </div>
           </td>
         </tr>

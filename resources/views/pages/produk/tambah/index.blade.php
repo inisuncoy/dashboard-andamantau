@@ -2,7 +2,6 @@
 
 @push('scripts')
 {{-- Jquery --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 {{-- Select2 --}}
@@ -40,7 +39,7 @@
     <div>
         <h1 class="text-white text-[30px] font-semibold">Produk</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-            <a href="/produk">Produk</a>
+            <a href="/produk" class="loadButton">Produk</a>
             >
             <p>Tambah Produk</p>
         </div>
@@ -273,8 +272,8 @@
                     <td class="flex w-2/5"></td>
                     <td class="py-2">
                         <div class="flex float-right gap-x-5">
-                            <a href="/produk" class="bg-[#FF0000] py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
-                            <button type="submit" class="bg-[#2D76E5] py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
+                            <a href="/produk" class="bg-[#FF0000] loadButton py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
+                            <button type="submit" class="bg-[#2D76E5] loadButton py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
                         </div>
                     </td>
                 </tr>

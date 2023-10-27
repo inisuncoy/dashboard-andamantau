@@ -64,8 +64,8 @@
       </tbody>
     </table>
     <div class="flex justify-end gap-5">
-      <a href="/pengeluaran/selengkapnya" class="py-3 font-bold text-white bg-[#FF0000] rounded-lg px-10">Batal</a>
-      <button class="py-3 font-bold text-white rounded-lg px-10 bg-[#2D76E5]">Simpan</button>
+      <a href="/pengeluaran/selengkapnya" class="py-3 loadButton font-bold text-white bg-[#FF0000] rounded-lg px-10">Batal</a>
+      <button class="py-3 font-bold text-white loadButton rounded-lg px-10 bg-[#2D76E5]">Simpan</button>
     </div>
   </form>
 </div>

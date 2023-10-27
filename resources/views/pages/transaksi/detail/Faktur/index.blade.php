@@ -5,9 +5,9 @@
     <div>
         <h1 class="text-white text-[30px] font-semibold">Faktur</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-            <a href="/transaksi">Transaksi</a>
+            <a href="/transaksi" class="loadButton">Transaksi</a>
             >
-            <a href="/transaksi/{{ $transactionData['id'] }}/detail">Detail Transaksi</a>
+            <a href="/transaksi/{{ $transactionData['id'] }}/detail" class="loadButton">Detail Transaksi</a>
             >
             <p>Faktur</p>
         </div>

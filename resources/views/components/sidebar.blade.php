@@ -10,7 +10,7 @@
       </div>
       <div class="flex flex-col gap-y-1">
         {{-- Nav Active --}}
-        <a href="/" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ Request::is('/') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ Request::is('/') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -23,7 +23,7 @@
             </span>
           <span class="text-[20px] mt-1">Dashboard</span>
         </a>
-        <a href="/transaksi" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('transaksi/*') or Request::is('transaksi')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/transaksi" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('transaksi/*') or Request::is('transaksi')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -39,7 +39,7 @@
           </span>
           <span class="text-[20px] mt-1">Transaksi</span>
         </a>
-        <a href="/profil-toko" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('profil-toko/*') or Request::is('profil-toko')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/profil-toko" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('profil-toko/*') or Request::is('profil-toko')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="20" cy="20" r="13.3333" stroke="#EE6048" stroke-width="3" />
@@ -49,7 +49,7 @@
           </span>
           <span class="text-[20px] mt-1">Profil Toko</span>
         </a>
-        <a href="/produk" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('produk/*') or Request::is('produk')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
+        <a href="/produk" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('produk/*') or Request::is('produk')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
           <span>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -67,7 +67,7 @@
           </span>
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
-        <a href="/pemasukan" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
+        <a href="/pemasukan" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />
@@ -80,7 +80,7 @@
             </span>
             <span class="text-[20px] mt-1">Pemasukan</span>
         </a>
-        <a href="/pengeluaran" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pengeluaran/*') or Request::is('pengeluaran')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/pengeluaran" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pengeluaran/*') or Request::is('pengeluaran')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -92,7 +92,7 @@
             </span>
             <span class="text-[20px] mt-1">Pengeluaran</span>
         </a>
-        <a href="/laporan" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('laporan/*') or Request::is('laporan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/laporan" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('laporan/*') or Request::is('laporan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="8.33301" y="6.66663" width="23.3333" height="28.3333" rx="2" stroke="#872A3F"
@@ -105,7 +105,7 @@
             </span>
             <span class="text-[20px] mt-1">Laporan</span>
         </a>
-        <a href="/blog" class="flex items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('blog/*') or Request::is('blog')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/blog" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('blog/*') or Request::is('blog')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <a href="/logout" class="flex items-center px-7 gap-x-5 mb-7">
+    <a href="/logout" class="flex items-center loadButton px-7 gap-x-5 mb-7">
       <span>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

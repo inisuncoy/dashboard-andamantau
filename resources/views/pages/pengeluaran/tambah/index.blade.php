@@ -5,7 +5,7 @@
   <div>
     <h1 class="text-white text-[30px] font-semibold">Pengeluaran</h1>
     <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-      <a href="/pengeluaran">Pengeluaran</a>
+      <a href="/pengeluaran" class="loadButton">Pengeluaran</a>
       >
       <p>Tambah Pengeluaran</p>
     </div>
@@ -55,8 +55,8 @@
       </tbody>
     </table>
     <div class="flex justify-end gap-5">
-      <a href="/pengeluaran/selengkapnya" class="py-3 font-bold text-white bg-[#FF0000] rounded-lg px-10">Batal</a>
-      <button type="submit" class="py-3 font-bold text-white rounded-lg px-10 bg-[#2D76E5]">Simpan</button>
+      <a href="/pengeluaran/selengkapnya" class="py-3 font-bold text-white loadButton bg-[#FF0000] rounded-lg px-10">Batal</a>
+      <button type="submit" class="py-3 font-bold text-white rounded-lg px-10 bg-[#2D76E5] loadButton">Simpan</button>
     </div>
   </form>
 </div>

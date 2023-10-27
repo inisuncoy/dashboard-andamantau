@@ -118,8 +118,8 @@
                     <td class="flex w-2/5"></td>
                     <td class="py-2">
                         <div class="flex float-right gap-x-5">
-                            <a href="/profil-toko" class="bg-[#FF0000] py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
-                            <button type="submit" class="bg-[#2D76E5] py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
+                            <a href="/profil-toko" class="bg-[#FF0000] loadButton py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
+                            <button type="submit" class="bg-[#2D76E5] loadButton py-3 w-[160px] text-white rounded-lg font-bold">Simpan</button>
                         </div>
                     </td>
                 </tr>

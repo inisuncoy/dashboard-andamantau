@@ -47,7 +47,7 @@
                 <p>{{ $umkmData['umkm_description'] }}</p>
             </div>
             <div class="mt-10 ml-auto">
-                <a href="/profil-toko/edit" class="bg-[#2D76E5] border-[#9CD3FF] border text-white text-lg py-3 px-8 rounded-[10px] font-bold">Ubah Profil</a>
+                <a href="/profil-toko/edit" class="bg-[#2D76E5] loadButton border-[#9CD3FF] border text-white text-lg py-3 px-8 rounded-[10px] font-bold">Ubah Profil</a>
             </div>
         </div>
     </div>

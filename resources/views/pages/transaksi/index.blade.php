@@ -15,51 +15,54 @@
     @else
     <div class="px-10 bg-white rounded-xl py-7">
         <div class="flex flex-col">
-        <div class="-m-1.5 overflow-x-auto">
-            <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="overflow-hidden border-2 border-blue-500 rounded-xl">
-                <table class="min-w-full divide-y divide-blue-500">
-                <thead class="bg-[#2D76E5] text-white rounded-lg font-inter">
-                    <tr>
-                    <th scope="col" class="px-6 py-4 font-semibold text-center rounded-tl-lg text-md">ID Pesanan</th>
-                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Tanggal & Waktu</th>
-                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Harga(Rp)</th>
-                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md ">Metode Pembayaran</th>
-                    <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Status</th>
-                    <th class="py-4 rounded-tr-lg"></th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 ">
-                    @foreach ($transactionsData as $transaction)
-                    <tr>
-                        <td class="px-6 py-5 font-medium text-center text-md">{{ $transaction['order_code'] }}</td>
-                        <td class="px-6 py-5 text-center text-md">{{ \Carbon\Carbon::parse($transaction['transaction_date'] . ' ' . $transaction['timestamp'])->format('d M Y, H:i') }}</td>
-                        <td class="px-6 py-5 text-center text-md">@currencyNonRp($transaction['total'])</td>
-                        <td class="px-6 py-5 text-center text-md">
-                            @if ($transaction['id_payment_type'] == 1)
-                                Cash
-                            @elseif ($transaction['id_payment_type'] == 2)
-                                Transfer
-                            @elseif ($transaction['id_payment_type'] == 3)
-                                QRIS
-                            @endif
-                        </td>
-                        @if ($transaction['status'] == 0)
-                        <td class="px-6 py-5 text-center text-md font-semibold text-[#FF0000]">Gagal</td>
-                        @else
-                        <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">Lunas</td>
-                        @endif
+            <div class="-m-1.5 overflow-x-auto">
+                <div class="p-1.5 min-w-full inline-block align-middle">
+                    <div class="overflow-hidden border-2 border-blue-500 rounded-xl">
+                        <table class="min-w-full divide-y divide-blue-500">
+                            <thead class="bg-[#2D76E5] text-white rounded-lg font-inter">
+                                <tr>
+                                <th scope="col" class="px-6 py-4 font-semibold text-center rounded-tl-lg text-md">ID Pesanan</th>
+                                <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Tanggal & Waktu</th>
+                                <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Harga(Rp)</th>
+                                <th scope="col" class="px-6 py-4 font-semibold text-center text-md ">Metode Pembayaran</th>
+                                <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Status</th>
+                                <th class="py-4 rounded-tr-lg"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 ">
+                                @foreach ($transactionsData as $transaction)
+                                <tr>
+                                    <td class="px-6 py-5 font-medium text-center text-md">{{ $transaction['order_code'] }}</td>
+                                    <td class="px-6 py-5 text-center text-md">{{ \Carbon\Carbon::parse($transaction['transaction_date'] . ' ' . $transaction['timestamp'])->format('d M Y, H:i') }}</td>
+                                    <td class="px-6 py-5 text-center text-md">@currencyNonRp($transaction['total'])</td>
+                                    <td class="px-6 py-5 text-center text-md">
+                                        @if ($transaction['id_payment_type'] == 1)
+                                            Cash
+                                        @elseif ($transaction['id_payment_type'] == 2)
+                                            Transfer
+                                        @elseif ($transaction['id_payment_type'] == 3)
+                                            QRIS
+                                        @endif
+                                    </td>
+                                    @if ($transaction['status'] == 0)
+                                    <td class="px-6 py-5 text-center text-md font-semibold text-[#FF0000]">Gagal</td>
+                                    @else
+                                    <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">Lunas</td>
+                                    @endif
 
-                        <td class="px-6 py-5 font-medium text-center text-md">
-                            <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full" href="/transaksi/{{ $transaction['id'] }}/detail">Detail</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                </table>
+                                    <td class="px-6 py-5 font-medium text-center text-md">
+                                        <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full loadButton" href="/transaksi/{{ $transaction['id'] }}/detail">Detail</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-5 pagination">
+                        {{ $transactionsData->onEachSide(1)->links('pagination::tailwind') }}
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
     @endif

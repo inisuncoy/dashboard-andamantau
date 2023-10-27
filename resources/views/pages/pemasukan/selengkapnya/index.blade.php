@@ -6,7 +6,7 @@
         <div>
             <h1 class="text-white text-[30px] font-semibold">Pemasukan</h1>
             <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-                <a href="/pemasukan">Pemasukan</a>
+                <a href="/pemasukan" class="loadButton">Pemasukan</a>
                 >
                 <p>Lihat Selengkapnya</p>
             </div>
@@ -73,14 +73,14 @@
                             @endforeach
                         </td>
                         <td class="px-6 py-6 font-medium text-center text-md whitespace-nowrap">
-                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
+                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
                         </td>
                     </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
-          <div class="mt-5 pagination">
+        <div class="mt-5 pagination">
             {{ $incomesData->onEachSide(1)->links('pagination::tailwind') }}
         </div>
     </div>

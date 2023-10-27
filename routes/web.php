@@ -48,7 +48,7 @@ Route::get('/logout', [LogoutController::class, 'store']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index']);
 
-    Route::get('/transaksi', [TransactionController::class, 'index']);
+    Route::get('/transaksi', [TransactionController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
     Route::get('/transaksi/{id}/faktur', [TransactionFakturController::class, 'show']);
 

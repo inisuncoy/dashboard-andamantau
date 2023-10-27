@@ -5,9 +5,9 @@
     <div>
         <h1 class="text-white text-[30px] font-semibold">Faktur</h1>
         <div class="text-white text-[18px] flex gap-x-2 font-semibold">
-            <a href="/pemasukan">Pemasukan</a>
+            <a href="/pemasukan" class="loadButton">Pemasukan</a>
             >
-            <a href="/pemasukan/selengkapnya">Lihat Selengkapnya</a>
+            <a href="/pemasukan/selengkapnya" class="loadButton">Lihat Selengkapnya</a>
             >
             <p>Detail</p>
         </div>

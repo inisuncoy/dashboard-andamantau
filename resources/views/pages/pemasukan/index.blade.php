@@ -67,7 +67,7 @@
                             @endforeach
                         </td>
                         <td class="px-6 py-6 font-medium text-center text-md whitespace-nowrap">
-                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
+                            <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
                         </td>
                     </tr>
                     @endforeach
@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="mt-5">
-            <a href="/pemasukan/selengkapnya" class="bg-[#2D76E5] py-2 px-8 font-bold rounded-xl text-lg text-white float-right">Lihat selengkapnya</a>
+            <a href="/pemasukan/selengkapnya" class="bg-[#2D76E5] loadButton py-2 px-8 font-bold rounded-xl text-lg text-white float-right">Lihat selengkapnya</a>
           </div>
 
         </div>
