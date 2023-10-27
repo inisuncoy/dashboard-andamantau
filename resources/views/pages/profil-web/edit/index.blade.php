@@ -35,18 +35,27 @@
                                 </div>
                             </div>
                         </div>
+                        @error('file')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Nama Toko</td>
                     <td class="py-2">
                         <input type="text" name="umkm_name" value="{{ $umkmData['umkm_name'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh Contoh">
+                        @error('umkm_name')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Alamat Toko</td>
                     <td class="py-2">
                         <input type="text" name="address" value="{{ $umkmData['address'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jl. Contoh No. 00">
+                        @error('address')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
@@ -63,55 +72,82 @@
                     <td class="w-2/5 text-[20px]">Kecamatan</td>
                     <td class="py-2">
                         <input type="text" name="kecamatan" value="{{ $umkmData['kecamatan'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : purwantoro">
+                        @error('kecamatan')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Kelurahan</td>
                     <td class="py-2">
                         <input type="text" name="kelurahan" value="{{ $umkmData['kelurahan'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : blimbing">
+                        @error('kelurahan')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Kode Pos</td>
                     <td class="py-2">
                         <input type="text" name="kode_pos" value="{{ $umkmData['kode_pos'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 000000">
+                        @error('kode_pos')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Nomor Telepon</td>
                     <td class="py-2">
                         <input type="text" name="phone_number" value="{{ $umkmData['phone_number'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 0812345678921">
+                        @error('phone_number')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
 
                 <tr>
                     <td class="w-2/5 text-[20px]">Email</td>
                     <td class="py-2">
-                        <input type="email" name="email" value="{{ $umkmData['umkm_email'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
+                        <input type="text" name="umkm_email" value="{{ $umkmData['umkm_email'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
+                        @error('umkm_email')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Instagram</td>
                     <td class="py-2">
                         <input type="text" name="instagram" value="{{ $umkmData['instagram'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : @contoh.com">
+                        @error('instagram')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">WhatsApp</td>
                     <td class="py-2">
                         <input type="text" name="whatsapp" value="{{ $umkmData['whatsapp'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 088844445555">
+                        @error('whatsapp')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Facebook</td>
                     <td class="py-2">
                         <input type="text" name="facebook" value="{{ $umkmData['facebook'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh_toko">
+                        @error('facebook')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
                     <td class="flex w-2/5 text-[20px]">Deskripsi Toko</td>
                     <td class="py-2">
                         <textarea type="text" name="umkm_description" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ $umkmData['umkm_description'] }}</textarea>
+                        @error('umkm_description')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>

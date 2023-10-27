@@ -112,7 +112,8 @@ class ProfileWebController extends Controller
         }
 
         if ($apiResponse->failed()) {
-            return back()->with('update_profil', 'failed');
+            $errors = $apiResponse->json();
+            return back()->with('update_profil', 'failed')->withErrors($errors);
         }
 
         return redirect('/profil-toko')->with('update_profil', 'success');
