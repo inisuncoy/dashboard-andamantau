@@ -2,7 +2,7 @@
   <div class="bg-white w-[264px] rounded-lg duration-300 h-full flex flex-col justify-between">
     <div>
       <div class="flex items-center px-5 pt-5 pb-3 gap-x-5">
-        <img src="{{ url(config('backend.backend_url') . "/" . session('userData')['umkm_image']) }}" class="w-[50px] h-[50px] rounded-full object-cover" alt="">
+        <img src="{{ url(config('backend.backend_url') . "/" . session('userData')['umkm_image']) }}" onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[50px] h-[50px] rounded-full object-cover" alt="">
         <div class="text-[#00B9E3] text-[18px] font-bold">
           <h1>Dashboard</h1>
           <p>{{ session('userData')['owner_name'] }}</p>
@@ -10,7 +10,7 @@
       </div>
       <div class="flex flex-col gap-y-1">
         {{-- Nav Active --}}
-        <a href="/" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ Request::is('/') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
+        <a href="/dashboard" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ Request::is('dashboard') ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}">
             <span>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

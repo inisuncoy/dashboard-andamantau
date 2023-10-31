@@ -112,7 +112,7 @@
                 <tr>
                     <td class="w-2/6">Foto Produk</td>
                     <td class="py-2">
-                        <div class="flex gap-x-4">
+                        <div class="flex items-end gap-x-4">
                             <label for="file_input" class="cursor-pointer">
                                 <img src="" alt="" id="file_image" class="w-[97px] h-[97px] object-cover hidden">
                                 <svg width="97" height="97" viewBox="0 0 97 97" id="svg_image" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,6 +173,7 @@
                                 </svg>
                                 <input type="file" name="file5" id="file_input5" class="hidden" class="hidden" accept="image/png, image/jpeg, image/jpg">
                             </label>
+                            <p class="font-[200]">Max ukuran file adalah 10 Mb</p>
                         </div>
 
                         <div class="mt-2">

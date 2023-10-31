@@ -46,7 +46,11 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store']);
 Route::get('/logout', [LogoutController::class, 'store']);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/', function () {
+        return view("pages.welcome.index");
+    });
+
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::get('/transaksi', [TransactionController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/{id}/detail', [TransactionController::class, 'show']);
@@ -86,8 +90,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/blog/tambah', [BlogController::class, 'store']);
     Route::get('/blog/{id}/edit', [BlogController::class, 'edit']);
     Route::post('/blog/{id}/edit', [BlogController::class, 'update']);
-});
-
-Route::get('/transaksi/detail/faktur', function () {
-    return view('pages.transaksi.detail.faktur.index');
 });

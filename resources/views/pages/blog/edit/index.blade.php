@@ -108,7 +108,7 @@
                 @endif
             </div>
             <input type="file" name="file" id="file_input" class="hidden">
-            <div class="flex">
+            <div class="flex items-end gap-x-3">
                 <label for='file_input' class="bg-[#2D76E5] text-white py-2 px-4 rounded-lg font-bold cursor-pointer flex items-center gap-x-3">
                     <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.99955 2L9.54671 1.48705L8.99955 0.903404L8.4524 1.48705L8.99955 2ZM8.24955 12.9717C8.24955 13.3859 8.58534 13.7217 8.99955 13.7217C9.41377 13.7217 9.74955 13.3859 9.74955 12.9717L8.24955 12.9717ZM15.261 7.58242L9.54671 1.48705L8.4524 2.51295L14.1667 8.60832L15.261 7.58242ZM8.4524 1.48705L2.73808 7.58242L3.8324 8.60832L9.54671 2.51295L8.4524 1.48705ZM8.24955 2L8.24955 12.9717L9.74955 12.9717L9.74955 2L8.24955 2Z" fill="white"/>
@@ -116,6 +116,7 @@
                     </svg>
                     <p>Ganti Foto</p>
                 </label>
+                <p class="font-[200]">Max ukuran file adalah 10 Mb</p>
             </div>
             @error('file')
             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -125,7 +126,7 @@
         <tr>
           <td class="flex w-2/5 font-bold text-[20px]">Konten</td>
           <td class="py-2">
-            <textarea name="content" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 " id="" cols="100" rows="10" placeholder="Tulis minimal 100 kata">{{ $blogData['content'] }}</textarea>
+            <textarea name="content" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" cols="100" rows="10" placeholder="Tulis minimal 100 huruf">{{ $blogData['content'] }}</textarea>
             @error('content')
             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
             @enderror

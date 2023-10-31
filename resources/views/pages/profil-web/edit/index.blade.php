@@ -23,7 +23,7 @@
                             <img src={{ url(config('backend.backend_url') . "/" . $umkmData['umkm_image']) }} id="logo_image" class="object-cover w-32 h-32 rounded-md" alt="">
                             <div class="flex flex-col gap-y-2">
                                 <p class="text-[#00000080]" id="show_img_src"></p>
-                                <div class="flex">
+                                <div class="flex items-end gap-x-3">
                                     <label for="umkm_image" class="bg-[#2D76E5] border cursor-pointer border-[#9CD3FF] text-sm font-bold text-white flex items-center py-2 px-4 gap-x-2 rounded-lg">
                                         <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8.99955 2L9.54671 1.48705L8.99955 0.903404L8.4524 1.48705L8.99955 2ZM8.24955 12.9717C8.24955 13.3859 8.58534 13.7217 8.99955 13.7217C9.41377 13.7217 9.74955 13.3859 9.74955 12.9717L8.24955 12.9717ZM15.261 7.58242L9.54671 1.48705L8.4524 2.51295L14.1667 8.60832L15.261 7.58242ZM8.4524 1.48705L2.73808 7.58242L3.8324 8.60832L9.54671 2.51295L8.4524 1.48705ZM8.24955 2L8.24955 12.9717L9.74955 12.9717L9.74955 2L8.24955 2Z" fill="white"/>
@@ -31,7 +31,8 @@
                                         </svg>
                                         Ganti Logo
                                     </label>
-                                    <input type="file" class="hidden" name="file" id="umkm_image">
+                                    <p class="font-[200]">Max ukuran file adalah 10 Mb</p>
+                                    <input type="file" class="hidden" name="file" id="umkm_image" accept="image/png, image/jpeg, image/jpg">
                                 </div>
                             </div>
                         </div>
@@ -108,7 +109,7 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Email</td>
                     <td class="py-2">
-                        <input type="text" name="umkm_email" value="{{ $umkmData['umkm_email'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
+                        <input type="text" disabled name="umkm_email" value="{{ $umkmData['umkm_email'] }}" class="w-full disabled:bg-gray-100 border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
                         @error('umkm_email')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
@@ -168,35 +169,35 @@
 @push('js')
 <script>
     // Get the input element
-const logoInput = document.getElementById("umkm_image");
+    const logoInput = document.getElementById("umkm_image");
 
-// Get the img element
-const logoImage = document.getElementById("logo_image");
+    // Get the img element
+    const logoImage = document.getElementById("logo_image");
 
-const showImageSrc = document.getElementById('show_img_src');
+    const showImageSrc = document.getElementById('show_img_src');
 
-const lastImage = logoImage.src;
+    const lastImage = logoImage.src;
 
-// Add an event listener to the input element to listen for changes
-logoInput.addEventListener("change", function () {
-    // Get the selected file
-    const selectedFile = logoInput.files[0];
+    // Add an event listener to the input element to listen for changes
+    logoInput.addEventListener("change", function () {
+        // Get the selected file
+        const selectedFile = logoInput.files[0];
 
-    if (selectedFile) {
-        // Create a URL for the selected file
-        const imageURL = URL.createObjectURL(selectedFile);
+        if (selectedFile) {
+            // Create a URL for the selected file
+            const imageURL = URL.createObjectURL(selectedFile);
 
-        // Set the src attribute of the img element to the URL
-        logoImage.src = imageURL;
+            // Set the src attribute of the img element to the URL
+            logoImage.src = imageURL;
 
-        // Display the selected file name in the input field
-        showImageSrc.innerHTML = selectedFile.name;
-    } else {
-        // Clear the img src and input field if no file is selected
-        logoImage.src = lastImage;
-        logoInput.value = "";
-        showImageSrc.innerHTML = "";
-    }
-});
+            // Display the selected file name in the input field
+            showImageSrc.innerHTML = selectedFile.name;
+        } else {
+            // Clear the img src and input field if no file is selected
+            logoImage.src = lastImage;
+            logoInput.value = "";
+            showImageSrc.innerHTML = "";
+        }
+    });
 </script>
 @endpush

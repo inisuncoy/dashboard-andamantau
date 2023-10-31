@@ -120,7 +120,7 @@
                         <h1 class="absolute top-0 ">Foto Produk</h1>
                     </td>
                     <td class="py-2">
-                        <div class="flex gap-5">
+                        <div class="flex items-end gap-x-4">
                             {{-- Image 1 --}}
                             <div>
                                 @if ($productData['image'])
@@ -306,6 +306,7 @@
                                 @endif
                                 <input type="file" class="hidden" name="file5" id="file_input5" accept="image/png, image/jpeg, image/jpg">
                             </div>
+                            <p class="font-[200]">Max ukuran file adalah 10 Mb</p>
                         </div>
                         <div class="mt-2">
                             @error('file')
