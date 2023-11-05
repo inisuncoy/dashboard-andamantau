@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Alert;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -13,54 +14,110 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        if (session('auth_login') == 'success') {
-            Alert::toast('Selamat datang di dashboard UMKM', 'success');
-        }
+        try {
+            if (session('auth_login') == 'success') {
+                Alert::toast('Selamat datang di dashboard UMKM', 'success');
+            }
 
-        $token = session('token');
+            $token = session('token');
 
-        $apiPengeluaran = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pengeluaran");
-        $apiLabaBersih = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/labaBersih");
-        $apiPesananBaru = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/pesananBaru");
-        $apiBarangTerjual = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/barangTerjual");
-        $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
-        $apiPendapatanPerHariSatuMinggu = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerHariSatuMinggu");
-        $apiPeningkatanPesananPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/peningkatanPesananPerBulanSatuTahun");
-        $apiItemTerpopuler = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/itemTerpopuler");
+            $apiDashboardMetrics = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/dashboardMetrics");
 
-        if ($request->query('sortBy')) {
-            $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
-                'sortBy' => $request->query('sortBy')
+            $nullChartMonthData = [
+                "labels" => [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                "datasets" => [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ]
+            ];
+
+            $nullChartWeekData = [
+                "labels" => [
+                    "Sunday",
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                ],
+                "datasets" => [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                ]
+            ];
+
+            $pengeluaran = $apiDashboardMetrics->json()['data']['pengeluaran'] ?? null;
+            $labaBersih = $apiDashboardMetrics->json()['data']['laba_bersih'] ?? null;
+            $pesananBaru = $apiDashboardMetrics->json()['data']['pesanan_baru'] ?? null;
+            $barangTerjual = $apiDashboardMetrics->json()['data']['total_terjual_barang'] ?? null;
+            $itemTerpopuler = $apiDashboardMetrics->json()['data']['popular_items'] ?? null;
+            $pendapatanPerBulanSatuTahun = $apiDashboardMetrics->json()['data']['pendapatanPerBulanSatuTahun'] ?? $nullChartMonthData;
+            $pendapatanPerHariSatuMinggu = $apiDashboardMetrics->json()['data']['pendapatanPerHariSatuMinggu'] ?? $nullChartWeekData;
+            $peningkatanPesananPerBulanSatuTahun = $apiDashboardMetrics->json()['data']['peningkatanPesananPerBulanSatuTahun'] ?? $nullChartMonthData;
+
+            if ($request->query('sortBy')) {
+                $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+                    'sortBy' => $request->query('sortBy')
+                ]);
+            } else {
+                $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
+                    'sortBy' => 'desc'
+                ]);
+            }
+
+            $sortProductByStock = $apiSortProductByStock->json()['data'] ?? null;
+
+            return view('pages.dashboard.index', [
+                'pengeluaran' => $pengeluaran,
+                'labaBersih' => $labaBersih,
+                'pesananBaru' => $pesananBaru,
+                'barangTerjual' => $barangTerjual,
+                'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
+                'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
+                'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun,
+                'itemTerpopuler' => $itemTerpopuler,
+                'sortProductByStock' => $sortProductByStock
             ]);
-        } else {
-            $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
-                'sortBy' => 'desc'
-            ]);
+        } catch (RequestException $e) {
+            Log::error('HTTP request failed: ' . $e->getMessage());
+        } catch (ClientException $e) {
+            Log::error('Client error: ' . $e->getMessage());
+        } catch (ServerException $e) {
+            Log::error('Server error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error('An unexpected error occurred: ' . $e->getMessage());
         }
-
-
-        $pengeluaran = $apiPengeluaran->json();
-        $labaBersih = $apiLabaBersih->json();
-        $pesananBaru = $apiPesananBaru->json();
-        $barangTerjual = $apiBarangTerjual->json();
-        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json();
-        $pendapatanPerHariSatuMinggu = $apiPendapatanPerHariSatuMinggu->json();
-        $peningkatanPesananPerBulanSatuTahun = $apiPeningkatanPesananPerBulanSatuTahun->json();
-        $itemTerpopuler = $apiItemTerpopuler->json();
-        $sortProductByStock = $apiSortProductByStock->json();
-
-        return view('pages.dashboard.index', [
-            'pengeluaran' => $pengeluaran,
-            'labaBersih' => $labaBersih,
-            'pesananBaru' => $pesananBaru,
-            'barangTerjual' => $barangTerjual,
-            'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
-            'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
-            'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun,
-            'itemTerpopuler' => $itemTerpopuler,
-            'sortProductByStock' => $sortProductByStock
-        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

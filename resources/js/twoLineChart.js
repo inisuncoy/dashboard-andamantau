@@ -55,6 +55,11 @@ const config = {
                 color: '#000000',
             },
         },
+        scales: {
+            y: { // defining min and max so hiding the dataset does not change scale range
+              min: 0,
+            }
+        }
     },
 };
 
