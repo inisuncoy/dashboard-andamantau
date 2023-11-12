@@ -16,11 +16,23 @@
                 <tbody>
                   <tr class="text-[20px]">
                     <td class="font-bold">No. Faktur</td>
-                    <td>: {{ $transactionData['order_code'] }}</td>
+                    <td>: {{ $transactionData['order_code'] ?? "" }}</td>
                   </tr>
                   <tr class="text-[20px]">
                     <td class="font-bold">Tanggal & Waktu</td>
-                    <td>: {{ \Carbon\Carbon::parse($transactionData['transaction_date'] . ' ' . $transactionData['timestamp'])->isoFormat('D MMMM YYYY, HH:mm') }}
+                    <td>
+                        : {{ \Carbon\Carbon::parse($transactionData['transaction_date'] . ' ' . $transactionData['timestamp'])->isoFormat('D MMMM YYYY, HH:mm') ?? "" }}
+                    </td>
+                  </tr>
+                  <tr class="text-[20px]">
+                    <td class="font-bold">Source</td>
+                    <td>
+                        :
+                        @if ($transactionData['source'] == 1)
+                            POS
+                        @elseif ($transactionData['source'] == 2)
+                            WebCommerce
+                        @endif
                     </td>
                   </tr>
                 </tbody>
@@ -37,8 +49,10 @@
             <h1 class="font-bold text-[30px] text-black">Detail Produk</h1>
             @if ($transactionData['status'] == 1)
                 <h1 class="text-center text-[#2DCE94] font-bold text-[32px]">Lunas</h1>
-            @else
+            @elseif ($transactionData['status'] == 2)
                 <h1 class="text-center text-[#FF0000] font-bold text-[32px]">Gagal</h1>
+            @elseif ($transactionData['status'] == 0 || $transactionData['status'] == null)
+                <h1 class="text-center text-gray-500 font-bold text-[32px]">Belum Selesai</h1>
             @endif
         </div>
         <div class="flex flex-col gap-y-8">
@@ -55,8 +69,8 @@
                 <div class="flex flex-col justify-between w-full">
                     <div class="">
                         <div class="flex items-center gap-x-14">
-                            <h1 class="font-bold text-[25px]">{{ $product['detail_product']['name'] }}</h1>
-                            <p class="text-[22px] text-[#878787]">{{ $product['quantity'] }}x @currency( $product['current_price'])</p>
+                            <h1 class="font-bold text-[25px]">{{ $product['detail_product']['name'] ?? "" }}</h1>
+                            <p class="text-[22px] text-[#878787]">{{ $product['quantity'] ?? 0 }}x @currency( $product['current_price'] ?? 0)</p>
                         </div>
                         <p class="text-[#A6A6A6] text-sm">Minta yang jantan Bang</p>
                     </div>
@@ -67,24 +81,26 @@
                             <div>
                                 @if ($transactionData['status'] == 1)
                                 <span class="bg-[#2DCE94] text-white text-[18px] py-2 px-3 rounded-lg font-semibold">Sudah Dikirim</span>
+                                @elseif($transactionData['status'] == 0)
+                                <span class="bg-gray-500 text-white text-[18px] py-2 px-3 rounded-lg font-semibold">Belum Selesai</span>
+                                @elseif($transactionData['status'] == 2)
+                                <span class="bg-[#FF0000] text-white flex items-center justify-center text-[18px] py-2 px-3 rounded-lg font-semibold">Gagal</span>
                                 @endif
-
                             </div>
                         </div>
                         <div class="text-end">
-                            <p class="text-[24px] font-bold">@currency($product['quantity'] * $product['current_price'])</p>
+                            <p class="text-[24px] font-bold">@currency(($product['quantity'] && $product['current_price']) ? $product['quantity'] * $product['current_price'] : 0)</p>
                         </div>
                     </div>
                 </div>
             </div>
             @endforeach
             @endif
-
         </div>
     </div>
 
-    @if ($transactionData['status'] == 1)
     <div class="grid grid-cols-2 gap-x-10 font-inter">
+        @if ($transactionData['source'] == 2)
         <div class="px-8 py-5 bg-white rounded-xl">
             <h1 class="font-bold text-[27px] text-black">Info Pengiriman</h1>
             <table class="w-full my-5 table-fixed">
@@ -99,11 +115,13 @@
                     </tr>
                     <tr>
                         <td class="flex py-2">Alamat</td>
-                        <td>Jl. Pahlawan I, Kel. Tebet, RT06/RW09, Kota Jakarta Selatan, 12830, DKI Jakarta, Indonesia</td>
+                        <td>{{ $transactionData['address'] ?? "" }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        @endif
+
         <div class="flex flex-col justify-between px-8 py-5 bg-white rounded-xl">
             <div class="flex flex-col gap-5">
                 <h1 class="font-bold text-[27px] text-black">Ringkasan Pembayaran</h1>
@@ -117,27 +135,27 @@
                         @elseif ($transactionData['id_payment_type'] == 3)
                             QRIS
                         @else
-                            Not yet set
+                            Other
                         @endif
                     </p>
                 </div>
                 <div class="flex justify-between text-[20px]">
                     <h1>Total Harga</h1>
-                    <p>@currency($transactionData['total'])</p>
+                    <p>@currency($transactionData['total'] ?? 0)</p>
                 </div>
+                @if ($transactionData['source'] == 2)
                 <div class="flex justify-between text-[20px]">
                     <h1>Total Biaya Pengiriman (Rp)</h1>
                     <p>@currency(12000)</p>
                 </div>
+                @endif
             </div>
-            <div class="text-[24px] font-bold flex justify-between">
+            <div class="text-[24px] font-bold flex justify-between mt-10">
                 <h1>Total Belanja (Rp)</h1>
-                <p>@currency($transactionData['total'] + 12000)</p>
+                <p>@currency(($transactionData['source'] == 2) ? $transactionData['total'] + 12000 : $transactionData['total'])</p>
             </div>
         </div>
     </div>
-    @endif
-
 </div>
 
 @endsection

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TransactionController extends Controller
 {
@@ -15,35 +14,41 @@ class TransactionController extends Controller
     public function index()
     {
         $token = session('token');
+        $page = request()->get('page', 1);
 
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactions");
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
+        try {
+            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactions?page=" . $page);
+            $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
 
-        if ($apiResponse->failed() and $apiResponse2->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            if ($apiResponse->failed() || $apiResponse2->failed()) {
+                $errors = $apiResponse->json();
+                return back()->withErrors($errors);
+            }
+
+            $transactions = $apiResponse->json()['data'];
+            $paymentTypes = $apiResponse2->json()['data'];
+
+            $paginatedPlaces = new LengthAwarePaginator(
+                $transactions['data'],
+                $transactions['total'],
+                $transactions['per_page'],
+                $page,
+                ['path' => route('transaksi')]
+            );
+        } catch (RequestException $e) {
+            Log::error('HTTP request failed: ' . $e->getMessage());
+        } catch (ClientException $e) {
+            Log::error('Client error: ' . $e->getMessage());
+        } catch (ServerException $e) {
+            Log::error('Server error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error('An unexpected error occurred: ' . $e->getMessage());
         }
 
-        $transactionsData = $apiResponse->json()['data'];
-        $paymentTypes = $apiResponse2->json()['data'];
-
-        $collection = new Collection($transactionsData);
-
-        $perPage = 10; // Number of items per page
-        $page = request()->get('page', 1); // Get the current page from the request
-        $paginator = new LengthAwarePaginator(
-            $collection->forPage($page, $perPage),
-            $collection->count(),
-            $perPage,
-            $page,
-            ['path' => route('transaksi')] // Replace 'your.route.name' with the actual route name
-        );
-
-        $total_data = $paginator->total();
-
         return view('pages.transaksi.index', [
-            'transactionsData' => $paginator,
-            '$paymentTypes' => $paymentTypes
+            'transactions' => $transactions,
+            '$paymentTypes' => $paymentTypes,
+            'paginatedPlaces' => $paginatedPlaces
         ]);
     }
 

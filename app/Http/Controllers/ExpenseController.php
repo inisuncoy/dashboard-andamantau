@@ -32,47 +32,57 @@ class ExpenseController extends Controller
         confirmDelete($title);
 
         $token = session('token');
-
         $query = $request->query('bulan');
+        $page = request()->get('page', 1);
 
-        if ($query) {
-            $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expensesMonth", [
-                'bulan' => $query
-            ]);
+        try {
+            if ($query) {
+                $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expensesMonth", [
+                    'bulan' => $query
+                ]);
 
-            if ($apiResponse->failed()) {
-                $errors = $apiResponse->json();
-                return back()->withErrors($errors)->withInput();
+                if ($apiResponse->failed()) {
+                    $errors = $apiResponse->json();
+                    return back()->withErrors($errors)->withInput();
+                }
+
+                $expenses = $apiResponse->json()['data'];
+
+                return view('pages.pengeluaran.selengkapnya.index', [
+                    'expensesData' => $expenses,
+                ]);
+            } else {
+                $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses?page=" . $page);
+
+                if ($apiResponse->failed()) {
+                    $errors = $apiResponse->json();
+                    return back()->withErrors($errors)->withInput();
+                }
+
+                $expenses = $apiResponse->json()['data'];
+
+                $paginatedPlaces = new LengthAwarePaginator(
+                    $expenses['data'],
+                    $expenses['total'],
+                    $expenses['per_page'],
+                    $page,
+                    ['path' => route('pengeluaran.selengkapnya')]
+                );
+
+                return view('pages.pengeluaran.selengkapnya.index', [
+                    'expensesData' => $expenses,
+                    'paginatedPlaces' => $paginatedPlaces
+                ]);
             }
-        } else {
-            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
-
-            if ($apiResponse->failed()) {
-                $errors = $apiResponse->json();
-                return back()->withErrors($errors)->withInput();
-            }
+        } catch (RequestException $e) {
+            Log::error('HTTP request failed: ' . $e->getMessage());
+        } catch (ClientException $e) {
+            Log::error('Client error: ' . $e->getMessage());
+        } catch (ServerException $e) {
+            Log::error('Server error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error('An unexpected error occurred: ' . $e->getMessage());
         }
-
-        $expensesData = $apiResponse->json()['data'];
-
-        $collection = new Collection($expensesData);
-
-        $perPage = 10; // Number of items per page
-        $page = request()->get('page', 1); // Get the current page from the request
-        $paginator = new LengthAwarePaginator(
-            $collection->forPage($page, $perPage),
-            $collection->count(),
-            $perPage,
-            $page,
-            ['path' => route('pengeluaran.selengkapnya')] // Replace 'your.route.name' with the actual route name
-        );
-
-        $total_data = $paginator->total();
-
-        return view('pages.pengeluaran.selengkapnya.index', [
-            'expensesData' => $paginator,
-            'total_data' => $total_data
-        ]);
     }
 
     /**

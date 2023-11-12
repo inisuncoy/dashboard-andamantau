@@ -106,6 +106,7 @@ class ProfileWebController extends Controller
 
             if ($apiResponse->successful()) {
                 unlink($filePath);
+                $request->session()->put('userData', $apiResponse->json()['data']);
             }
         } else {
             $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . '/api/dashboard/umkm/profile', $request->all());

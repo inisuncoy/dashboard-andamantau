@@ -38,7 +38,7 @@
         </div>
 
     </div>
-    @if (empty($expensesData->items()))
+    {{-- @if (empty($expensesData['data']))
     <div class="flex flex-col items-center justify-center px-10 h-[40vw] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Pengeluaran Kosong</h1>
@@ -47,31 +47,35 @@
         </div>
         <img src={{ url('assets/images/empty-pengeluaran.png') }} alt="empty-pengeluaran">
     </div>
-    @else
+    @else --}}
     <div class="px-10 py-5 bg-white rounded-lg">
         <div class="border-2 border-blue-500 rounded-xl">
             <table class="w-full divide-blue-500 table-auto">
                 <thead class="bg-[#2D76E5] text-white rounded-lg">
                     <tr>
-                        <th scope="col" class="px-6 py-3 font-bold text-center rounded-tl-lg text-md whitespace-nowrap">No</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Total Pengeluaran (Rp)</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap">Deskripsi</th>
-                        <th scope="col" class="px-6 py-3 font-bold text-center text-md whitespace-nowrap"></th>
-                        <th scope="col" class="py-3 pr-6 font-bold text-center text-md whitespace-nowrap"></th>
+                        <th scope="col" class="px-3 py-3 font-bold text-center rounded-tl-lg text-md whitespace-nowrap">No</th>
+                        <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap">Tanggal</th>
+                        <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap">Total Pengeluaran (Rp)</th>
+                        <th scope="col" class="px-3 py-3 w-[200px] font-bold text-center text-md whitespace-nowrap">Deskripsi</th>
+                        <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap"></th>
+                        <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#A3C8FF] ">
-                    @foreach ($expensesData as $index => $expense)
+                    @foreach ($expensesData['data'] ?? $expensesData as $index => $expense)
                     <tr>
-                        <td class="px-6 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap ">{{ $index + 1 }}</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $expense['date'])->format('d F Y') }}</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($expense['nominal'])</td>
-                        <td class="px-6 py-6 text-center text-gray-800 text-md line-clamp-1">{{ $expense['notes'] }}</td>
-                        <td class="px-6 py-6 font-bold text-center text-md whitespace-nowrap">
+                        <td class="px-5 py-6 font-medium text-center text-gray-800 text-md whitespace-nowrap">{{ (((request()->page ?? 1) - 1 == 0) ? "" : request()->page - 1) . ($index + 1) }}</td>
+                        <td class="px-3 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $expense['date'])->format('d F Y') ?? "" }}</td>
+                        <td class="px-3 py-6 text-center text-gray-800 text-md whitespace-nowrap">@currencyNonRp($expense['nominal'] ?? 0)</td>
+                        <td class="text-center text-gray-800 text-md">
+                            <p class="line-clamp-1 w-[200px]">
+                                {{ $expense['notes'] }}
+                            </p>
+                        </td>
+                        <td class="px-3 py-6 font-bold text-center text-md whitespace-nowrap">
                             <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pengeluaran/{{ $expense['id'] }}/detail">Detail</a>
                         </td>
-                        <td class="py-6 pr-6 font-bold text-center text-md whitespace-nowrap">
+                        <td class="px-3 py-6 font-bold text-center text-md whitespace-nowrap">
                             <div class="relative">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.334 20L13.334 16" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
@@ -89,11 +93,13 @@
                 </tbody>
             </table>
         </div>
+        @if (!empty($expensesData['data']))
         <div class="mt-5 pagination">
-            {{ $expensesData->onEachSide(1)->links('pagination::tailwind') }}
+            {{ $paginatedPlaces->links('pagination::tailwind') }}
         </div>
+        @endif
     </div>
-    @endif
+    {{-- @endif --}}
 </div>
 @endsection
 

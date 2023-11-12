@@ -84,6 +84,8 @@ class DashboardController extends Controller
             $pendapatanPerHariSatuMinggu = $apiDashboardMetrics->json()['data']['pendapatanPerHariSatuMinggu'] ?? $nullChartWeekData;
             $peningkatanPesananPerBulanSatuTahun = $apiDashboardMetrics->json()['data']['peningkatanPesananPerBulanSatuTahun'] ?? $nullChartMonthData;
 
+
+
             if ($request->query('sortBy')) {
                 $apiSortProductByStock = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/sortProductByStock", [
                     'sortBy' => $request->query('sortBy')
@@ -95,18 +97,6 @@ class DashboardController extends Controller
             }
 
             $sortProductByStock = $apiSortProductByStock->json()['data'] ?? null;
-
-            return view('pages.dashboard.index', [
-                'pengeluaran' => $pengeluaran,
-                'labaBersih' => $labaBersih,
-                'pesananBaru' => $pesananBaru,
-                'barangTerjual' => $barangTerjual,
-                'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
-                'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
-                'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun,
-                'itemTerpopuler' => $itemTerpopuler,
-                'sortProductByStock' => $sortProductByStock
-            ]);
         } catch (RequestException $e) {
             Log::error('HTTP request failed: ' . $e->getMessage());
         } catch (ClientException $e) {
@@ -116,6 +106,18 @@ class DashboardController extends Controller
         } catch (Exception $e) {
             Log::error('An unexpected error occurred: ' . $e->getMessage());
         }
+
+        return view('pages.dashboard.index', [
+            'pengeluaran' => $pengeluaran,
+            'labaBersih' => $labaBersih,
+            'pesananBaru' => $pesananBaru,
+            'barangTerjual' => $barangTerjual,
+            'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
+            'pendapatanPerHariSatuMinggu' => $pendapatanPerHariSatuMinggu,
+            'peningkatanPesananPerBulanSatuTahun' => $peningkatanPesananPerBulanSatuTahun,
+            'itemTerpopuler' => $itemTerpopuler,
+            'sortProductByStock' => $sortProductByStock
+        ]);
     }
 
 

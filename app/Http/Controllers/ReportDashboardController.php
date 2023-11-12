@@ -14,7 +14,7 @@ class ReportDashboardController extends Controller
     {
         $token = session('token');
         //
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses/v1");
         $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
 
         $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");

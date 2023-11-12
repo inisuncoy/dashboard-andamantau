@@ -224,7 +224,6 @@
     <div class="col-span-2 border-2 border-blue-500 px-[10px] pb-[10px] h-[600px] rounded-2xl text-center flex flex-col justify-between relative">
         <canvas id="dashboardBarChart" class="w-full mt-5"></canvas>
     </div>
-    @if ($sortProductByStock)
     <div class="col-span-3">
       <table class="w-full bg-white table-auto font-inter rounded-xl">
         <thead>
@@ -248,11 +247,11 @@
             <tr class="text-center">
                 <td class="flex items-center py-2 pl-5 gap-x-5">
                     <img src={{ url(config('backend.backend_url') . "/" . $product['image'])  }} onerror="this.onerror=null;this.src='assets/images/default-placeholder.png';" class="object-cover w-10 h-10 rounded-full" alt="" />
-                <p class="font-bold">{{ $product['name'] }}</p>
+                <p class="font-bold">{{ $product['name'] ?? "Item" }}</p>
                 </td>
-                <td class="text-[#6366F1] ">{{ $product['stock'] }}</td>
-                <td>@currencyNonRp($product['price'])</td>
-                <td>{{ $product['sku'] }}</td>
+                <td class="text-[#6366F1] ">{{ $product['stock'] ?? 0 }}</td>
+                <td>@currencyNonRp($product['price'] ?? 0)</td>
+                <td>{{ $product['sku'] ?? "" }}</td>
                 @if ($product['status'] == 1)
                 <td class="text-[#16E043]">Aktif</td>
                 @else
@@ -263,8 +262,6 @@
         </tbody>
       </table>
     </div>
-    @endif
-    @if ($itemTerpopuler)
     <div class="col-span-2 bg-white rounded-xl">
         <table class="w-full table-fixed font-inter">
           <thead>
@@ -276,15 +273,13 @@
           <tbody class="text-[14px]">
               @foreach ($itemTerpopuler as $key => $item)
               <tr>
-                  <td class="py-2 pl-5">{{ $key + 1 }}. {{ $item['product']['name'] }}</td>
-                  <td class="text-center">{{ $item['total_quantity'] }}</td>
+                  <td class="py-2 pl-5">{{ $key + 1 }}. {{ $item['product']['name'] ?? "Item" }}</td>
+                  <td class="text-center">{{ $item['total_quantity'] ?? 0 }}</td>
                 </tr>
               @endforeach
           </tbody>
         </table>
       </div>
-    @endif
-
   </div>
 </div>
 @endsection

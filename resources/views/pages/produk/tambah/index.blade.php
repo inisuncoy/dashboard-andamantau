@@ -52,7 +52,7 @@
                 <tr>
                     <td class="w-2/6">Nama Produk</td>
                     <td class="py-2">
-                        <input required type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg" value="{{ old('name') }}">
+                        <input type="text" name="name" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Contoh: Beras Maknyuss Premium 5kg" value="{{ old('name') }}">
                         <p class="text-[12px] pt-1">Tips: Nama produknya saja</p>
                         @error('name')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -62,7 +62,7 @@
                 <tr>
                     <td class="w-2/6">Kategori</td>
                     <td class="py-2">
-                        <select required class="js-example-basic-single" style="width: 100%;" name="id_category_product">
+                        <select class="js-example-basic-single" style="width: 100%;" name="id_category_product">
                             <option value="" selected disabled hidden></option>
                             @foreach ($categories as $category)
                             <option value="{{ $category['id'] }}" {{ (old('id_category_product') == $category['id'] ? "selected" : "" ) }}>{{ $category['name'] }}</option>
@@ -74,7 +74,7 @@
                 <tr>
                     <td class="w-2/6">Status</td>
                     <td class="py-2">
-                        <select required type="text" name="status" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
+                        <select type="text" name="status" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2">
                             <option value="0" {{ (old('status') == "0" ? "selected" : "" ) }} >Tidak Aktif</option>
                             <option value="1" {{ (old('status') == "1" ? "selected" : "" ) }} >Aktif</option>
                         </select>
@@ -93,7 +93,8 @@
                     <td class="py-2">
                         <div class="flex items-center" dir="ltr">
                             <div class="bg-[#E4F3FF] py-2 px-3 rounded-l-md border-2 border-r-0 border-[#9CD3FF]">Rp.</div>
-                            <input required type="text" name="price" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2" value="{{ old('price') }}">
+                            <input type="text" name="hidden_price" id="price" placeholder="0" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2 px-2" value="{{ old('price') }}">
+                            <input type="hidden" id="hidden_price" name="price">
                         </div>
                         <p class="text-[12px] pt-1">Tips: Tuliskan harga jual per produk</p>
                         @error('price')
@@ -173,9 +174,8 @@
                                 </svg>
                                 <input type="file" name="file5" id="file_input5" class="hidden" class="hidden" accept="image/png, image/jpeg, image/jpg">
                             </label>
-                            <p class="font-[200]">Max ukuran file adalah 10 Mb</p>
                         </div>
-
+                        <p class="text-[12px] pt-1">Tips: Max ukuran file adalah 10 Mb</p>
                         <div class="mt-2">
                             @error('file')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -198,10 +198,10 @@
                 <tr>
                     <td class="flex">Deskripsi Produk</td>
                     <td class="py-2">
-                        <textarea required name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]">{{ old('description') }}</textarea>
+                        <textarea name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]">{{ old('description') }}</textarea>
                         <div class="flex justify-between">
-                            <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 250 karakter agar pembeli semakin mudah mengerti.</p>
-                            <div id="charCount" class="text-[14px] -mt-1">0/2000 kata</div>
+                            <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 100 karakter agar pembeli semakin mudah mengerti.</p>
+                            <div id="charCount" class="text-[14px] -mt-1">0/2000 huruf</div>
                         </div>
                         @error('description')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -211,7 +211,7 @@
                 <tr>
                     <td class="w-2/6">Jumlah Stok</td>
                     <td class="py-2">
-                        <input required type="text" name="stock" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia" value="{{ old('stock') }}">
+                        <input type="text" name="stock" oninput="validateInput(this)" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Jumlah Produk yang tersedia" value="{{ old('stock') }}">
                         <p class="text-[12px] mt-1">Contoh : 20</p>
                         @error('stock')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
@@ -221,9 +221,9 @@
                 <tr>
                     <td class="w-2/6">Varian Produk</td>
                     <td class="py-2">
-                        <select required class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
+                        <select class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
                             @foreach ($variants as $variant)
-                            <option value="{{ $variant['id'] }}">{{ $variant['name'] }}</option>
+                            <option value="{{ $variant['name'] }}">{{ $variant['name'] }}</option>
                             @endforeach
                         </select>
                         <p class="text-[12px] mt-1">Bisa memilih lebih dari satu label</p>
@@ -233,23 +233,17 @@
                     <td class="w-2/6">Ukuran Paket</td>
                     <td class="py-2">
                         <div class="flex gap-x-5">
-                            <div class="flex items-center gap-x-2">
-                                <input type="number" name="length" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Panjang" value="{{ old('length') }}">
-                                <p class="font-[500] text-[20px]">
-                                    cm
-                                </p>
+                            <div class="flex items-center">
+                                <input type="text" name="length" oninput="validateInput(this)" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Panjang" value="{{ old('length') }}">
+                                <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
-                            <div class="flex items-center gap-x-2">
-                                <input type="number" name="width" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Lebar" value="{{ old('width') }}">
-                                <p class="font-[500] text-[20px]">
-                                    cm
-                                </p>
+                            <div class="flex items-center">
+                                <input type="text" name="width" oninput="validateInput(this)" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Lebar" value="{{ old('width') }}">
+                                <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
-                            <div class="flex items-center gap-x-2">
-                                <input type="number" name="height" min="0" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Tinggi" value="{{ old('height') }}">
-                                <p class="font-[500] text-[20px]">
-                                    cm
-                                </p>
+                            <div class="flex items-center">
+                                <input type="text" name="height" oninput="validateInput(this)" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Tinggi" value="{{ old('height') }}">
+                                <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
                         </div>
                         <p class="text-[12px] mt-1">Ukuran produk yang akan dipakai dan dihitung oleh pihak pengiriman</p>
@@ -259,11 +253,9 @@
                     <td class="w-2/6">Berat Produk</td>
                     <td class="py-2">
                         <div class="flex gap-x-5">
-                            <div class="flex items-center gap-x-2">
-                                <input type="number" name="weight" min="0" class="w-[205px] border-2 border-[#9CD3FF] rounded-md py-2 px-2" placeholder="Berat" value="{{ old('weight') }}">
-                                <p class="font-[500] text-[20px]">
-                                    Gram
-                                </p>
+                            <div class="flex items-center">
+                                <input type="text" name="weight" oninput="validateInput(this)" class="w-[205px] border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Berat" value="{{ old('weight') }}">
+                                <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">Gram</div>
                             </div>
                         </div>
                         <p class="text-[12px] mt-1">Berat produk dalam gram</p>
@@ -290,12 +282,15 @@
         const descriptionInput = document.getElementById('descriptionInput');
         const charCount = document.getElementById('charCount');
 
+        const currentText = descriptionInput.value;
+        const charCountValue = currentText.length;
+        charCount.textContent = `${charCountValue}/2000 huruf`;
+
         descriptionInput.addEventListener('input', () => {
             const currentText = descriptionInput.value;
             const charCountValue = currentText.length;
-
             // Update the character count
-            charCount.textContent = `${charCountValue}/2000 kata`;
+            charCount.textContent = `${charCountValue}/2000 huruf`;
         });
     </script>
     <script>
@@ -410,5 +405,49 @@
                 tags: true,
             });
         });
+    </script>
+    <script>
+        function formatRupiah(angka, prefix) {
+          var number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split = number_string.split(','),
+              sisa = split[0].length % 3,
+              rupiah = split[0].substr(0, sisa),
+              ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+          if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+          }
+          return rupiah ? rupiah : '';
+        }
+
+        function setupRupiahFormatting(inputId, hiddenInputId) {
+            var input = document.getElementById(inputId);
+            var hiddenInput = document.getElementById(hiddenInputId);
+
+            function updateValue() {
+                var formattedValue = formatRupiah(input.value);
+                input.value = formattedValue;
+                hiddenInput.value = input.value.replace(/[^\d]/g, '');
+            }
+
+            // Panggil fungsi updateValue saat halaman dimuat
+            updateValue();
+
+            input.addEventListener('input', updateValue);
+        }
+
+
+        setupRupiahFormatting('price', 'hidden_price');
+    </script>
+    <script>
+        function validateInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+            if(input.value < 0){
+                input.value = "";
+            }else if(input.value > 999999999){
+                input.value = 999999999;
+            }
+        }
     </script>
 @endpush

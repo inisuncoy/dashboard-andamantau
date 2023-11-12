@@ -78,8 +78,6 @@
             $("#loader").hide();
         }
 
-        console.log("berhasil");
-
         $(".loadButton").click(function () {
             $(".loadButton").disabled;
             $(".content").fadeOut(500);

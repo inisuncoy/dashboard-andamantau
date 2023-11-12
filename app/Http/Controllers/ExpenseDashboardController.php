@@ -14,7 +14,7 @@ class ExpenseDashboardController extends Controller
     {
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses");
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses/v1");
 
         $apiPengeluaranPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pengeluaranPerBulanSatuTahun");
         $pengeluaranPerBulanSatuTahun = $apiPengeluaranPerBulanSatuTahun->json()['data'];

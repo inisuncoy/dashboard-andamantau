@@ -3,7 +3,7 @@
 @section('pages')
 <div class="flex flex-col gap-y-10">
     <h1 class="text-white text-[30px] font-semibold">Transaksi</h1>
-    @if (empty($transactionsData))
+    {{-- @if (empty($transactions['data']))
     <div class="flex flex-col items-center justify-center px-10 py-[75px] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Daftar Transaksi Kosong</h1>
@@ -12,7 +12,7 @@
         </div>
         <img src={{ url('assets/images/empty-transaksi.png') }} alt="empty-transaksi">
     </div>
-    @else
+    @else --}}
     <div class="px-10 bg-white rounded-xl py-7">
         <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto">
@@ -30,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 ">
-                                @foreach ($transactionsData as $transaction)
+                                @foreach ($transactions['data'] as $transaction)
                                 <tr>
                                     <td class="px-6 py-5 font-medium text-center text-md">{{ $transaction['order_code'] }}</td>
                                     <td class="px-6 py-5 text-center text-md">{{ \Carbon\Carbon::parse($transaction['transaction_date'] . ' ' . $transaction['timestamp'])->format('d M Y, H:i') }}</td>
@@ -42,14 +42,17 @@
                                             Transfer
                                         @elseif ($transaction['id_payment_type'] == 3)
                                             QRIS
+                                        @else
+                                            Lainnya
                                         @endif
                                     </td>
-                                    @if ($transaction['status'] == 0)
+                                    @if ($transaction['status'] == 2)
                                     <td class="px-6 py-5 text-center text-md font-semibold text-[#FF0000]">Gagal</td>
-                                    @else
+                                    @elseif ($transaction['status'] == 1)
                                     <td class="px-6 py-5 text-center text-md font-semibold text-[#16E043]">Lunas</td>
+                                    @elseif ($transaction['status'] == 0)
+                                    <td class="px-6 py-5 font-semibold text-center text-gray-500 text-md">Belum selesai</td>
                                     @endif
-
                                     <td class="px-6 py-5 font-medium text-center text-md">
                                         <a class="px-7 py-3 text-white bg-[#2D76E5] text-md rounded-full loadButton" href="/transaksi/{{ $transaction['id'] }}/detail">Detail</a>
                                     </td>
@@ -59,13 +62,13 @@
                         </table>
                     </div>
                     <div class="mt-5 pagination">
-                        {{ $transactionsData->onEachSide(1)->links('pagination::tailwind') }}
+                        {{ $paginatedPlaces->links('pagination::tailwind') }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endif
+    {{-- @endif --}}
 
 </div>
 @endsection

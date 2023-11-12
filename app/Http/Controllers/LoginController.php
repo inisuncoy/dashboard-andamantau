@@ -22,7 +22,6 @@ class LoginController extends Controller
             Alert::success('Password berhasil diubah!', 'Silahkan login kembali');
         }
 
-
         if (session('logout') == 'success') {
             Alert::toast('Berhasil Logout', 'success');
         }
@@ -58,6 +57,11 @@ class LoginController extends Controller
 
         $token = $apiResponse->json()['data']['jwt_token'];
         $userData = $apiResponse->json()['data']['user'];
+
+
+        if ($userData['id_role'] !== 2) {
+            return back()->withErrors(["message" => "email/username not found, Invalid, check email or password"])->withInput();
+        }
 
         $request->session()->put('token', $token);
         $request->session()->put('userData', $userData);
