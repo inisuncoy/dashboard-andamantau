@@ -14,6 +14,10 @@ class IncomeController extends Controller
      */
     public function index()
     {
+        if (session('RTO') == 'error') {
+            Alert::toast('Request Time Out!', 'error');
+        }
+
         $token = session('token');
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
         $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");

@@ -53,12 +53,12 @@
             <div class="flex flex-col items-center justify-center h-full gap-y-8">
                 <h1 class="text-[45px] font-bold">Selamat Datang!</h1>
                 <form method="POST" action="/login" class="flex flex-col gap-y-5 w-[458px]">
+                    @csrf
                     @error('message')
                     <div class="px-5 py-3 text-[17px] bg-red-200 border-2 border-red-400 rounded-lg">
                         Email / Password anda Salah! Silahkan coba lagi
                     </div>
                     @enderror
-                    @csrf
                     <div class="flex flex-col gap-y-1">
                         <label for="email" class="text-[22px] ml-5">Email</label>
                         <input type="email" placeholder="Masukkan Email" value="{{ old('email') }}" name="email" class="w-[458px] h-[54px] border-[#000000] border rounded-xl text-[20px] py-2 px-3">

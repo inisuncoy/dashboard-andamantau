@@ -13,19 +13,22 @@
 <style>
     .select2-search__field {
         height: 35px!important;
-        padding-top: 6px!important;
-        padding-bottom: 10px!important;
+        padding-top: 10px!important;
+        padding-bottom: 30px!important;
         padding-left: 2px!important;
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
     }
 
     .select2-selection{
         border: 2px solid #9CD3FF!important;
         border-radius: 6px!important;
+        @error('variants') border-color: #EF4444!important ; @enderror
     }
-
     .select2-selection--single{
         height: 45px!important;
         padding-top: 8px!important;
+        @error('id_category_product') border-color: #EF4444!important ; @enderror
     }
 
     .select2-search__field{
@@ -55,11 +58,18 @@
             <table class="w-full my-5 table-fixed">
                 <tbody class="text-[18px]">
                     <tr>
-                        <td class="w-2/5">Nama Produk</td>
+                        <td class="w-2/6">
+                            Nama Produk
+                            <span data-tooltip-target="nama_produk-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                            <div id="nama_produk-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                Wajib terisi
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </td>
                         <td class="py-2">
                             <input
-                                type="text" name="name" value="{{ $productData['name'] }}"
-                                class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
+                                type="text" name="name" value="{{ old('name', $productData['name'])}}"
+                                class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px] @error('name') border-red-500 @enderror"
                                 placeholder="Contoh: Beras Maknyuss Premium 5kg">
                             <p class="text-[12px] pt-1">Tips: Nama produknya saja</p>
                             @error('name')
@@ -68,24 +78,44 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="w-2/5">Kategori</td>
+                        <td class="w-2/6">
+                            Kategori
+                            <span data-tooltip-target="kategori-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                            <div id="kategori-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                Wajib memilih salah satu
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </td>
                         <td class="py-2">
                             <select class="js-example-basic-single" style="width: 100%;" name="id_category_product">
                                 <option value="" selected disabled hidden></option>
                                 @foreach ($categories as $category)
-                                <option {{ ($category['id'] == $productData['id_category_product']) ? 'selected' : '' }} value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                <option {{ ($category['id'] == old('id_category_product', $productData['id_category_product']) ) ? 'selected' : '' }} value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                 @endforeach
                             </select>
                             <p class="text-[12px] pt-1">Tips: Pilih kategori sesuai UMKM mu</p>
+                            @error('id_category_product')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
-                        <td class="w-2/5">Status</td>
+                        <td class="w-2/6">
+                            Status
+                            <span data-tooltip-target="status-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                            <div id="status-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                Wajib memilih salah satu
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </td>
                         <td class="py-2">
-                            <select name="status" class="w-full rounded-md py-3 px-2 border-2 border-[#9CD3FF] invalid:text-[#00000080]" id="">
-                                <option value="1" class="text-black" {{ ($productData['status'] == "1") ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" class="text-black" {{ ($productData['status'] == "0") ? 'selected' : '' }}>Tidak Aktif</option>
+                            <select name="status" class="w-full rounded-md py-2 px-2 border-2 border-[#9CD3FF] invalid:text-[#00000080]" id="">
+                                <option value="1" class="text-black" {{ (old('status', $productData['status']) == "1") ? 'selected' : '' }}>Aktif</option>
+                                <option value="0" class="text-black" {{ (old('status', $productData['status']) == "0") ? 'selected' : '' }}>Tidak Aktif</option>
                             </select>
+                            @error('status')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </td>
                     </tr>
                 </tbody>
@@ -95,11 +125,18 @@
             <h1 class="text-[24px] font-bold">Harga Produk</h1>
             <table class="w-full my-5 table-fixed">
                 <tbody class="text-[18px]">
-                    <td class="w-2/5">Harga Satuan</td>
+                    <td class="w-2/6">
+                        Harga Satuan
+                        <span data-tooltip-target="harga-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="harga-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <div class="flex border-2 border-[#9CD3FF] rounded-md">
-                            <span class="py-2 px-2 bg-[#E4F3FF] rounded-l-md">Rp</span>
-                            <input type="text" name="hidden_price" id="price" class="w-full px-2 placeholder:text-[15px]" placeholder="Masukan harga" value="{{ $productData['price'] }}">
+                        <div class="flex rounded-md">
+                            <div class="bg-[#E4F3FF] py-2 px-3 rounded-l-md border-2 border-r-0 border-[#9CD3FF] @error('price') border-red-500 @enderror">Rp.</div>
+                            <input type="text" name="hidden_price" id="price" oninput="validateInput(this)" placeholder="123.456.789" class="w-full border-2 border-l-0 border-[#9CD3FF] rounded-r-md py-2.5 px-2 @error('price') border-red-500 @enderror" value="{{ old('price', $productData['price'])}}">
                             <input type="hidden" id="hidden_price" name="price">
                         </div>
                         <p class="text-[12px] pt-1">Tips: Tuliskan harga jual per produk</p>
@@ -116,8 +153,15 @@
         <table class="w-full my-5 table-fixed">
             <tbody class="text-[18px]">
                 <tr class="">
-                    <td class="relative w-2/5">
-                        <h1 class="absolute top-0 ">Foto Produk</h1>
+                    <td class="relative w-2/6">
+                        <h1 class="absolute w-full top-3">
+                            Foto Produk
+                            <span data-tooltip-target="foto_produk-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                            <div id="foto_produk-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                Foto Utama Wajib Terisi
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </h1>
                     </td>
                     <td class="py-2">
                         <div class="flex items-end gap-x-4">
@@ -126,7 +170,7 @@
                                 @if ($productData['image'])
                                 <label for="file_input" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image" src={{ url(config('backend.backend_url') . "/" . $productData['image']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
+                                        <img id="file_image" src={{ url(config('backend.backend_url') . "/" . $productData['image']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] @error('file') border-red-500 @enderror hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,7 +184,7 @@
                                 <label for="file_input" class="cursor-pointer">
                                     <img src="" alt="" id="file_image" class="w-[97px] h-[97px] object-cover hidden">
                                     <svg width="97" height="97" id="svg_image" viewBox="0 0 97 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" stroke="#9CD3FF"
+                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" @error('file') stroke="#EF4444" @enderror stroke="#9CD3FF"
                                         stroke-width="3" stroke-dasharray="10 10" />
                                         <path
                                         d="M21.125 29.125C21.125 25.3538 21.125 23.4681 22.2966 22.2966C23.4681 21.125 25.3538 21.125 29.125 21.125H67.875C71.6462 21.125 73.5319 21.125 74.7034 22.2966C75.875 23.4681 75.875 25.3538 75.875 29.125V67.875C75.875 71.6462 75.875 73.5319 74.7034 74.7034C73.5319 75.875 71.6462 75.875 67.875 75.875H29.125C25.3538 75.875 23.4681 75.875 22.2966 74.7034C21.125 73.5319 21.125 71.6462 21.125 67.875V29.125Z"
@@ -163,7 +207,7 @@
                                 @if ($productData['image_2'])
                                 <label for="file_input2" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image2" src={{ url(config('backend.backend_url') . "/" . $productData['image_2']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
+                                        <img id="file_image2" src={{ url(config('backend.backend_url') . "/" . $productData['image_2']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] @error('file2') border-red-500 @enderror hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +221,7 @@
                                 <label for="file_input2" class="cursor-pointer">
                                     <img src="" alt="" id="file_image2" class="w-[97px] h-[97px] object-cover hidden">
                                     <svg width="97" height="97" id="svg_image2" viewBox="0 0 97 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" stroke="#9CD3FF"
+                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" @error('file2') stroke="#EF4444" @enderror stroke="#9CD3FF"
                                         stroke-width="3" stroke-dasharray="10 10" />
                                         <path
                                         d="M21.125 29.125C21.125 25.3538 21.125 23.4681 22.2966 22.2966C23.4681 21.125 25.3538 21.125 29.125 21.125H67.875C71.6462 21.125 73.5319 21.125 74.7034 22.2966C75.875 23.4681 75.875 25.3538 75.875 29.125V67.875C75.875 71.6462 75.875 73.5319 74.7034 74.7034C73.5319 75.875 71.6462 75.875 67.875 75.875H29.125C25.3538 75.875 23.4681 75.875 22.2966 74.7034C21.125 73.5319 21.125 71.6462 21.125 67.875V29.125Z"
@@ -200,7 +244,7 @@
                                 @if ($productData['image_3'])
                                 <label for="file_input3" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image3" src={{ url(config('backend.backend_url') . "/" . $productData['image_3']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
+                                        <img id="file_image3" src={{ url(config('backend.backend_url') . "/" . $productData['image_3']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] @error('file3') border-red-500 @enderror hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,7 +258,7 @@
                                 <label for="file_input3" class="cursor-pointer">
                                     <img src="" alt="" id="file_image3" class="w-[97px] h-[97px] object-cover hidden">
                                     <svg width="97" height="97" id="svg_image3" viewBox="0 0 97 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" stroke="#9CD3FF"
+                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" @error('file3') stroke="#EF4444" @enderror stroke="#9CD3FF"
                                         stroke-width="3" stroke-dasharray="10 10" />
                                         <path
                                         d="M21.125 29.125C21.125 25.3538 21.125 23.4681 22.2966 22.2966C23.4681 21.125 25.3538 21.125 29.125 21.125H67.875C71.6462 21.125 73.5319 21.125 74.7034 22.2966C75.875 23.4681 75.875 25.3538 75.875 29.125V67.875C75.875 71.6462 75.875 73.5319 74.7034 74.7034C73.5319 75.875 71.6462 75.875 67.875 75.875H29.125C25.3538 75.875 23.4681 75.875 22.2966 74.7034C21.125 73.5319 21.125 71.6462 21.125 67.875V29.125Z"
@@ -237,7 +281,7 @@
                                 @if ($productData['image_4'])
                                 <label for="file_input4" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image4" src={{ url(config('backend.backend_url') . "/" . $productData['image_4']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
+                                        <img id="file_image4" src={{ url(config('backend.backend_url') . "/" . $productData['image_4']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] @error('file4') border-red-500 @enderror hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,7 +295,7 @@
                                 <label for="file_input4" class="cursor-pointer">
                                     <img src="" alt="" id="file_image4" class="w-[97px] h-[97px] object-cover hidden">
                                     <svg width="97" height="97" id="svg_image4" viewBox="0 0 97 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" stroke="#9CD3FF"
+                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" @error('file4') stroke="#EF4444" @enderror stroke="#9CD3FF"
                                         stroke-width="3" stroke-dasharray="10 10" />
                                         <path
                                         d="M21.125 29.125C21.125 25.3538 21.125 23.4681 22.2966 22.2966C23.4681 21.125 25.3538 21.125 29.125 21.125H67.875C71.6462 21.125 73.5319 21.125 74.7034 22.2966C75.875 23.4681 75.875 25.3538 75.875 29.125V67.875C75.875 71.6462 75.875 73.5319 74.7034 74.7034C73.5319 75.875 71.6462 75.875 67.875 75.875H29.125C25.3538 75.875 23.4681 75.875 22.2966 74.7034C21.125 73.5319 21.125 71.6462 21.125 67.875V29.125Z"
@@ -274,7 +318,7 @@
                                 @if ($productData['image_5'])
                                 <label for="file_input5" class="relative">
                                     <div class="peer/image">
-                                        <img id="file_image5" src={{ url(config('backend.backend_url') . "/" . $productData['image_5']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] hover:blur-[2px] cursor-pointer" alt="">
+                                        <img id="file_image5" src={{ url(config('backend.backend_url') . "/" . $productData['image_5']) }} onerror="this.onerror=null;this.src='/assets/images/default-placeholder.png';" class="w-[94px] h-[94px] object-cover rounded-md border border-[#9CD3FF] @error('file5') border-red-500 @enderror hover:blur-[2px] cursor-pointer" alt="">
                                     </div>
                                     <button class="absolute -right-2 -top-2" type="button">
                                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +332,7 @@
                                 <label for="file_input5" class="cursor-pointer">
                                     <img src="" alt="" id="file_image5" class="w-[97px] h-[97px] object-cover hidden">
                                     <svg width="97" height="97" id="svg_image5" viewBox="0 0 97 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" stroke="#9CD3FF"
+                                        <rect opacity="0.8" x="1.5" y="1.5" width="94" height="94" rx="3.5" fill="white" @error('file5') stroke="#EF4444" @enderror stroke="#9CD3FF"
                                         stroke-width="3" stroke-dasharray="10 10" />
                                         <path
                                         d="M21.125 29.125C21.125 25.3538 21.125 23.4681 22.2966 22.2966C23.4681 21.125 25.3538 21.125 29.125 21.125H67.875C71.6462 21.125 73.5319 21.125 74.7034 22.2966C75.875 23.4681 75.875 25.3538 75.875 29.125V67.875C75.875 71.6462 75.875 73.5319 74.7034 74.7034C73.5319 75.875 71.6462 75.875 67.875 75.875H29.125C25.3538 75.875 23.4681 75.875 22.2966 74.7034C21.125 73.5319 21.125 71.6462 21.125 67.875V29.125Z"
@@ -328,11 +372,18 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="relative w-2/5">
-                        <h1 class="absolute top-0 ">Deskripsi Produk</h1>
+                    <td class="relative w-2/6">
+                        <h1 class="absolute top-3">
+                            Deskripsi Produk
+                            <span data-tooltip-target="deskripsi-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                            <div id="deskripsi-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                Wajib Terisi
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </h1>
                     </td>
                     <td class="py-2">
-                        <textarea name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 h-[150px]">{{ $productData['description'] }}</textarea>
+                        <textarea name="description" id="descriptionInput" placeholder="Deskripsi Produk" maxlength="2000" class="w-full border-2 border-[#9CD3FF] @error('description') border-red-500 @enderror rounded-md py-2 px-2 h-[150px]">{{ old('description', $productData['description']) }}</textarea>
                         <div class="flex justify-between">
                             <p class="text-[12px] -mt-1">Tulis deskripsi produkmu min. 100 karakter agar pembeli semakin mudah mengerti.</p>
                             <div id="charCount" class="text-[14px] -mt-1">0/2000 huruf</div>
@@ -343,20 +394,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5">Jumlah Stok</td>
+                    <td class="w-2/6">
+                        Jumlah Stok
+                        <span data-tooltip-target="stok-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="stok-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib Terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
                         <input type="text" name="stock"
                         oninput="validateInput(this)"
-                        class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]"
-                        placeholder="Jumlah Produk yang tersedia" value="{{ $productData['stock'] }}">
-                        <p class="mt-1 ml-3 text-sm text-[#00000080]">Contoh : 20</p>
+                        class="w-full border-2 border-[#9CD3FF] @error('stock') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]"
+                        placeholder="Jumlah Produk yang tersedia" value="{{ old('stock', $productData['stock'])  }}">
+                        <p class="text-[12px] pt-1">Contoh : 20</p>
                         @error('stock')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5">Varian Produk</td>
+                    <td class="w-2/6">Varian Produk</td>
                     <td class="py-2">
                         <div class="w-full">
                             <select class="js-example-basic-multiple" style="width: 100%;" name="variants[]" multiple="multiple">
@@ -364,18 +422,32 @@
                                     @php
                                         $isSelected = false;
                                     @endphp
-                                    @foreach ($productData['variants'] as $variantProduct)
-                                        @if ($variant['id'] == $variantProduct['id_variant'])
+                                    @if (old('variants'))
+                                    @foreach (old('variants') as $variantProduct)
+                                        @if ($variant['name'] == $variantProduct)
                                             @php
                                                 $isSelected = true;
                                             @endphp
                                             @break
                                         @endif
                                     @endforeach
+                                    @else
+                                    @foreach ($productData['variants'] as $variantProduct)
+                                        @if ($variant['name'] == $variantProduct['name'])
+                                            @php
+                                                $isSelected = true;
+                                            @endphp
+                                            @break
+                                        @endif
+                                    @endforeach
+                                    @endif
                                 <option {{ $isSelected ? 'selected' : '' }} value="{{ $variant['name'] }}">{{ $variant['name'] }}</option>
                                 @endforeach
                             </select>
                             <p class="text-[12px] mt-1">Contoh : Ukuran XL, warna hijau</p>
+                            @error('variants')
+                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </td>
                 </tr>
@@ -384,15 +456,15 @@
                     <td class="py-2">
                         <div class="flex gap-x-5">
                             <div class="flex items-center">
-                                <input type="text" name="length" oninput="validateInput(this)" value="{{ $productData['length'] }}" class="w-full border-2 border-r-0  border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Panjang">
+                                <input type="text" name="length" oninput="validateInput(this)" value="{{ old('length', $productData['length']) }}" class="w-full border-2 border-r-0  border-[#9CD3FF] rounded-l-md py-2.5 px-2" placeholder="Panjang">
                                 <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
                             <div class="flex items-center">
-                                <input type="text" name="width" oninput="validateInput(this)" value="{{ $productData['width'] }}" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Lebar">
+                                <input type="text" name="width" oninput="validateInput(this)" value="{{ old('width',$productData['width']) }}" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2.5 px-2" placeholder="Lebar">
                                 <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
                             <div class="flex items-center">
-                                <input type="text" name="height" oninput="validateInput(this)" value="{{ $productData['height'] }}" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Tinggi">
+                                <input type="text" name="height" oninput="validateInput(this)" value="{{ old('height', $productData['height']) }}" class="w-full border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2.5 px-2" placeholder="Tinggi">
                                 <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">cm</div>
                             </div>
                         </div>
@@ -404,15 +476,15 @@
                     <td class="py-2">
                         <div class="flex gap-x-5">
                             <div class="flex items-center">
-                                <input type="text" name="weight" oninput="validateInput(this)" value="{{ $productData['weight'] }}" class="w-[205px] border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2 px-2" placeholder="Berat">
-                                <div class="bg-[#E4F3FF] py-2 px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">Gram</div>
+                                <input type="text" name="weight" oninput="validateInput(this)" value="{{ old('weight', $productData['weight']) }}" class="w-[205px] border-2 border-r-0 border-[#9CD3FF] rounded-l-md py-2.5 px-2" placeholder="Berat">
+                                <div class="bg-[#E4F3FF] py-[8.5px] px-3 rounded-r-md border-2 border-l-0 border-[#9CD3FF]">gram</div>
                             </div>
                         </div>
                         <p class="text-[12px] mt-1">Berat produk dalam gram</p>
                     </td>
                 </tr>
                 <tr>
-                    <td class="flex w-2/5"></td>
+                    <td class="flex w-2/6"></td>
                     <td class="py-2">
                         <div class="flex float-right gap-x-5">
                             <a href="/produk" class="bg-[#FF0000] loadButton py-3 w-[160px] text-center text-white rounded-lg font-bold">Batal</a>
@@ -595,8 +667,8 @@
 <script>
     function validateInput(input) {
         input.value = input.value.replace(/[^0-9]/g, '');
-        if(input.value < 0){
-          input.value = "";
+        if(input.value <= 0){
+            input.value = "";
         }else if(input.value > 999999999){
             input.value = 999999999;
         }

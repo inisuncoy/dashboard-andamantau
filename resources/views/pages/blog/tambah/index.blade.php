@@ -50,10 +50,10 @@
         <tr>
           <td class="w-2/5 font-bold text-[20px]">Kategori</td>
           <td class="py-2">
-            <select required class="js-example-basic-single" style="width: 100%;" name="id_category_news">
+            <select class="js-example-basic-single" style="width: 100%;" name="id_category_news">
                 <option value="" selected disabled hidden></option>
                 @foreach ($categories as $category)
-                <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                <option value="{{ $category['id'] }}" {{ (old('id_category_news') == $category['id'] ? "selected" : "" ) }}>{{ $category['name'] }}</option>
                 @endforeach
             </select>
           </td>
@@ -61,9 +61,22 @@
         <tr>
           <td class="w-2/5 font-bold text-[20px]">Label</td>
           <td class="py-2">
-            <select required class="js-example-basic-multiple" style="width: 100%;" name="id_label_news[]" multiple="multiple">
+            <select class="js-example-basic-multiple" style="width: 100%;" name="id_label_news[]" multiple="multiple">
                 @foreach ($labels as $label)
-                <option value="{{ $label['id'] }}">{{ $label['name'] }}</option>
+                    @php
+                        $isSelected = false;
+                    @endphp
+                    @if (old('id_label_news'))
+                        @foreach (old('id_label_news') as $id)
+                        @if ($label['id'] == $id)
+                            @php
+                                $isSelected = true;
+                            @endphp
+                            @break
+                        @endif
+                        @endforeach
+                    @endif
+                <option {{ $isSelected ? 'selected' : '' }} value="{{ $label['id'] }}">{{ $label['name'] }}</option>
                 @endforeach
             </select>
           </td>
@@ -73,7 +86,7 @@
           <td class="py-2">
             <input type="text" name="title"
                 class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2"
-                placeholder="Cara Merawat Burung Nuri">
+                placeholder="Cara Merawat Burung Nuri" value="{{ old('title') }}">
                 @error('title')
                 <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                 @enderror
@@ -83,7 +96,7 @@
           <td class="w-2/5 font-bold text-[20px] align-top">Gambar</td>
           <td class="flex flex-col gap-3 py-2">
             <div class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 flex items-center justify-center">
-                <img src="" id="file_image" class="hidden" alt="">
+                <img src="{{ old('file') }}" id="file_image" class="hidden" alt="">
                 <svg id="svg_image" width="285" class="" height="285" viewBox="0 0 285 285" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M37.6623 37.6622C23.7498 51.5747 23.7498 73.9664 23.7498 118.75V166.25C23.7498 211.033 23.7498 233.425 37.6623 247.337C51.5747 261.25 73.9664 261.25 118.75 261.25H166.25C211.033 261.25 233.425 261.25 247.337 247.337C261.25 233.425 261.25 211.033 261.25 166.25V118.75C261.25 85.0327 261.25 64.0082 255.312 49.739V201.875C243.907 201.875 232.969 197.344 224.904 189.279L215.978 180.353C207.413 171.788 203.13 167.505 198.274 165.7C192.936 163.716 187.063 163.716 181.726 165.7C176.869 167.505 172.587 171.788 164.021 180.353L162.678 181.697C155.727 188.648 152.251 192.124 148.558 192.772C145.688 193.275 142.733 192.706 140.256 191.173C137.068 189.199 135.131 184.682 131.259 175.646L130.625 174.166C121.723 153.395 117.272 143.01 109.507 139.117C105.598 137.157 101.224 136.315 96.8665 136.683C88.2116 137.413 80.2218 145.403 64.2423 161.382L64.2423 161.382L41.5623 184.062V34.2877C40.1896 35.3101 38.8927 36.4318 37.6623 37.6622Z"
@@ -113,7 +126,7 @@
         <tr>
           <td class="align-top w-2/5 font-bold text-[20px]">Konten</td>
           <td class="py-2">
-            <textarea name="content" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" id="" cols="100" rows="10" placeholder="Tulis minimal 100 huruf"></textarea>
+            <textarea name="content" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2" id="" cols="100" rows="10" placeholder="Tulis minimal 100 huruf">{{ old('content') }}</textarea>
             @error('content')
             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
             @enderror

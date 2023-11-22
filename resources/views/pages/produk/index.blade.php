@@ -10,7 +10,7 @@
         Produk</a>
     </div>
 
-    @if ($productsData->count() == 0 && request()->query == null)
+    {{-- @if ($productsData->count() == 0 && request()->query == null)
     <div class="flex flex-col items-center justify-center px-10 py-[74px] bg-white rounded-lg">
         <div class="text-center">
             <h1 class="font-bold text-[32px]">Halaman Daftar Produk Kosong</h1>
@@ -19,7 +19,7 @@
         </div>
         <img src={{ url('assets/images/empty-produk.png') }} alt="empty-produk">
     </div>
-    @else
+    @else --}}
     <div class="flex flex-col p-10 mt-3 bg-white rounded-xl">
         <div class="flex justify-end mb-5">
             <form action="/produk" method="GET" class="relative w-[350px]">
@@ -104,7 +104,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-[#99C1FF]">
-                            @if ($productsData->count() == 0)
+                            @if ($products['total'] == 0)
                             <tr>
                                 <td>
                                     <h1 class="px-5 py-4 text-[20px]">
@@ -113,7 +113,7 @@
                                 </td>
                             </tr>
                             @endif
-                            @foreach ($productsData as $product)
+                            @foreach ($products['data'] as $product)
                             <tr>
                                 <td class="px-6 py-4 font-medium text-center text-md">
                                     <div class="flex items-center gap-5">
@@ -142,9 +142,9 @@
                         </tbody>
                     </table>
                 </div>
-                @endif
+                {{-- @endif --}}
                 <div class="mt-5 pagination">
-                    {{ $productsData->onEachSide(1)->links('pagination::tailwind') }}
+                    {{ $paginatedPlaces->appends(['query' => request('query'), 'sortByStock' => request('sortByStock'), 'sortByPrice' => request('sortByPrice'), 'sortBySKU' => request('sortBySKU'), 'sortByName' => request('sortByName'), 'sortByStatus' => request('sortByStatus')])->onEachSide(1)->links('pagination::tailwind') }}
                 </div>
             </div>
         </div>

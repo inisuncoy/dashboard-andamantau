@@ -20,7 +20,7 @@
                 </div>
                 <div class="flex gap-x-6">
                     <p class="mr-[11px]">No. Telp</p>
-                    <p @if (empty($umkmData['whatsapp'])) class="italic" @endif>: {{ (!$umkmData['whatsapp']) ? ' Not yet set' : $umkmData['whatsapp'] }}</p>
+                    <p @if (empty($umkmData['phone_number'])) class="italic" @endif>: {{ (!$umkmData['phone_number']) ? ' Not yet set' : $umkmData['phone_number'] }}</p>
                 </div>
                 <div class="flex gap-x-6">
                     <p class="mr-[30px]">Email</p>

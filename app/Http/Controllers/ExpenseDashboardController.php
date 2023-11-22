@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Alert;
 
 class ExpenseDashboardController extends Controller
 {
@@ -12,6 +13,10 @@ class ExpenseDashboardController extends Controller
      */
     public function index()
     {
+        if (session('RTO') == 'error') {
+            Alert::toast('Request Time Out!', 'error');
+        }
+
         $token = session('token');
 
         $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses/v1");

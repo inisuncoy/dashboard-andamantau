@@ -19,6 +19,10 @@ class DashboardController extends Controller
                 Alert::toast('Selamat datang di dashboard UMKM', 'success');
             }
 
+            if (session('RTO') == 'error') {
+                Alert::toast('Request Time Out!', 'error');
+            }
+
             $token = session('token');
 
             $apiDashboardMetrics = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/dashboardMetrics");

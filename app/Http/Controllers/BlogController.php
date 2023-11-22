@@ -116,15 +116,14 @@ class BlogController extends Controller
 
         if ($apiResponse->failed()) {
             $errors = $apiResponse->json();
-            // dd($errors);
-            return back()->with('store_news', 'failed')->withErrors($errors);
+            return back()->with('store_news', 'failed')->withErrors($errors)->withInput();
         }
 
         $apiResponse2 = Http::withToken($token)->withBody(json_encode($labelDatas))->post(config('backend.backend_url') . '/api/dashboard/umkm/news/' . $apiResponse->json()['data']['id']);
 
         if ($apiResponse2->failed()) {
             $errors = $apiResponse2->json();
-            return back()->with('store_news', 'failed')->withErrors($errors);
+            return back()->with('store_news', 'failed')->withErrors($errors)->withInput();
         }
 
         return redirect('/blog')->with('store_news', 'success');

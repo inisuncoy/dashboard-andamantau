@@ -15,27 +15,32 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-
-        if (session('store_pengeluaran') == 'success') {
-            Alert::success('Berhasil', 'Pengeluaran telah dibuat')->autoClose(4000);
+        if (session('RTO') == 'error') {
+            Alert::toast('Request Time Out!', 'error');
         }
-
-        if (session('destroy_pengeluaran') == 'success') {
-            Alert::success('Berhasil', 'Pengeluaran berhasil dihapus')->autoClose(4000);
-        }
-
-        if (session('destroy_pengeluaran') == 'failed') {
-            Alert::error('Error', 'Gagal menghapus pengeluaran!')->autoClose(4000);
-        }
-
-        $title = "Apakah anda yakin ingin menghapus pengeluaran ini dari daftar pengeluaran?";
-        confirmDelete($title);
-
-        $token = session('token');
-        $query = $request->query('bulan');
-        $page = request()->get('page', 1);
 
         try {
+
+            if (session('store_pengeluaran') == 'success') {
+                Alert::success('Berhasil', 'Pengeluaran telah dibuat')->autoClose(4000);
+            }
+
+            if (session('destroy_pengeluaran') == 'success') {
+                Alert::success('Berhasil', 'Pengeluaran berhasil dihapus')->autoClose(4000);
+            }
+
+            if (session('destroy_pengeluaran') == 'failed') {
+                Alert::error('Error', 'Gagal menghapus pengeluaran!')->autoClose(4000);
+            }
+
+            $title = "Apakah anda yakin ingin menghapus pengeluaran ini dari daftar pengeluaran?";
+            confirmDelete($title);
+
+            $token = session('token');
+            $query = $request->query('bulan');
+            $page = request()->get('page', 1);
+
+
             if ($query) {
                 $apiResponse = Http::withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/expensesMonth", [
                     'bulan' => $query

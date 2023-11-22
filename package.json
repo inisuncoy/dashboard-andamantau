@@ -6,11 +6,12 @@
         "build": "node --max-old-space-size=4096 ./node_modules/.bin/webpack"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.15",
+        "autoprefixer": "^10.4.16",
         "axios": "^1.1.2",
+        "flowbite": "^2.1.1",
         "laravel-vite-plugin": "^0.8.0",
-        "postcss": "^8.4.29",
-        "tailwindcss": "^3.3.3",
+        "postcss": "^8.4.31",
+        "tailwindcss": "^3.3.5",
         "vite": "^4.0.0"
     },
     "dependencies": {

@@ -15,8 +15,13 @@
         <table class="w-full my-5 table-auto">
             <tbody class="text-[18px]">
                 <tr>
-                    <td class="flex w-2/5 text-[20px]">
+                    <td class="flex w-2/5 text-[20px]" >
                         Logo
+                        <span data-tooltip-target="logo-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="logo-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </td>
                     <td class="py-2">
                         <div class="flex items-end gap-x-7">
@@ -42,64 +47,116 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Nama Toko</td>
+                    <td class="w-2/5 text-[20px]">
+                        Nama Toko
+                        <span data-tooltip-target="umkm_name-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="umkm_name-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="umkm_name" value="{{ $umkmData['umkm_name'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh Contoh">
+                        <input type="text" name="umkm_name" value="{{ old('umkm_name', $umkmData['umkm_name']) }}" class="w-full border-2 border-[#9CD3FF] @error('umkm_name') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh Contoh">
                         @error('umkm_name')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Alamat Toko</td>
+                    <td class="w-2/5 text-[20px]">
+                        Alamat Toko
+                        <span data-tooltip-target="alamat-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="alamat-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="address" value="{{ $umkmData['address'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jl. Contoh No. 00">
+                        <input type="text" name="address" value="{{ old('address', $umkmData['address']) }}" class="w-full border-2 border-[#9CD3FF] rounded-md @error('address') border-red-500 @enderror py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Jl. Contoh No. 00">
                         @error('address')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Kota</td>
+                    <td class="w-2/5 text-[20px]">
+                        Kota
+                        <span data-tooltip-target="kota-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="kota-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <select name="id_city" id="" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]">
+                        <select name="id_city" id="" class="w-full border-2 border-[#9CD3FF] @error('id_city') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]">
                             @foreach ($umkmCities as $city)
-                                <option value="{{ $city['id'] }}" {{ ($city['id'] == $umkmData['id_city']) ? 'selected' : '' }}>{{ $city['name'] }}</option>
+                                <option value="{{ $city['id'] }}" {{ ($city['id'] == old('id_city', $umkmData['id_city']) ) ? 'selected' : '' }}>{{ $city['name'] }}</option>
                             @endforeach
                         </select>
+                        @error('id_city')
+                        <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
+                        @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Kecamatan</td>
+                    <td class="w-2/5 text-[20px]">
+                        Kecamatan
+                        <span data-tooltip-target="kecamatan-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="kecamatan-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="kecamatan" value="{{ $umkmData['kecamatan'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : purwantoro">
+                        <input type="text" name="kecamatan" value="{{ old('kecamatan', $umkmData['kecamatan']) }}" class="w-full border-2 border-[#9CD3FF] @error('kecamatan') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : purwantoro">
                         @error('kecamatan')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Kelurahan</td>
+                    <td class="w-2/5 text-[20px]">
+                        Kelurahan
+                        <span data-tooltip-target="kelurahan-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="kelurahan-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="kelurahan" value="{{ $umkmData['kelurahan'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : blimbing">
+                        <input type="text" name="kelurahan" value="{{ old('kelurahan', $umkmData['kelurahan']) }}" class="w-full border-2 border-[#9CD3FF] @error('kelurahan') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : blimbing">
                         @error('kelurahan')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Kode Pos</td>
+                    <td class="w-2/5 text-[20px]">
+                        Kode Pos
+                        <span data-tooltip-target="kode_pos-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="kode_pos-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="kode_pos" value="{{ $umkmData['kode_pos'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 000000">
+                        <input type="text" name="kode_pos" value="{{ old('kode_pos', $umkmData['kode_pos']) }}" class="w-full border-2 border-[#9CD3FF] @error('kode_pos') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 000000">
                         @error('kode_pos')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="w-2/5 text-[20px]">Nomor Telepon</td>
+                    <td class="w-2/5 text-[20px]">
+                        Nomor Telepon
+                        <span data-tooltip-target="number_phone-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="number_phone-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" name="phone_number" value="{{ $umkmData['phone_number'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 0812345678921">
+                        <input type="text" name="phone_number" value="{{ old('phone_number', $umkmData['phone_number']) }}" class="w-full border-2 border-[#9CD3FF] @error('phone_number') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 0812345678921">
                         @error('phone_number')
                             <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
@@ -107,18 +164,22 @@
                 </tr>
 
                 <tr>
-                    <td class="w-2/5 text-[20px]">Email</td>
+                    <td class="w-2/5 text-[20px]">
+                        Email
+                        <span data-tooltip-target="email-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="email-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <input type="text" disabled name="umkm_email" value="{{ $umkmData['umkm_email'] }}" class="w-full disabled:bg-gray-100 border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
-                        @error('umkm_email')
-                            <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
-                        @enderror
+                        <input type="text" disabled name="umkm_email" value="{{ old('umkm_email', $umkmData['umkm_email']) }}" class="w-full disabled:bg-gray-100 border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : contoh@gmail.com">
                     </td>
                 </tr>
                 <tr>
                     <td class="w-2/5 text-[20px]">Instagram</td>
                     <td class="py-2">
-                        <input type="text" name="instagram" value="{{ $umkmData['instagram'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : @contoh.com">
+                        <input type="text" name="instagram" value="{{ old('instagram', $umkmData['instagram']) }}" class="w-full border-2 border-[#9CD3FF] @error('instagram') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : @contoh.com">
                         @error('instagram')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
@@ -127,7 +188,7 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">WhatsApp</td>
                     <td class="py-2">
-                        <input type="text" name="whatsapp" value="{{ $umkmData['whatsapp'] }}"  class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 088844445555">
+                        <input type="text" name="whatsapp" value="{{ old('whatsapp', $umkmData['whatsapp']) }}"  class="w-full border-2 border-[#9CD3FF] @error('whatsapp') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : 088844445555">
                         @error('whatsapp')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
@@ -136,16 +197,31 @@
                 <tr>
                     <td class="w-2/5 text-[20px]">Facebook</td>
                     <td class="py-2">
-                        <input type="text" name="facebook" value="{{ $umkmData['facebook'] }}" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh_toko">
+                        <input type="text" name="facebook" value="{{ old('facebook', $umkmData['facebook']) }}" class="w-full border-2 border-[#9CD3FF] @error('facebook') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Contoh : Contoh_toko">
                         @error('facebook')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
                     </td>
                 </tr>
                 <tr>
-                    <td class="flex w-2/5 text-[20px]">Deskripsi Toko</td>
+                    <td class="flex w-2/5 text-[20px]">
+                        Deskripsi Toko
+                        <span data-tooltip-target="deskripsi-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
+                        <div id="deskripsi-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                            Wajib terisi
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </td>
                     <td class="py-2">
-                        <textarea type="text" name="umkm_description" rows="6" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ $umkmData['umkm_description'] }}</textarea>
+                        <textarea type="text" id="descriptionInput" name="umkm_description" rows="6" class="w-full border-2 border-[#9CD3FF] @error('umkm_description') border-red-500 @enderror rounded-md py-2 px-2 placeholder:text-[15px]" placeholder="Isi deskripsi toko mu">{{ old('umkm_description', $umkmData['umkm_description']) }}</textarea>
+                        <div class="flex justify-between">
+                            <p class="text-[12px] -mt-1">Tulis deskripsi tokomu min. 100 karakter agar pembeli semakin mudah mengenal toko kamu.</p>
+                            <div class="text-[14px] -mt-1 flex">
+                                <div id="charCount">0</div>
+                                <div>/2000 huruf</div>
+                            </div>
+
+                        </div>
                         @error('umkm_description')
                         <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
                         @enderror
@@ -197,6 +273,28 @@
             logoImage.src = lastImage;
             logoInput.value = "";
             showImageSrc.innerHTML = "";
+        }
+    });
+
+    const descriptionInput = document.getElementById('descriptionInput');
+    const charCount = document.getElementById('charCount');
+
+    const currentText = descriptionInput.value;
+    const charCountValue = currentText.length;
+    charCount.textContent = `${charCountValue}`;
+    if (charCountValue < 50) {
+        charCount.classList.add("text-red-500");
+    }
+
+    descriptionInput.addEventListener('input', () => {
+        const currentText = descriptionInput.value;
+        const charCountValue = currentText.length;
+        // Update the character count
+        charCount.textContent = `${charCountValue}`;
+        if (charCountValue < 50) {
+            charCount.classList.add("text-red-500");
+        } else if (charCountValue >= 50){
+            charCount.classList.remove("text-red-500");
         }
     });
 </script>

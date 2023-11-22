@@ -55,8 +55,11 @@ class LoginController extends Controller
             return back()->withErrors($errors)->withInput();
         }
 
-        $token = $apiResponse->json()['data']['jwt_token'];
         $userData = $apiResponse->json()['data']['user'];
+        $token = $apiResponse->json()['data']['jwt_token'];
+
+
+
 
 
         if ($userData['id_role'] !== 2) {
