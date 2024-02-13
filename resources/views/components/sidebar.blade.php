@@ -67,7 +67,7 @@
           </span>
           <span class="text-[20px] mt-1">Produk/Stok</span>
         </a>
-        <a href="/pemasukan" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
+        <a href="/pemasukan/selengkapnya" class="flex loadButton items-center px-5 py-1 mx-2 gap-x-5 rounded-lg duration-300 {{ (Request::is('pemasukan/*') or Request::is('pemasukan')) ? 'bg-[#E2F8FF]' : 'hover:bg-[#E2F8FF]' }}" >
             <span>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35 35H5" stroke="#E94059" stroke-width="3" stroke-linecap="round" />

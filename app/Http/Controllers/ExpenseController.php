@@ -20,7 +20,6 @@ class ExpenseController extends Controller
         }
 
         try {
-
             if (session('store_pengeluaran') == 'success') {
                 Alert::success('Berhasil', 'Pengeluaran telah dibuat')->autoClose(4000);
             }

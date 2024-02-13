@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Alert;
 
 class IncomeController extends Controller
 {
@@ -18,34 +19,29 @@ class IncomeController extends Controller
             Alert::toast('Request Time Out!', 'error');
         }
 
-        $token = session('token');
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
-        $user_id = session('userData')['id'];
-
-        if ($apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+        if (session('store_pemasukan') == 'success') {
+            Alert::success('Berhasil', 'Pemasukan telah dibuat')->autoClose(4000);
         }
 
-        $incomesData = $apiResponse->json()['data'];
-        $paymentTypes = $apiResponse2->json()['data'];
+        $token = session('token');
+        $page = request()->get('page', 1);
 
-        $collection = new Collection($incomesData);
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes?page=" . $page);
 
-        $perPage = 10; // Number of items per page
-        $page = request()->get('page', 1); // Get the current page from the request
-        $paginator = new LengthAwarePaginator(
-            $collection->forPage($page, $perPage),
-            $collection->count(),
-            $perPage,
+        $incomes = $apiResponse->json()['data'];
+
+        $paginatedPlaces = new LengthAwarePaginator(
+            $incomes['data'],
+            $incomes['total'],
+            $incomes['per_page'],
             $page,
-            ['path' => route('pemasukan.selengkapnya')] // Replace 'your.route.name' with the actual route name
+            ['path' => route('pemasukan.selengkapnya')],
         );
 
+
         return view('pages.pemasukan.selengkapnya.index', [
-            'incomesData' => $paginator,
-            'paymentTypes' => $paymentTypes
+            'incomes' => $incomes,
+            'paginatedPlaces' => $paginatedPlaces
         ]);
     }
 
@@ -54,7 +50,17 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        return view('pages.pemasukan.tambah.index');
+        if (session('validation_store_pemasukan') == 'error') {
+            Alert::error('Gagal Membuat Pemasukan!', 'Terdapat data yang tidak valid. Cek kembali data yang dimasukkan.');
+        }
+
+        $token = session('token');
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/paymentList");
+        $paymentTypes = $apiResponse->json()['data'];
+
+        return view('pages.pemasukan.tambah.index', [
+            'paymentTypes'=> $paymentTypes
+        ]);
     }
 
     /**
@@ -62,7 +68,21 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::acceptJson()->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/income", $request->all());
+
+        if ($apiResponse->unprocessableEntity()) {
+            $errors = $apiResponse->json();
+            return back()->with('validation_store_pemasukan', 'error')->withErrors($errors['errors'])->withInput();
+        }
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->with('store_pemasukan', 'error')->withInput();
+        }
+
+        return redirect()->route('pemasukan.selengkapnya')->with(['store_pemasukan' => 'success']);
     }
 
     /**
@@ -70,35 +90,40 @@ class IncomeController extends Controller
      */
     public function show(string $id)
     {
+        if (session('update_pemasukan') == 'success') {
+            Alert::success('Berhasil', 'Pemasukan telah diupdate')->autoClose(4000);
+        }
+
+        if (session('update_pemasukan') == 'failed') {
+            Alert::error('Error', 'Gagal mengupdate pemasukan')->autoClose(4000);
+        }
+
+        if (session('APIFailed')) {
+            Alert::toast(session('APIFailed'), 'error');
+        }
+
+        if (session('validation_update_pemasukan') == 'error') {
+            Alert::error('Gagal Membuat Pemasukan!', 'Terdapat data yang tidak valid. Cek kembali data yang dimasukkan.');
+        }
+
         $token = session('token');
 
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transaction/" . $id);
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/income/" . $id);
 
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
+        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/paymentList");
 
         if ($apiResponse->failed() and $apiResponse2->failed()) {
             $errors = $apiResponse->json();
-            return back()->withErrors($errors)->withInput();
+            return back()->withErrors($errors);
         }
 
-        $transactionData = $apiResponse->json()['data'];
-        $paymentList = $apiResponse2->json()['data'];
-
-
-        foreach ($transactionData['product_list'] as $product) {
-            $idProduct = $product['id_product'];
-
-            $productResponse = Http::withToken($token)->get(config('backend.backend_url') . '/api/product/' . $idProduct);
-            $product['detail_product'] = $productResponse->json()['data'];
-
-            $productList[] = $product;
-        }
+        $incomeData = $apiResponse->json()['data'];
+        $incomeTypes = $apiResponse2->json()['data'];
 
 
         return view('pages.pemasukan.detail.index', [
-            'transactionData' => $transactionData,
-            'productList' => $productList,
-            'paymentList' => $paymentList
+            'incomeData' => $incomeData,
+            'incomeTypes' => $incomeTypes
         ]);
     }
 
@@ -115,7 +140,21 @@ class IncomeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::acceptJson()->withToken($token)->post(config('backend.backend_url') . "/api/dashboard/umkm/report/income/" . $id, $request->all());
+
+        if ($apiResponse->unprocessableEntity()) {
+            $errors = $apiResponse->json();
+            return back()->with('validation_update_pemasukan', 'error')->withErrors($errors['errors'])->withInput();
+        }
+
+        if ($apiResponse->failed()) {
+            $errors = $apiResponse->json();
+            return back()->with('update_pemasukan', 'error')->withInput();
+        }
+
+        return back()->with(['update_pemasukan' => 'success']);
     }
 
     /**

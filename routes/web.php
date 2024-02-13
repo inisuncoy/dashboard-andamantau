@@ -72,7 +72,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/pemasukan/selengkapnya', [IncomeController::class, 'index'])->name('pemasukan.selengkapnya');
     Route::get('/pemasukan/{id}/detail', [IncomeController::class, 'show']);
+    Route::post('/pemasukan/{id}/edit', [IncomeController::class, 'update']);
     Route::get('/pemasukan/tambah', [IncomeController::class, 'create']);
+    Route::post('/pemasukan/tambah', [IncomeController::class, 'store']);
 
     Route::get('/pengeluaran', [ExpenseDashboardController::class, 'index']);
 

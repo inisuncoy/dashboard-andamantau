@@ -20,12 +20,12 @@
         margin-bottom: 0px!important;
     }
 
-    .select2-selection{
+    .select2-selection {
         border: 2px solid #9CD3FF!important;
         border-radius: 6px!important;
         @error('variants') border-color: #EF4444!important ; @enderror
     }
-    .select2-selection--single{
+    .select2-selection--single {
         height: 45px!important;
         padding-top: 8px!important;
         @error('id_category_product') border-color: #EF4444!important ; @enderror

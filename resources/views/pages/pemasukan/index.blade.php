@@ -8,6 +8,7 @@
 <div class="flex flex-col gap-y-10">
     <h1 class="text-white text-[30px] font-semibold">Pemasukan</h1>
 
+
   <div class="px-5 py-10 bg-white rounded-xl">
     <div class="grid items-center justify-around grid-cols-3 gap-x-10">
         <div class="border-2 border-black rounded-md ">
