@@ -23,6 +23,9 @@ class IncomeController extends Controller
             Alert::success('Berhasil', 'Pemasukan telah dibuat')->autoClose(4000);
         }
 
+        $title = "Apakah anda yakin ingin menghapus pemasukan ini dari daftar pemasukan?";
+        confirmDelete($title);
+
         $token = session('token');
         $page = request()->get('page', 1);
 
@@ -162,6 +165,14 @@ class IncomeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $token = session('token');
+
+        $apiResponse = Http::withToken($token)->delete(config('backend.backend_url') . "/api/dashboard/umkm/report/income/" . $id);
+
+        if ($apiResponse->failed()) {
+            return back()->with(['destroy_pemasukan' => 'failed']);
+        }
+
+        return redirect('/pemasukan/selengkapnya')->with(['destroy_pemasukan' => 'success']);
     }
 }

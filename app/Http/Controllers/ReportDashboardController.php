@@ -19,47 +19,17 @@ class ReportDashboardController extends Controller
             Alert::toast('Request Time Out!', 'error');
         }
         //
-        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/expenses/v1");
-        $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
-
-        $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
-        $apiPengeluaranPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pengeluaranPerBulanSatuTahun");
-
-        $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
-        $pengeluaranPerBulanSatuTahun = $apiPengeluaranPerBulanSatuTahun->json()['data'];
-
-        if ($apiResponse->failed() and $apiResponse->failed()) {
-            $errors = $apiResponse->json();
-            $errors = $apiResponse2->json();
-            return back()->withErrors($errors)->withInput();
-        }
-
-        $expensesData = $apiResponse->json()['data'];
-        $incomesData = $apiResponse2->json()['data'];
-
-        $currentMonth = now()->format('Y-m');
-
-        // Total Pemasukan Bulan Ini
-        $collection1 = collect($incomesData);
-
-        $filteredIncomes = $collection1->filter(function ($income) use ($currentMonth) {
-            return substr($income['transaction_date'], 0, 7) === $currentMonth;
-        });
-
-        $totalPemasukanBulanIni = $filteredIncomes->sum('total');
-
-        // Total Pengeluaran Bulan Ini
-        $collection2 = collect($expensesData);
-
-        $filteredExpenses = $collection2->filter(function ($expense) use ($currentMonth) {
-            return substr($expense['date'], 0, 7) === $currentMonth;
-        });
-
-        $totalPengeluaranBulanIni = $filteredExpenses->sum('nominal');
+        $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/reports");
+        $totalPemasukanBulanIni = $apiResponse->json()['data']['totalPemasukanBulanIni'];
+        $totalPengeluaranBulanIni = $apiResponse->json()['data']['totalPengeluaranBulanIni'];
+        $totalLabaBulanIni = $apiResponse->json()['data']['totalLabaBulanIni'];
+        $pendapatanPerBulanSatuTahun = $apiResponse->json()['data']['incomeChartData'];
+        $pengeluaranPerBulanSatuTahun = $apiResponse->json()['data']['expenseChartData'];
 
         return view('pages.laporan.index', [
-            'totalPengeluaranBulanIni' => $totalPengeluaranBulanIni,
             'totalPemasukanBulanIni' => $totalPemasukanBulanIni,
+            'totalPengeluaranBulanIni' => $totalPengeluaranBulanIni,
+            'totalLabaBulanIni' => $totalLabaBulanIni,
             'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
             'pengeluaranPerBulanSatuTahun' => $pengeluaranPerBulanSatuTahun,
         ]);

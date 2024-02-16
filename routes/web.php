@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/pemasukan/{id}/edit', [IncomeController::class, 'update']);
     Route::get('/pemasukan/tambah', [IncomeController::class, 'create']);
     Route::post('/pemasukan/tambah', [IncomeController::class, 'store']);
+    Route::delete('/pemasukan/{id}/delete', [IncomeController::class, 'destroy']);
 
     Route::get('/pengeluaran', [ExpenseDashboardController::class, 'index']);
 

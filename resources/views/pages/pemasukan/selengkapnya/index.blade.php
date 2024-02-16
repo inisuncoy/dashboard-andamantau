@@ -62,7 +62,8 @@
                   <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Tanggal</th>
                   <th scope="col" class="px-6 py-4 font-semibold text-center text-md">Nominal (Rp)</th>
                   <th scope="col" class="px-6 py-4 font-semibold text-center text-md ">Deskripsi</th>
-                  <th class="py-4 rounded-tr-lg"></th>
+                  <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap"></th>
+                  <th scope="col" class="px-3 py-3 font-bold text-center text-md whitespace-nowrap"></th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 ">
@@ -74,6 +75,19 @@
                         <td class="px-6 py-6 text-center text-gray-800 text-md whitespace-nowrap">{{$income['notes']}}</td>
                         <td class="px-6 py-6 font-medium text-center text-md whitespace-nowrap">
                             <a class="px-8 py-3 text-white bg-blue-500 rounded-full loadButton" href="/pemasukan/{{ $income['id'] }}/detail">Detail</a>
+                        </td>
+                        <td class="px-3 py-6 font-bold text-center text-md whitespace-nowrap">
+                            <div class="relative">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.334 20L13.334 16" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
+                                    <path d="M18.666 20L18.666 16" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
+                                    <path d="M4 9.3335H28V9.3335C26.7575 9.3335 26.1362 9.3335 25.6462 9.53648C24.9928 9.80713 24.4736 10.3263 24.203 10.9797C24 11.4697 24 12.091 24 13.3335V21.3335C24 23.8477 24 25.1047 23.219 25.8858C22.4379 26.6668 21.1808 26.6668 18.6667 26.6668H13.3333C10.8192 26.6668 9.5621 26.6668 8.78105 25.8858C8 25.1047 8 23.8477 8 21.3335V13.3335C8 12.091 8 11.4697 7.79701 10.9797C7.52636 10.3263 7.00723 9.80713 6.35382 9.53648C5.86377 9.3335 5.24251 9.3335 4 9.3335V9.3335Z" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
+                                    <path d="M13.4235 4.49412C13.5755 4.35237 13.9103 4.2271 14.376 4.13776C14.8417 4.04843 15.4123 4 15.9993 4C16.5864 4 17.157 4.04842 17.6227 4.13776C18.0884 4.2271 18.4232 4.35236 18.5752 4.49412" stroke="#FF6767" stroke-width="2.66667" stroke-linecap="round"/>
+                                </svg>
+                                <a href="/pemasukan/{{ $income['id'] }}/delete" data-confirm-delete="true" class="absolute top-0 left-0 opacity-0">
+                                    Hello
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

@@ -20,58 +20,22 @@ class IncomeDashboardController extends Controller
                 Alert::toast(session('APIFailed'), 'error');
             }
 
-            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/incomes");
-            $apiResponse2 = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/transactionPaymentList");
+            $apiResponse = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/report/dashboardIncomesMetrics");
 
-            $apiPendapatanPerBulanSatuTahun = Http::withToken($token)->get(config('backend.backend_url') . "/api/dashboard/umkm/chart/pendapatanPerBulanSatuTahun");
-            $pendapatanPerBulanSatuTahun = $apiPendapatanPerBulanSatuTahun->json()['data'];
-
-            if ($apiResponse->failed()) {
-                $errors = $apiResponse->json();
-                return back()->withErrors($errors)->withInput();
-            }
-
-            $incomesData = $apiResponse->json()['data'];
-            $limitedIncomesData = array_slice($incomesData, 0, 4);
-
-            $paymentTypes = $apiResponse2->json()['data'];
-
-            $currentMonth = now()->format('Y-m');
-            $collection = collect($incomesData);
-
-            // Total Pengeluaran
-            $totalPemasukan = 0;
-
-            foreach ($incomesData as $income) {
-                $totalPemasukan += $income['total'];
-            }
-
-            // Total Pemasukan Bulan Ini
-            $filteredIncomes = $collection->filter(function ($income) use ($currentMonth) {
-                return substr($income['transaction_date'], 0, 7) === $currentMonth;
-            });
-
-            $totalPemasukanBulanIni = $filteredIncomes->sum('total');
-
-            // Total Pengeluaran Minggu Ini
-            $currentWeekStartDate = now()->startOfWeek()->format('Y-m-d');
-            $currentWeekEndDate = now()->endOfWeek()->format('Y-m-d');
-
-            $filteredIncomes2 = $collection->filter(function ($income) use ($currentWeekStartDate, $currentWeekEndDate) {
-                return $income['transaction_date'] >= $currentWeekStartDate && $income['transaction_date'] <= $currentWeekEndDate;
-            });
-
-            $totalPengeluaranMingguIni = $filteredIncomes2->sum('total');
+            $incomesData = $apiResponse->json()['data']['incomesData'];
+            $pendapatanPerBulanSatuTahun = $apiResponse->json()['data']['chartData'];
+            $totalPemasukan = $apiResponse->json()['data']['totalPemasukan'];
+            $totalPemasukanBulanIni = $apiResponse->json()['data']['totalPemasukanBulanIni'];
+            $totalPemasukanMingguIni = $apiResponse->json()['data']['totalPemasukanMingguIni'];
 
             return view('pages.pemasukan.index', [
-                'incomesData' => $limitedIncomesData,
-                'paymentTypes' => $paymentTypes,
+                'incomesData' => $incomesData,
+                'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun,
                 'totalPemasukan' => $totalPemasukan,
                 'totalPemasukanBulanIni' => $totalPemasukanBulanIni,
-                'totalPengeluaranMingguIni' => $totalPengeluaranMingguIni,
-                'pendapatanPerBulanSatuTahun' => $pendapatanPerBulanSatuTahun
-
+                'totalPemasukanMingguIni' => $totalPemasukanMingguIni
             ]);
+
         } catch (RequestException $e) {
             Log::error('HTTP request failed: ' . $e->getMessage());
         } catch (ClientException $e) {

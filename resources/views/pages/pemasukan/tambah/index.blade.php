@@ -15,28 +15,7 @@
     <h1 class="text-[24px] font-bold">List Pemasukan</h1>
     <table class="w-full my-5 table-fixed">
       <tbody class="text-[18px]">
-        <tr>
-            <td class="w-2/6">
-                Tipe Pemasukan
-                <span data-tooltip-target="tipe-tooltip" data-tooltip-style="light" data-tooltip-placement="right" class="after:content-['*'] after:ml-2 after:text-red-500"></span>
-                <div id="tipe-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-                    Wajib memilih salah satu
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-            </td>
-            <td class="py-2">
-                <select type="text" name="id_income_type" class="w-full border-2 border-[#9CD3FF] rounded-md py-2 px-2 @error('id_income_type') border-red-500 @enderror">
-                    @foreach ($paymentTypes as $paymentType)
-
-                        <option value={{$paymentType['id']}} {{ (old('status') == $paymentType['id'] ? "selected" : "" ) }}>{{ $paymentType['name'] }}</option>
-                    @endforeach
-                </select>
-                @error('id_income_type')
-                <p class="mt-2 font-bold text-red-500">{{ $message }}</p>
-                @enderror
-            </td>
-        </tr>
-
+        <input type="hidden" name="id_income_type" value="1">
         <tr>
           <td class="w-2/6 text-[20px]">
             Pilih Tanggal
